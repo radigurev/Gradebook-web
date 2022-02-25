@@ -1,0 +1,71 @@
+<html class="mainBody" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/commons::head">
+</head>
+
+<body class="body">
+    <nav th:replace="fragments/commons::nav"></nav>
+    <br>
+
+      <div class="register">
+          <form class="container" th:action="@{/users/register}" th:method="POST" th:object="${userRegisterBindingModel}">
+              <h1 class="txt">Register User</h1>
+              <div class="">
+                <input th:field="*{firstName}"
+                       th:errorclass="is-invalid"
+                    id="firstName"
+                    type="text"
+                    class="form-control"
+                    placeholder="First name"/>
+                <small class="invalid-feedback bg-danger text-light rounded">
+                   Should be between 4 and 20 symbols.
+                </small>
+              </div>
+                <div>
+                    <input th:field="*{lastName}"
+                           th:errorclass="is-invalid"
+                            id="lastName"
+                           name="lastName"
+                           type="text" min="2" max="20" class="normal-box"
+                           placeholder="Last name"/>
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Should be between 4 and 20 symbols.
+                    </p>
+                </div>
+                <div>
+                    <input th:field="*{email}"
+                           th:errorclass="is-invalid"
+                            id="email"
+                           name="email"
+                           type="email" class="normal-box"
+                           placeholder="email"/>
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Should contain @.
+                    </p>
+                </div>
+                <div>
+                    <input th:field="*{password}"
+                           th:errorclass="is-invalid"
+                            id="password"
+                           name="password"
+                           type="password" min="6" class="password-box"
+                           placeholder="password"/>
+                    <p class="invalid-feedback errors alert alert-danger">
+                        Should be at least 6 characters.
+                    </p>
+                </div>
+
+                <div>
+                    <input th:field="*{confirmPassword}"
+                            id="confirmPassword"
+                           name="confirmPassword"
+                           type="password" min="6" class="password-box"
+                           placeholder="confirmPassword"/>
+                </div>
+                <button type="submit" class="submit-button">Enter</button>
+
+          </form>
+      </div>
+</body>
+</html>

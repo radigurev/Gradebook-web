@@ -1,0 +1,329 @@
+.mainBody {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #736b96;
+  box-sizing: border-box;
+  
+  }
+  
+  .index-page-buttons {
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    transform: translate(-50%, -50%);
+    background-color: pink;
+  }
+  
+  .title {
+    color: #626366;
+    font-size: 100px;
+  }
+  
+  .body {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    --primary: #e05d26;
+    --grey: #454545;
+    --lightgrey: #666;
+    color: var(--grey);
+    line-height: 1.55;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .txt {
+      color: #626366;
+  }
+  
+  .register {
+    position: absolute;
+    width: 400px;
+    height: 600px;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: table;
+    background-color: #dfdaf1;
+    border-radius: 10px;
+  }
+  
+  .login {
+      position: absolute;
+      width: 400px;
+      height: 450px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: table;
+      background-color: #dfdaf1;
+      border-radius: 10px;
+  }
+  .container {
+      position: relative;
+      display: table-cell;
+     text-align: center;
+     vertical-align: middle;
+  }
+  
+  .normal-box, .password-box {
+      width: 300px;
+      height: 30px;
+      border-radius: 30px;
+      box-shadow: none;
+      border-color: #dfdaf1;
+      border: 1px;
+      padding-left: 5px;
+      margin-bottom: 5px;
+  }
+  .normal-box::placeholder, .password-box::placeholder {
+      font-size: 15;
+  }
+  
+  .submit-button {
+      width: 100px;
+      height: 30px;
+      border-radius: 30px;
+      font-size: 15;
+      background-color: #ffffff;
+      box-shadow: none;
+      border-color: #dfdaf1;
+      border: 1px;
+      margin-top: 7px;
+  }
+  
+  .submit-button:hover {
+      transition: all .5s;
+      background-color: #a59a9a;
+  }
+  
+  .submit-button:active {
+      transition: all .3s;
+      background-color: #4f5053;
+  }
+  
+  .navigation {
+      position: absolute;
+      transition: all .5s;
+      background-color: white;
+      width: 99.5%;
+      top: 5;
+      height: 80px;
+      border-radius: 10px;
+      left: 6;
+  }
+  
+  .buttons {
+    position: relative;
+    color: #626366;
+    font-size: 17px;
+    padding: 7px 13px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 68%;
+  }
+  
+  .buttons li {
+    display: inline-block;
+    line-height: 80px;
+  }
+  
+  .buttons li a {
+    color: white;
+    font-size: 17px;
+    margin-right: 7px;
+    padding: 7px 4px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    background-color: #736b96;
+    border-radius: 15px;
+  }
+  
+  .navigation ul{
+      float: left;
+      margin-right: 20px;
+    }
+    .navigation ul li{
+      display: inline-block;
+      line-height: 80px;
+      margin: 0 5px;
+      
+    }
+    .navigation ul li a{
+      color: #626366;
+      font-size: 17px;
+      padding: 7px 13px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    a.active,a:hover{
+      background: #1b9bff;
+      transition: .5s;
+    }
+    .checkbtn{
+        position: relative;
+      font-size: 30px;
+      color: black;
+      float: left;
+      line-height: 80px;
+      margin-right: 40px;
+      cursor: pointer;
+      display: none;
+    }
+  
+    #check{
+      display: none;
+    }
+    @media (max-height: 720px){
+      
+      .navigation {
+          transition: all .5s;
+          background-color: transparent;
+      }
+  
+      .checkbtn{
+          transition: all .5s;
+      z-index: 3;
+        display: block;
+      }
+     .navigation ul{
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        background: #2c3e50;
+        top: -1;
+        left: -200%;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        transition: all .5s;
+        z-index: 2;
+      }
+      .navigation ul li{
+          margin-top: 0;
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
+      }
+      .navigation ul li a{
+        font-size: 20px;
+      }
+      a:hover{
+        background: none;
+        color: #0082e6;
+      }
+      #check:checked ~ ul{
+        left: 0;
+      }
+    }
+
+
+    .recipe, .pizza-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+   }
+    .pizza-box {
+      
+      flex: 3 1 30ch;
+      height: 282px;
+      overflow: hidden;
+   }
+    .pizza-box img {
+      max-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: cover;
+      object-position: 50% 50%;
+   }
+    .recipe {
+      border: 2px solid #f2f2f2;
+      border-radius: 8px;
+      overflow: hidden;
+   }
+    .recipe-content {
+      padding: 16px 32px;
+      flex: 4 1 40ch;
+   }
+    .recipe-tags {
+      margin: 0 -8px;
+   }
+    .recipe-tag {
+      display: inline-block;
+      margin: 8px;
+      font-size: 0.875em;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--primary);
+   }
+    .recipe-title {
+      margin: 0;
+      font-size: clamp(1.4em, 2.1vw, 2.1em);
+      font-family: "Roboto Slab", Helvetica, Arial, sans-serif;
+   }
+    .recipe-title a {
+      text-decoration: none;
+      color: inherit;
+   }
+    .recipe-metadata {
+      margin: 0;
+   }
+    .recipe-rating {
+      font-size: 1.2em;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+   }
+    .recipe-rating span {
+      color: var(--grey);
+   }
+    .recipe-votes {
+      font-size: 0.825em;
+      font-style: italic;
+      color: var(--lightgrey);
+   }
+    .recipe-save {
+      display: flex;
+      align-items: center;
+      padding: 6px 14px 6px 12px;
+      border-radius: 4px;
+      border: 2px solid currentColor;
+      color: var(--primary);
+      background: none;
+      cursor: pointer;
+      font-weight: bold;
+   }
+    .recipe-save svg {
+      margin-right: 6px;
+   }
+   /* Body Layout */
+    * {
+      box-sizing: border-box;
+   }
+
+    .big {
+      width: 740px;
+      padding: 24px;
+   }
+    .small {
+      width: clamp(320px, 35%, 480px);
+      padding: 24px;
+   }
+
+   .index-div {
+     height: 100%;
+    margin-top: 19%;
+   }
+
+   .index-div h1{
+     text-align: center;
+   }
+
+   
+    
