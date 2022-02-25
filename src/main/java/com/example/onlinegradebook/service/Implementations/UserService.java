@@ -7,6 +7,7 @@ import com.example.onlinegradebook.repository.RoleRepository;
 import com.example.onlinegradebook.repository.UserRepository;
 import com.example.onlinegradebook.service.UsersService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,10 +17,12 @@ public class UserService implements UsersService {
     private final RoleRepository roleRepository;
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
-    public UserService(RoleRepository roleRepository, ModelMapper modelMapper, UserRepository userRepository) {
+    private final PasswordEncoder passwordEncoder;
+    public UserService(RoleRepository roleRepository, ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.roleRepository = roleRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -28,6 +31,7 @@ public class UserService implements UsersService {
         User user=modelMapper.map(map, User.class);
         user.setCreatedAt(java.sql.Date.valueOf(localDate));
         user.setRole(roleRepository.findByAccountType(AccountType.STUDENT));
+        user.setPassword(passwordEncoder.encode(map.getPassword()));
         userRepository.saveAndFlush(user);
     }
 }

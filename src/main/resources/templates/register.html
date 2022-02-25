@@ -22,47 +22,55 @@
                    Should be between 4 and 20 symbols.
                 </small>
               </div>
+              <br>
                 <div>
                     <input th:field="*{lastName}"
                            th:errorclass="is-invalid"
                             id="lastName"
                            name="lastName"
-                           type="text" min="2" max="20" class="normal-box"
+                           type="text"
+                           class="form-control"
                            placeholder="Last name"/>
-                    <p class="invalid-feedback errors alert alert-danger">
+                    <p class="invalid-feedback bg-danger text-light rounded">
                         Should be between 4 and 20 symbols.
                     </p>
                 </div>
+              <br>
                 <div>
                     <input th:field="*{email}"
                            th:errorclass="is-invalid"
                             id="email"
                            name="email"
-                           type="email" class="normal-box"
+                           type="email"
+                           class="form-control"
                            placeholder="email"/>
-                    <p class="invalid-feedback errors alert alert-danger">
+                    <p class="invalid-feedback bg-danger text-light rounded">
                         Should contain @.
                     </p>
                 </div>
+              <br>
                 <div>
                     <input th:field="*{password}"
                            th:errorclass="is-invalid"
                             id="password"
                            name="password"
-                           type="password" min="6" class="password-box"
+                           type="password" min="6"
+                           class="form-control"
                            placeholder="password"/>
-                    <p class="invalid-feedback errors alert alert-danger">
+                    <p class="invalid-feedback bg-danger text-light rounded">
                         Should be at least 6 characters.
                     </p>
                 </div>
-
+                <br>
                 <div>
                     <input th:field="*{confirmPassword}"
                             id="confirmPassword"
                            name="confirmPassword"
-                           type="password" min="6" class="password-box"
+                           type="password" min="6"
+                           class="form-control"
                            placeholder="confirmPassword"/>
                 </div>
+              <br>
                 <button type="submit" class="submit-button">Enter</button>
 
           </form>

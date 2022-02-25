@@ -11,10 +11,12 @@ public class User extends BaseEntityString {
     private String lastName;
     private String email;
     private String phoneNumber;
+    private String password;
     private Date birthDate;
     private Date createdAt;
     private String school;
     private Roles role;
+
     @Column(name = "first_name",nullable = false)
     public String getFirstName() {
         return firstName;
@@ -58,6 +60,15 @@ public class User extends BaseEntityString {
     @Column(name = "birth_date")
     public Date getBirthDate() {
         return birthDate;
+    }
+
+    @Column(nullable = false)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setBirthDate(Date birthDate) {

@@ -46,6 +46,7 @@
     display: table;
     background-color: #dfdaf1;
     border-radius: 10px;
+      padding: 10px;
   }
   
   .login {
@@ -77,14 +78,14 @@
       margin-bottom: 5px;
   }
   .normal-box::placeholder, .password-box::placeholder {
-      font-size: 15;
+      font-size: 15px;
   }
   
   .submit-button {
       width: 100px;
       height: 30px;
       border-radius: 30px;
-      font-size: 15;
+      font-size: 15px;
       background-color: #ffffff;
       box-shadow: none;
       border-color: #dfdaf1;
@@ -107,10 +108,10 @@
       transition: all .5s;
       background-color: white;
       width: 99.5%;
-      top: 5;
+      top: 5px;
       height: 80px;
       border-radius: 10px;
-      left: 6;
+      left: 6px;
   }
   
   .buttons {
@@ -196,7 +197,7 @@
         height: 100%;
         width: 100%;
         background: #2c3e50;
-        top: -1;
+        top: -1%;
         left: -200%;
         margin: 0;
         padding: 0;
