@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <head th:fragment="head">
         <meta charset="UTF-8" />
@@ -17,10 +18,13 @@
         <i class="fas fa-bars"></i>
     </label>
     <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/users/login">Login</a></li>
-        <li><a href="/users/register">Register</a></li>
-        <li><a href="/contact">Contact</a></li>
+
+            <li><a href="/">Home</a></li>
+            <li sec:authorize="!isAuthenticated()"><a href="/users/login">Login</a></li>
+            <li sec:authorize="!isAuthenticated()"><a href="/users/register">Register</a></li>
+            <li sec:authorize="!isAuthenticated()"><a href="/contact">Contact</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+
     </ul>
 </nav>
 </body>
