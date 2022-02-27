@@ -1,13 +1,12 @@
 .pane {
-    background-color: white;
+    background-color: #dfdaf1;
     border: 1px solid #333;
     border-radius: .5rem;
     padding: .5rem;
-    max-width: 300px;
+    max-width: 600px;
+    max-height: 600px;
     margin: 38vh auto;
-      
     animation: fade 250ms ease-in-out forwards;
-    background-color: red;
   }
   
   .form-group {
@@ -16,7 +15,7 @@
     margin-bottom: .5rem;
     gap: .25em;
   }
-  
+
   .form-group:last-child {
     margin: 0;
   }
@@ -27,20 +26,24 @@
     color: #333;
   }
   
-  .form-group > input {
+  .form-group > input , .form-group > select{
     border: 1px solid #333;
-    border-radius: .25em;
+    border-radius: 15px;
     font-size: 1rem;
-    padding: .25em;
+   padding-left: 10px;
+    height: 35px;
   }
-  
+
+.form-group >select:placeholder-shown{
+  color: #1b9bff;
+}
+
   .hide {
       display: none ;
   }
 
   .step-title {
-    margin: 0;
-    margin-bottom: 1rem;
+    margin: 0 0 1rem;
     text-align: center;
   }
   
@@ -57,7 +60,7 @@
   .hide {
     display: none;
   }
-  
+
   @keyframes slide {
     0% {
       transform: translateX(200%);

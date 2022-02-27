@@ -42,3 +42,19 @@ function showCurrentStep() {
     })
 
 }
+
+var citySelect=document.getElementById("city")
+var sel =document.getElementById("country")
+    sel.addEventListener("mouseout",changeVisibility)
+
+function changeVisibility(){
+    var text = sel.options[sel.selectedIndex].text;
+    if (text!=="Select Country"){
+        console.log(text)
+        citySelect.classList.remove("hide")
+    }
+    if(text==="Select Country"){
+        console.log("remove city option")
+        citySelect.classList.add("hide")
+    }
+}
