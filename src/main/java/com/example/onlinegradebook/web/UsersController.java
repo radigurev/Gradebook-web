@@ -3,6 +3,7 @@ package com.example.onlinegradebook.web;
 import com.example.onlinegradebook.model.binding.UserCompleteInformationBindingModel;
 import com.example.onlinegradebook.model.entity.User;
 import com.example.onlinegradebook.repository.UserRepository;
+import com.example.onlinegradebook.service.UsersService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -19,10 +20,10 @@ import javax.validation.Valid;
 @RequestMapping("/users")
 public class UsersController {
 
-    private final UserRepository userRepository;
+    private final UsersService usersService;
 
-    public UsersController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UsersController(UsersService usersService) {
+        this.usersService = usersService;
     }
 
     @ModelAttribute
@@ -44,7 +45,7 @@ public class UsersController {
         } else {
             username = principal.toString();
         }
-        User user = userRepository.findByEmail(username).orElse(null);
+        User user = usersService.findByEmail(username);
 
         assert user != null;
         if (user.getPhoneNumber() == null) {
@@ -64,6 +65,9 @@ public class UsersController {
                     .addFlashAttribute("org.springframework.validation.BindingResult.userCompleteInformationBindingModel", bindingResult);
             return "redirect:completeInformation";
         }
+
+
+        usersService.saveAdditionalInformation(userCompleteInformationBindingModel);
 
         return "redirect:completeInformation";
     }

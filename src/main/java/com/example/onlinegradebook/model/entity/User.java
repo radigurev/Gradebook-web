@@ -14,10 +14,11 @@ public class User extends BaseEntityString {
     private String email;
     private String phoneNumber;
     private String password;
+    private String address;
     private Date birthDate;
     private Date createdAt;
     private String school;
-    private String SSN;
+    private String ssn;
     private Integer zip;
     private boolean approved;
     private Roles role;
@@ -68,6 +69,14 @@ public class User extends BaseEntityString {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+    @Column(columnDefinition = "TEXT")
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     @Column(name = "birth_date")
     public Date getBirthDate() {
@@ -111,11 +120,11 @@ public class User extends BaseEntityString {
 
     @Column(name = "ssn")
     public String getSSN() {
-        return SSN;
+        return ssn;
     }
 
     public void setSSN(String SSN) {
-        this.SSN = SSN;
+        this.ssn = SSN;
     }
 
     @Column(name = "is_approved")
@@ -141,7 +150,7 @@ public class User extends BaseEntityString {
         this.country = country;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     public City getCity() {
         return city;
     }

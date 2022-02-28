@@ -3,7 +3,7 @@ package com.example.onlinegradebook.model.binding;
 import javax.persistence.Column;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.sql.Date;
 
 public class UserCompleteInformationBindingModel {
     private String middleName;
