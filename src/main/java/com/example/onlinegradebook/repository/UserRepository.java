@@ -17,29 +17,9 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,String> {
     Optional<User> findByEmail(String email);
 
-   /*@Transactional
+    @Transactional
     @Modifying
-    @Query("UPDATE User u SET u.middleName = :middleName, u.birthDate = :birthDate, u.phoneNumber = :phoneNumber," +
-            " u.address = :address , u.school = :school,u.city = :city, u.country = :country, u.zip = :zip"+
-            " WHERE u.email = :email")  // u.ssn = :ssn, u.city = :city, u.country = :country,
-    void fillUserInformation(@Param(value = "middleName") String middleName,@Param(value = "birthDate") Date birthDate
-            ,@Param(value = "phoneNumber") String phoneNumber,@Param(value = "address") String address,@Param(value = "school") String school
-                         //@Param(value = "ssn") String ssn
-            ,@Param(value = "city") City city,@Param(value = "county") Country county,
-                         @Param(value = "zip") Integer zip,@Param("email") String email);
-
-    */
-       /* @Transactional
-        @Modifying
-    @Query("UPDATE User u SET u.middleName = :middleName, u.birthDate = :birthDate, u.phoneNumber = :phoneNumber,u.address= :address, u.school=:school,u.city =:city WHERE u.email= :email")
-    void fillUserInfo(@Param(value = "middleName") String middleName,@Param(value = "birthDate") Date birthDate
-                ,@Param(value = "phoneNumber") String phoneNumber,@Param(value = "address") String address,
-                      @Param(value = "school") String school,@Param(value = "City") long city,
-                      @Param(value = "email") String email);
-
-        */
-    @Modifying
-    @Query("UPDATE User u set u.city =?1 WHERE u.email = ?2")
-    void update(@Param(value = "city") City city,@Param(value = "email") String email);
+    @Query("UPDATE User u set u.birthDate = ?1, u.middleName=?2,u.phoneNumber=?3,u.school=?4,u.ssn=?5,u.address=?6,u.zip=?7,u.city=?8,u.country=?9 WHERE u.email = ?10")
+    void updateUserInformation (Date birthDate,String middleName,String phoneNumber,String school,String snn,String address,Integer zip,City city,Country country,String email);
 
 }

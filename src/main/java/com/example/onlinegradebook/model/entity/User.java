@@ -117,14 +117,13 @@ public class User extends BaseEntityString {
     public String getSchool() {
         return school;
     }
-
     @Column(name = "ssn")
-    public String getSSN() {
+    public String getSsn() {
         return ssn;
     }
 
-    public void setSSN(String SSN) {
-        this.ssn = SSN;
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
     }
 
     @Column(name = "is_approved")

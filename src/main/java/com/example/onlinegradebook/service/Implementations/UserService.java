@@ -62,7 +62,7 @@ public class UserService implements UsersService {
         }
         City city=citiesService.findCityByName(user.getCityName());
         Country country=countriesService.findByName(user.getCountryName());
-
+        userRepository.updateUserInformation(user.getBirthDate(),user.getMiddleName(),user.getPhoneNumber(),user.getSchool(), user.getSsn(), user.getAddress(),user.getZip(),city,country,email);
 
     }
 }
