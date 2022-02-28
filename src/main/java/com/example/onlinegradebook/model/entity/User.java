@@ -1,5 +1,7 @@
 package com.example.onlinegradebook.model.entity;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -15,9 +17,14 @@ public class User extends BaseEntityString {
     private Date birthDate;
     private Date createdAt;
     private String school;
+    private String SSN;
+    private Integer zip;
+    private boolean approved;
     private Roles role;
+    private Country country;
+    private City city;
 
-    @Column(name = "first_name",nullable = false)
+    @Column(name = "first_name", nullable = false)
     public String getFirstName() {
         return firstName;
     }
@@ -25,6 +32,7 @@ public class User extends BaseEntityString {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
     @Column(name = "middle_name")
     public String getMiddleName() {
         return middleName;
@@ -33,6 +41,7 @@ public class User extends BaseEntityString {
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
     }
+
     @Column(name = "last_name")
     public String getLastName() {
         return lastName;
@@ -41,6 +50,7 @@ public class User extends BaseEntityString {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
     @Column(unique = true)
     public String getEmail() {
         return email;
@@ -49,6 +59,7 @@ public class User extends BaseEntityString {
     public void setEmail(String email) {
         this.email = email;
     }
+
     @Column(unique = true)
     public String getPhoneNumber() {
         return phoneNumber;
@@ -57,9 +68,19 @@ public class User extends BaseEntityString {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
     @Column(name = "birth_date")
     public Date getBirthDate() {
         return birthDate;
+    }
+
+    @Column(name = "zip")
+    public Integer getZip() {
+        return zip;
+    }
+
+    public void setZip(Integer zip) {
+        this.zip = zip;
     }
 
     @Column(nullable = false)
@@ -74,6 +95,7 @@ public class User extends BaseEntityString {
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
+
     @Column(name = "created_at")
     public Date getCreatedAt() {
         return createdAt;
@@ -87,9 +109,47 @@ public class User extends BaseEntityString {
         return school;
     }
 
+    @Column(name = "ssn")
+    public String getSSN() {
+        return SSN;
+    }
+
+    public void setSSN(String SSN) {
+        this.SSN = SSN;
+    }
+
+    @Column(name = "is_approved")
+    @ColumnDefault("false")
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
+    }
+
     public void setSchool(String school) {
         this.school = school;
     }
+
+    @ManyToOne
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    @ManyToOne
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
     @ManyToOne
     public Roles getRole() {
         return role;

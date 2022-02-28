@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" class="mainBody"  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head">
+</head>
+<body>
+<script src="/js/InformationAnimation.js" defer></script>
+
+    <nav th:replace="fragments/commons::nav"></nav>
+
+    <form th:object="${userCompleteInformationBindingModel}" th:method="POST" th:action="@{/users/completeInformation}" data-multi-step class="mutli-step-form">
+        <div class="pane active" data-step>
+            <h3 class="step-title">This is step 1</h3>
+            <div class="form-group">
+                <input th:field="*{middleName}" type="text" name="middle name" id="middle name" placeholder="Middle name (optional)">
+            </div>
+            <div class="form-group">
+                <input required th:field="*{phoneNumber}" type="number" name="phoneNumber" placeholder="(+359) 888888888" id="number">
+            </div>
+            <button type="button" class="submit-button" data-next>Next</button>
+        </div>
+        <div class="pane" data-step>
+            <h3 class="step-title">This is step 2</h3>
+            <div class="form-group">
+                <input th:field="*{address}" required type="text" name="address" id="address" placeholder="address">
+            </div>
+            <div class="form-group">
+                <input required th:field="*{zip}" type="text" name="zipcode" id="zipcode" placeholder="zipcode">
+            </div>
+            <div class="form-group">
+                <select th:field="*{countryName}" name="country" id="country">
+                    <option value=" ">Select Country</option>
+                    <option value="Bulgaria">Bulgaria</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <div class="form-group hide" id="city">
+                <select th:field="*{cityName}" name="city">
+                    <option value="grad">grad</option>
+                    <option value="grad2">Sofia</option>
+                    <option value="grad3">grad2</option>
+                </select>
+            </div>
+            <button type="button" class="submit-button" data-previous>Previous</button>
+            <button type="button" class="submit-button" data-next>Next</button>
+        </div>
+        <div class="pane" data-step>
+            <h3 class="step-title">This is step 3</h3>
+            <div class="form-group">
+                <input th:field="*{birthDate}" required type="date" name="birthDate" id="birthDate" placeholder="birthday">
+            </div>
+            <div class="form-group">
+                <select th:field="*{school}" name="school">
+                    <option value="u4ilishte">u4ilishte</option>
+                    <option value="u4ilishte2">u4ilishte2</option>
+                    <option value="u4ilishte3">u4ilishte3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input th:field="*{ssn}" required  type="number"  name="ssn" id="ssn" placeholder="ssn">
+            </div>
+            <button type="button" class="submit-button" data-previous>Previous</button>
+            <button type="submit" class="submit-button">Submit</button>
+        </div>
+    </form>
+</body>
+</html>

@@ -11,8 +11,40 @@
     transform: translate(-50%, -50%);
     background-color: pink;
   }
-  
-  .title {
+
+.mainBody {
+    scrollbar-width: normal;
+    scrollbar-color: #777 #555;
+
+}
+
+.mainBody::-webkit-scrollbar {
+    width: 0.5vw;
+
+}
+
+.mainBody::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+
+}
+
+.mainBody::-webkit-scrollbar-thumb:hover {
+    background-color: #777;
+}
+
+.mainBody::-webkit-scrollbar-track {
+    background-color: #5555;
+    border-radius: 10px;
+
+}
+
+.mainBody::-webkit-scrollbar-track:hover {
+    background-color: #555;
+}
+
+
+.title {
     color: #626366;
     font-size: 100px;
   }

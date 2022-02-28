@@ -11,7 +11,7 @@
         
 
         <div class="login">
-        <form class="container" method="post" th:action="@{/users/login}">
+        <form class="container" th:method="post" th:action="@{/users/login}">
             <h1 class="txt">Login</h1> 
             <div class="col-sm-10"></div><br>
             <input id="username" name="username" th:value="${email}" class="form-control" type="text" placeholder="email"/>

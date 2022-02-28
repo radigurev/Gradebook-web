@@ -21,7 +21,7 @@ public class UserLoginController {
         if(authentication==null || authentication instanceof AnonymousAuthenticationToken)
         return "login";
 
-        return "redirect:home";
+        return "redirect:completeInformation";
     }
 
     @PostMapping("/login-error")
@@ -34,8 +34,4 @@ public class UserLoginController {
         return "redirect:login";
     }
 
-    @GetMapping("/home")
-    public String home(){
-        return "home";
-    }
 }

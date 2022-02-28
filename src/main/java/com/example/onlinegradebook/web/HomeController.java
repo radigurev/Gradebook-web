@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
         @GetMapping("/")
     public String homePage(){
+
             Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
 
-                return authentication instanceof AnonymousAuthenticationToken ? "index" : "home";
+            return authentication instanceof AnonymousAuthenticationToken ? "index" : "redirect:/users/completeInformation";
+
         }
 }
