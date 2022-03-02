@@ -16,14 +16,12 @@
           <div class="cell">
             Name
           </div>
+
           <div class="cell">
-            Age
+            Subject
           </div>
           <div class="cell">
-            Occupation
-          </div>
-          <div class="cell">
-            Location
+            Grade
           </div>
         </div>
         
@@ -31,13 +29,11 @@
           <div class="cell" data-title="Name">
             <p name="name">Luke Peters</p>
           </div>
-          <div class="cell" data-title="Age">
-            25
-          </div>
+
           <div class="cell" data-title="Occupation">
-            Freelance Web Developer
+            <p subject-name>Math</p>
           </div>
-          <div class="cell" name="div-grade" data-title="Location">
+          <div class="cell div-grade"  name="div-grade" data-title="Location">
             <div all-button-divs class="button-div">
            <button buttons-grade value="2">2</button>
            <button buttons-grade value="3">3</button>
@@ -46,7 +42,7 @@
            <button buttons-grade value="6">6</button>
           </div>
           <div class="hidden hide return-div">
-            <input type="number" inputs class="grade-input">
+            <input type="text" inputs class="grade-input"/>
             <button class="return-button" >cancel</button>
           </div>
           </div>
@@ -56,14 +52,11 @@
           <div class="cell" data-title="Name">
             <p name="name">Luke Peters</p>
           </div>
-          <div class="cell" data-title="Age">
-            25
+          <div class="cell" data-title="Subject">
+            <p subject-name>Programming</p>
           </div>
-          <div class="cell" data-title="Occupation">
-            Freelance Web Developer
-          </div>
-          <div class="cell" name="div-grade" data-title="Location">
-            <div all-button-divs class="">
+          <div class="cell" name="div-grade" data-title="Grade">
+            <div all-button-divs class="button-div">
            <button buttons-grade value="2">2</button>
            <button buttons-grade value="3">3</button>
            <button buttons-grade value="4">4</button>
@@ -77,9 +70,9 @@
           </div>
 
       </div>
-      
     </div>
     </div>
     </div>
+  <button onclick="getGrades()" style="width: 100px;height: 100px">Buton4e</button>
 </body>
 </html>

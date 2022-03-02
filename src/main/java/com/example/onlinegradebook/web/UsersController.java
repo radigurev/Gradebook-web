@@ -36,6 +36,7 @@ public class UsersController {
         return "dashboard";
     }
 
+
     @GetMapping("/completeInformation")
     public String infoComplete() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -54,7 +55,11 @@ public class UsersController {
             return "redirect:notApproved";
         } else
             return "redirect:dashboard";
+
+
     }
+
+
 
     @PostMapping("/completeInformation")
     public String postComplete(@Valid UserCompleteInformationBindingModel userCompleteInformationBindingModel,

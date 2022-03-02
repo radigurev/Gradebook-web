@@ -4,17 +4,20 @@ const inputs=[...document.querySelectorAll("[inputs]")]
 const divs=[...document.querySelectorAll("[all-button-divs]")]
 const inputDivs=[...document.getElementsByClassName("hidden")]
 const returnButton=[...document.getElementsByClassName("return-button")]
+const subjects= [...document.querySelectorAll("[subject-name]")]
 var students=new Array
 
 students_div.forEach(s => students.push(s.textContent))
 
-console.log(returnButton)
+console.log(inputDivs)
+var finalList=new Array
 
 buttons.forEach((b,index) =>{
     b.addEventListener("click",e => {
         if(b.classList.contains("selected")){
             b.classList.remove("selected")
         }else {
+            b.classList.add("selected")
             OpenTextBox(index)
         }
         
@@ -27,26 +30,39 @@ returnButton.forEach((b,index)=>{
     })
 })
 
+inputs.forEach((i) =>{
+    i.addEventListener("change",e=>{
+        if(i.value>6){
+            i.value=6
+        }
+        if(i.value<2){
+            i.value=2
+        }
+    })
+})
+
 function OpenTextBox(inx) {
     let index=Math.floor(inx/5)
        
         setTimeout(function(){
             divs[index].classList.add("hidden")
-        },100)
+        },300)
 
         inputs[index].value=buttons[inx].value
 
+    setTimeout(function() {
+        inputDivs[index].classList.remove("hidden")
+    },600)
+
+    setTimeout(function() {
+        inputDivs[index].classList.remove("hide")
+    },601)
+
         setTimeout(function(){
             divs[index].classList.add("hide")
-        },300)
-        
-        setTimeout(function() {
-            inputDivs[index].classList.remove("hide")
-        },400)
+        },602)
 
-        setTimeout(function() {
-            inputDivs[index].classList.remove("hidden")
-        },500)
+
         
        
 }
@@ -54,48 +70,51 @@ function OpenTextBox(inx) {
 function CloseTextBox(index) {    
     setTimeout(function(){
         inputDivs[index].classList.add("hidden")
-    },100)
-
-    setTimeout(function(){
-        inputDivs[index].classList.add("hide")
     },300)
 
     setTimeout(function() {
-        divs[index].classList.remove("hide")
-    },400)
+        divs[index].classList.remove("hidden")
+    },600)
 
     setTimeout(function() {
-        divs[index].classList.remove("hidden")
-    },500)
+        divs[index].classList.remove("hide")
+    },601)
+
+    setTimeout(function(){
+        inputDivs[index].classList.add("hide")
+    },602)
+
+
+
 }
 
 function getGrades() {
-    let loop=0
     let index=0
-    let grade =0
-   var finalList=new Array
+    let grade =0.0
    console.log(grade)
-  buttons.forEach((b) => {
-      while(loop!==4){
-          if(b.classList.contains("selected"))
-          grade = b.value
-         console.log(grade)
-         loop++
-      }
-      if(grade!==0){
-        finalList[index]=new Student(students[index],grade)
-        console.log(finalList)
+  inputs.forEach((b) => {
+              grade = parseFloat(b.value)
+      if(grade>0.0){
+        finalList[index]=new Student(students[index],subjects[index].textContent,grade)
         index++
       }
-        grade = 0
-       loop=0
-       
+        grade = 0.0
   })
+
+    var json=JSON.stringify(finalList)
+    console.log(json)
+    var text = document.createElement('p')
+    text.classList.add("hide","json")
+    text.textContent=json
+    console.log(text)
 }
 
+
+
 class Student {
-    constructor(name,grade){
+    constructor(name,subject,grade){
         this.name=name
+        this.subject=subject
         this.grade=grade
     }
 }

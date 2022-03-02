@@ -1,13 +1,11 @@
 package com.example.onlinegradebook.service.Implementations;
 
 import com.example.onlinegradebook.model.binding.UserCompleteInformationBindingModel;
-import com.example.onlinegradebook.model.entity.City;
-import com.example.onlinegradebook.model.entity.Country;
-import com.example.onlinegradebook.model.entity.Roles;
-import com.example.onlinegradebook.model.entity.User;
+import com.example.onlinegradebook.model.entity.*;
 import com.example.onlinegradebook.model.entity.enums.AccountType;
 import com.example.onlinegradebook.model.service.UserRegistrationService;
 import com.example.onlinegradebook.repository.RoleRepository;
+import com.example.onlinegradebook.repository.SchoolRepository;
 import com.example.onlinegradebook.repository.UserRepository;
 import com.example.onlinegradebook.service.CitiesService;
 import com.example.onlinegradebook.service.CountriesService;
@@ -31,13 +29,15 @@ public class UserService implements UsersService {
     private final PasswordEncoder passwordEncoder;
     private final CitiesService citiesService;
     private final CountriesService countriesService;
-    public UserService(RoleRepository roleRepository, ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder passwordEncoder, CitiesService citiesService, CountriesService countriesService) {
+    private final SchoolRepository schoolRepository;
+    public UserService(RoleRepository roleRepository, ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder passwordEncoder, CitiesService citiesService, CountriesService countriesService, SchoolRepository schoolRepository) {
         this.roleRepository = roleRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.citiesService = citiesService;
         this.countriesService = countriesService;
+        this.schoolRepository = schoolRepository;
     }
 
     @Override
@@ -68,7 +68,9 @@ public class UserService implements UsersService {
         }
         City city=citiesService.findCityByName(user.getCityName());
         Country country=countriesService.findByName(user.getCountryName());
-        userRepository.updateUserInformation(user.getBirthDate(),user.getMiddleName(),user.getPhoneNumber(),user.getSchool(), user.getSsn(), user.getAddress(),user.getZip(),city,country,email);
+        School school=schoolRepository.findBySchool(user.getSchool()).orElse(null);
+
+        userRepository.updateUserInformation(user.getBirthDate(),user.getMiddleName(),user.getPhoneNumber(),school, user.getSsn(), user.getAddress(),user.getZip(),city,country,email);
 
     }
 }

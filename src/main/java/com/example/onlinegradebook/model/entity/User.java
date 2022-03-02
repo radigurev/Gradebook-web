@@ -19,13 +19,13 @@ public class User extends BaseEntityString {
     private String address;
     private Date birthDate;
     private Date createdAt;
-    private String school;
     private String ssn;
     private Integer zip;
     private boolean approved;
     private Set<Roles> role;
     private Country country;
     private City city;
+    private School school;
 
     @Column(name = "first_name", nullable = false)
     public String getFirstName() {
@@ -85,6 +85,10 @@ public class User extends BaseEntityString {
         return birthDate;
     }
 
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
     @Column(name = "zip")
     public Integer getZip() {
         return zip;
@@ -103,9 +107,6 @@ public class User extends BaseEntityString {
         this.password = password;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
 
     @Column(name = "created_at")
     public Date getCreatedAt() {
@@ -116,9 +117,6 @@ public class User extends BaseEntityString {
         this.createdAt = createdAt;
     }
 
-    public String getSchool() {
-        return school;
-    }
     @Column(name = "ssn")
     public String getSsn() {
         return ssn;
@@ -136,10 +134,6 @@ public class User extends BaseEntityString {
 
     public void setApproved(boolean approved) {
         this.approved = approved;
-    }
-
-    public void setSchool(String school) {
-        this.school = school;
     }
 
     @ManyToOne
@@ -167,5 +161,14 @@ public class User extends BaseEntityString {
 
     public void setRole(Set<Roles> role) {
         this.role = role;
+    }
+
+    @ManyToOne
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
     }
 }
