@@ -3,6 +3,7 @@ package com.example.onlinegradebook.service.Implementations;
 import com.example.onlinegradebook.model.binding.UserCompleteInformationBindingModel;
 import com.example.onlinegradebook.model.entity.City;
 import com.example.onlinegradebook.model.entity.Country;
+import com.example.onlinegradebook.model.entity.Roles;
 import com.example.onlinegradebook.model.entity.User;
 import com.example.onlinegradebook.model.entity.enums.AccountType;
 import com.example.onlinegradebook.model.service.UserRegistrationService;
@@ -18,6 +19,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 public class UserService implements UsersService {
 
@@ -41,7 +45,9 @@ public class UserService implements UsersService {
         LocalDate localDate=LocalDate.now();
         User user=modelMapper.map(map, User.class);
         user.setCreatedAt(java.sql.Date.valueOf(localDate));
-        user.setRole(roleRepository.findByAccountType(AccountType.STUDENT));
+        Set<Roles> roles=new HashSet<Roles>();
+        roles.add(roleRepository.findByAccountType(AccountType.STUDENT));
+        user.setRole(roles);
         user.setPassword(passwordEncoder.encode(map.getPassword()));
         userRepository.saveAndFlush(user);
     }

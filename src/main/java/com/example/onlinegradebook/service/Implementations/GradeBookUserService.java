@@ -31,9 +31,12 @@ public class GradeBookUserService implements UserDetailsService {
 
     private UserDetails mapToUserDetails(User user) {
 
-        List<GrantedAuthority> authorities= Arrays.stream(AccountType.values())
-                 .map(r->new SimpleGrantedAuthority("ROLE_"+r.name()))
-                .collect(Collectors.toList());
+        List<GrantedAuthority> authorities= user
+                .getRole().stream()
+                        .map(r -> new SimpleGrantedAuthority("ROLE_"+r.getAccountType().name()))
+                                .collect(Collectors.toList());
+
+        System.out.println();
 
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),

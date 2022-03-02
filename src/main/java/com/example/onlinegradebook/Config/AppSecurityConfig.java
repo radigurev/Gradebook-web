@@ -1,5 +1,6 @@
 package com.example.onlinegradebook.Config;
 
+import com.example.onlinegradebook.model.entity.enums.AccountType;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -35,7 +36,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 
                 .antMatchers("/","/users/login","/users/register","/charts").permitAll()
-                .antMatchers("/js/**").permitAll()
+                .antMatchers("/teachers/entergrades").hasAnyRole("STUDENT")
                 .antMatchers("/**").authenticated().and().formLogin().loginPage("/users/login")
                 .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
                 .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)

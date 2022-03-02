@@ -2,8 +2,10 @@ package com.example.onlinegradebook.model.entity;
 
 import org.hibernate.annotations.ColumnDefault;
 
+import javax.management.relation.Role;
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -21,7 +23,7 @@ public class User extends BaseEntityString {
     private String ssn;
     private Integer zip;
     private boolean approved;
-    private Roles role;
+    private Set<Roles> role;
     private Country country;
     private City city;
 
@@ -158,12 +160,12 @@ public class User extends BaseEntityString {
         this.city = city;
     }
 
-    @ManyToOne
-    public Roles getRole() {
+    @ManyToMany(fetch = FetchType.EAGER)
+    public Set<Roles> getRole() {
         return role;
     }
 
-    public void setRole(Roles role) {
+    public void setRole(Set<Roles> role) {
         this.role = role;
     }
 }

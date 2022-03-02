@@ -27,6 +27,7 @@
             <li sec:authorize="!isAuthenticated()"><a href="/users/register">Register</a></li>
             <li sec:authorize="!isAuthenticated()"><a href="/contact">Contact</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+            <li sec:authorize="hasAnyRole('STUDENT')"><a href="/teachers/entergrades">EnterGrades</a></li>
 
     </ul>
 </nav>
