@@ -198,6 +198,7 @@
       font-size: 30px;
       color: black;
       float: left;
+        top: 0;
       line-height: 80px;
       margin-right: 40px;
       cursor: pointer;

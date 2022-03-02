@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" class="mainBody"  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head">
+
+</head>
+<body>
+
+  <nav th:replace="fragments/commons::nav"></nav>
+  <div class="table">
+    
+    <div class="wrapper">
+  
+      <div class="table">
+        
+        <div class="row header">
+          <div class="cell">
+            Name
+          </div>
+          <div class="cell">
+            Age
+          </div>
+          <div class="cell">
+            Occupation
+          </div>
+          <div class="cell">
+            Location
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="cell" data-title="Name">
+            <p name="name">Luke Peters</p>
+          </div>
+          <div class="cell" data-title="Age">
+            25
+          </div>
+          <div class="cell" data-title="Occupation">
+            Freelance Web Developer
+          </div>
+          <div class="cell" name="div-grade" data-title="Location">
+            <div all-button-divs class="button-div">
+           <button buttons-grade value="2">2</button>
+           <button buttons-grade value="3">3</button>
+           <button buttons-grade value="4">4</button>
+           <button buttons-grade value="5">5</button>
+           <button buttons-grade value="6">6</button>
+          </div>
+          <div class="hidden hide return-div">
+            <input type="number" inputs class="grade-input">
+            <button class="return-button" >cancel</button>
+          </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="cell" data-title="Name">
+            <p name="name">Luke Peters</p>
+          </div>
+          <div class="cell" data-title="Age">
+            25
+          </div>
+          <div class="cell" data-title="Occupation">
+            Freelance Web Developer
+          </div>
+          <div class="cell" name="div-grade" data-title="Location">
+            <div all-button-divs class="">
+           <button buttons-grade value="2">2</button>
+           <button buttons-grade value="3">3</button>
+           <button buttons-grade value="4">4</button>
+           <button buttons-grade value="5">5</button>
+           <button buttons-grade value="6">6</button>
+          </div>
+          <div class="hidden hide return-div">
+            <input type="number" inputs class="grade-input">
+            <button class="return-button" >cancel</button>
+          </div>
+          </div>
+
+      </div>
+      
+    </div>
+    </div>
+    </div>
+</body>
+</html>
