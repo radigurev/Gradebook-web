@@ -2,15 +2,15 @@ package com.example.onlinegradebook.service.Implementations;
 
 import com.example.onlinegradebook.model.entity.City;
 import com.example.onlinegradebook.repository.CityRepository;
-import com.example.onlinegradebook.service.CitiesService;
+import com.example.onlinegradebook.service.CityService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CityService implements CitiesService {
+public class CitiesService implements CityService {
 
     private final CityRepository cityRepository;
 
-    public CityService(CityRepository cityRepository) {
+    public CitiesService(CityRepository cityRepository) {
         this.cityRepository = cityRepository;
     }
 

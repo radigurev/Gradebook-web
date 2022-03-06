@@ -2,8 +2,7 @@ package com.example.onlinegradebook.web;
 
 import com.example.onlinegradebook.model.binding.UserCompleteInformationBindingModel;
 import com.example.onlinegradebook.model.entity.User;
-import com.example.onlinegradebook.repository.UserRepository;
-import com.example.onlinegradebook.service.UsersService;
+import com.example.onlinegradebook.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -20,9 +19,9 @@ import javax.validation.Valid;
 @RequestMapping("/users")
 public class UsersController {
 
-    private final UsersService usersService;
+    private final UserService usersService;
 
-    public UsersController(UsersService usersService) {
+    public UsersController(UserService usersService) {
         this.usersService = usersService;
     }
 

@@ -1,27 +1,28 @@
 package com.example.onlinegradebook.init;
 
-import com.example.onlinegradebook.model.entity.School;
 import com.example.onlinegradebook.repository.CityRepository;
 import com.example.onlinegradebook.repository.CountryRepository;
+import com.example.onlinegradebook.repository.GradeRepository;
 import com.example.onlinegradebook.repository.SchoolRepository;
-import com.example.onlinegradebook.service.RolesService;
+import com.example.onlinegradebook.service.RoleService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DBInit implements CommandLineRunner {
-    private final RolesService rolesService;
-   /* private final SchoolRepository schoolRepository;
+    private final RoleService rolesService;
+    /*
+    private final SchoolRepository schoolRepository;
     private final CityRepository cityRepository;
     private final CountryRepository countryRepository;
-
+    private final GradeRepository gradeRepository;
     */
-    public DBInit(RolesService rolesService, SchoolRepository schoolRepository, CityRepository cityRepository, CountryRepository countryRepository) {
+    public DBInit(RoleService rolesService, SchoolRepository schoolRepository, CityRepository cityRepository, CountryRepository countryRepository, GradeRepository gradeRepository) {
         this.rolesService = rolesService;
         /*this.schoolRepository = schoolRepository;
         this.cityRepository = cityRepository;
         this.countryRepository = countryRepository;
-
+        this.gradeRepository = gradeRepository;
          */
     }
 
@@ -35,5 +36,6 @@ public class DBInit implements CommandLineRunner {
         school.setCapacity(123152);
         schoolRepository.saveAndFlush(school);
         */
+
     }
 }

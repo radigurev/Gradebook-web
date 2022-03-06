@@ -2,7 +2,7 @@ package com.example.onlinegradebook.web;
 
 import com.example.onlinegradebook.model.binding.UserRegisterBindingModel;
 import com.example.onlinegradebook.model.service.UserRegistrationService;
-import com.example.onlinegradebook.service.UsersService;
+import com.example.onlinegradebook.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,10 +21,10 @@ import javax.validation.Valid;
 @RequestMapping("/users")
 public class UserRegisterController {
 
-    private final UsersService usersService;
+    private final UserService usersService;
     private final ModelMapper modelMapper;
 
-    public UserRegisterController(UsersService usersService, ModelMapper modelMapper) {
+    public UserRegisterController(UserService usersService, ModelMapper modelMapper) {
         this.usersService = usersService;
         this.modelMapper = modelMapper;
     }

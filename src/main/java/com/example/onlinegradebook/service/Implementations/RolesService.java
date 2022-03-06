@@ -3,16 +3,16 @@ package com.example.onlinegradebook.service.Implementations;
 import com.example.onlinegradebook.model.entity.Roles;
 import com.example.onlinegradebook.model.entity.enums.AccountType;
 import com.example.onlinegradebook.repository.RoleRepository;
-import com.example.onlinegradebook.service.RolesService;
+import com.example.onlinegradebook.service.RoleService;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
 @Service
-public class RoleService implements RolesService {
+public class RolesService implements RoleService {
     private final RoleRepository roleRepository;
 
-    public RoleService(RoleRepository roleRepository) {
+    public RolesService(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
 
@@ -26,5 +26,10 @@ public class RoleService implements RolesService {
                 roleRepository.saveAndFlush(roles);
             });
         }
+    }
+
+    @Override
+    public Roles findByAccountType(AccountType student) {
+        return roleRepository.findByAccountType(student);
     }
 }

@@ -9,70 +9,43 @@
   <div class="table">
     
     <div class="wrapper">
-  
+      <form th:action="@{/teachers/entergrades}" th:method="POST" th:object="${gradesBindingModel}">
       <div class="table">
-        
         <div class="row header">
           <div class="cell">
             Name
-          </div>
-
-          <div class="cell">
-            Subject
           </div>
           <div class="cell">
             Grade
           </div>
         </div>
         
-        <div class="row">
+        <div class="row" th:each="student,index : ${students}">
           <div class="cell" data-title="Name">
-            <p name="name">Luke Peters</p>
+            <p th:text="${student.name}" name="name">Name</p>
           </div>
 
-          <div class="cell" data-title="Occupation">
-            <p subject-name>Math</p>
-          </div>
           <div class="cell div-grade"  name="div-grade" data-title="Location">
             <div all-button-divs class="button-div">
-           <button buttons-grade value="2">2</button>
-           <button buttons-grade value="3">3</button>
-           <button buttons-grade value="4">4</button>
-           <button buttons-grade value="5">5</button>
-           <button buttons-grade value="6">6</button>
+           <button buttons-grade type="button" value="2">2</button>
+           <button buttons-grade type="button" value="3">3</button>
+           <button buttons-grade type="button" value="4">4</button>
+           <button buttons-grade type="button" value="5">5</button>
+           <button buttons-grade type="button" value="6">6</button>
           </div>
           <div class="hidden hide return-div">
-            <input type="text" inputs class="grade-input"/>
-            <button class="return-button" >cancel</button>
+            <input th:field="*{grades[__${index.index}__]}" type="text" inputs class="grade-input"/>
+            <button class="return-button" type="button" >cancel</button>
           </div>
           </div>
         </div>
-        
-        <div class="row">
-          <div class="cell" data-title="Name">
-            <p name="name">Luke Peters</p>
-          </div>
-          <div class="cell" data-title="Subject">
-            <p subject-name>Programming</p>
-          </div>
-          <div class="cell" name="div-grade" data-title="Grade">
-            <div all-button-divs class="button-div">
-           <button buttons-grade value="2">2</button>
-           <button buttons-grade value="3">3</button>
-           <button buttons-grade value="4">4</button>
-           <button buttons-grade value="5">5</button>
-           <button buttons-grade value="6">6</button>
-          </div>
-          <div class="hidden hide return-div">
-            <input type="number" inputs class="grade-input">
-            <button class="return-button" >cancel</button>
-          </div>
-          </div>
+    </div>
 
-      </div>
-    </div>
-    </div>
-    </div>
-  <button onclick="getGrades()" style="width: 100px;height: 100px">Buton4e</button>
+
+        <button type="submit" class="table-button">Buton4e</button>
+  </form>
+  </div>
+
+  </div>
 </body>
 </html>
