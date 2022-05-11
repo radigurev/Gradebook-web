@@ -91,6 +91,7 @@ public class UsersService implements UserService {
             else
                 view.setName(String.format("%s %s",u.getFirstName(),u.getLastName()));
 
+
             tableView.add(view);
         });
 
