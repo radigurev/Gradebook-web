@@ -327,16 +327,17 @@
     background-color: #078282FF;
     position: absolute;
     left: 80%;
-    top: 715px;
+    top: 750px;
     transform: translate(-50%,-50%);
     border-radius: 20px;
+    z-index: -1;
+    border: #fff solid;
   }
 
   #info div {
     width: 380px;
     height: 380px;
     color: #fff;
-    border: #fff solid;
     border-radius: 25px;
     position: absolute;
     font-weight: bold;
@@ -369,19 +370,30 @@
    margin-left: 15px;
  }
 
- .grade-btn {
-  background: #00203FFF;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-left: 200px;
-  margin-top: 20px;
-  text-align: center;
-  line-height: 50px;
-  vertical-align: middle;
-  padding: 1px;
- }
- 
+.nav2 {
+  position: absolute;
+  top: 0;
+  left: 50px;
+  background-color: #00203FFF;
+  padding: 10px;
+  width: 2000px;
+  border-radius: 15px;
+  z-index: -1;
+}
+
+.nav2 i {
+  padding: 10px;
+}
+
+.nav2 .fa-graduation-cap {
+  cursor: pointer !important;
+}
+
+.info-icon {
+  position: absolute;
+  top: 370px;
+  left: 350px;
+}
 
   @media only screen and (max-width: 1170px) {
     .cd-popup-container {
