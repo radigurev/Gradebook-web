@@ -157,16 +157,19 @@ tbody td {
     .container {
         position: relative;
     }
-}
-
-@media (max-width: 1000px) {
     table {
-        width: 600px;
-        left: 50%;
-    transform: translateX(-34%);
+        width: 100%;
+        left: 0;
+    transform: translateX(0);
     }
     table td i {
         opacity: 0;
+    }
+}
+
+@media (max-width: 800px) {
+    table {
+        width: 800px;
     }
 }
 
