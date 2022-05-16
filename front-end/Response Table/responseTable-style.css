@@ -31,6 +31,7 @@ body {
     border-radius: 10px;
     padding: 3px;
     text-align: center;
+    margin: 10px;
 }
 
 .grade-semester p {
@@ -70,6 +71,7 @@ th, td {
     color: #fff;
     /* font-weight: bold; */
     font-family: sans-serif,Arial, Helvetica;
+    
 }
 th {
     text-align: left;
@@ -83,6 +85,7 @@ tbody tr:hover {
 tbody td {
     position: relative;
     background-color: #adcea6;
+    
 }
 
 .row {
@@ -121,8 +124,8 @@ tbody td {
 }
 
 .no-border p {
-    font-size: 20px;
-    
+    font-size: 15px;
+    float: left;
 }
 
 .user {
