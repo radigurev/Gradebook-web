@@ -13,8 +13,6 @@ rows.forEach(r => {
     i+=300;
 });
 
-console.log(grades)
-
 grades.forEach((g) => {
     g.addEventListener('click', function(){
         $('.no-border').remove();
@@ -23,7 +21,7 @@ grades.forEach((g) => {
         var row=1;
         for(var i=1;i<=g.childNodes[3].childNodes.length/2;i++) {
             var html = 
-                "<tr class='row>'<td id='info-row' class='no-border'></td><td class='no-border'></td><td class='no-border'><i class='fa-solid fa-calendar'></i> <p>"+g.childNodes[3].childNodes[row].childNodes[1].textContent+"</p></td>dasd<td class='no-border'><p>"+g.childNodes[3].childNodes[row].childNodes[3].textContent+"</p></td><td class='no-border'><p>"+g.childNodes[3].childNodes[row].childNodes[5].textContent+"</p></td><td class='no-border'></td><td class='no-border'></td><td class='no-border'></td></tr>";
+                "<tr class='row>'<td id='info-row' class='no-border'></td><td class='no-border'></td><td class='no-border'><p><i class='fa-solid fa-calendar'></i> "+g.childNodes[3].childNodes[row].childNodes[1].textContent+"</p></td>dasd<td class='no-border'><p>"+g.childNodes[3].childNodes[row].childNodes[3].textContent+"</p></td><td class='no-border'><p>"+g.childNodes[3].childNodes[row].childNodes[5].textContent+"</p></td><td class='no-border'></td><td class='no-border'></td><td class='no-border'></td></tr>";
                 $('table > tbody> tr').eq(place).after(html);
                 place= parseInt(place)+1;
                 row+=2;

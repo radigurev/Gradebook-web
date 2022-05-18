@@ -13,8 +13,6 @@ rows.forEach(r => {
     i+=300;
 });
 
-console.log(grades)
-
 grades.forEach((g) => {
     g.addEventListener('click', function(){
         $('.no-border').remove();
