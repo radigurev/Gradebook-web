@@ -1,0 +1,128 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="materialTable-style.css">
+</head>
+<body>
+    <a class="exit-button" href=""><i class="fa-solid fa-arrow-right-from-bracket fa-3x"></i></a>
+
+      <div class="container">
+
+            <div class="user">
+                <div>
+                    <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
+                    <p><i class="fa-solid fa-graduation-cap"></i> Radoslav Gurev</p>
+                </div>
+            </div>
+            <div class="toogle-container">
+                <div class="toggle-button-cover">
+                    <div class="button-cover">
+                        <p><i id="switch-icon" class="fa-solid fa-eye"></i></p>
+                      <div class="button r" id="button-1">
+                        <input type="checkbox" id="change-box" class="checkbox" />
+                        <div class="knobs"></div>
+                        <div class="layer"></div>
+                      </div>
+                    </div>
+                  </div> 
+            </div>
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Материал</th>
+                    <th>Взет</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row">
+                    <td class="num">1</td>
+                        
+                    <td>
+                        <div>
+                            <p>Произведението "Крадеца на праскови"</p>
+                        </div>
+                    </td>
+                    <td>
+                     <button class="button-a">Не Взет</button>
+                    </td>
+                </tr>
+                <tr class="row">
+                    <td class="num">2</td>
+                        
+                    <td>
+                        <div>
+                            <p>Произведението "Крадеца на праскови"</p>
+                        </div>
+                    </td>
+                    <td>
+                     <button class="button-a">Не Взет</button>
+                    </td>
+                    <tr class="row">
+                        <td class="num">2</td>
+                            
+                        <td>
+                            <div>
+                                <p>Произведението "Крадеца на праскови"</p>
+                            </div>
+                        </td>
+                        <td>
+                         <button class="taken-button">Взет  <div class="info">
+                            <p>Учител: Анка Ушанова</p>
+                            <p>Дата: 2012.10.12</p>
+                            <p>2</p>
+                     </div></button>
+                        
+                        </td>
+                    </tr>      
+                </tr>             
+            </tbody>
+        </table>
+
+        
+        <table id="table2">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Материал</th>
+                    <th>Взет</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row">
+                    <td class="num">1</td>
+                        
+                    <td>
+                        <div>
+                            <p>Предмет: <i class="fa-solid fa-book-open"></i> Математика</p>
+                        </div>
+                    </td>
+                    <td>
+                     <input class="material-input" type="text">
+                    </td>
+                </tr>
+                <tr class="row">
+                    <td class="num">1</td>
+                        
+                    <td>
+                        <div>
+                            <p>Предмет: <i class="fa-solid fa-book-open"></i> Математика</p>
+                        </div>
+                    </td>
+                    <td>
+                     <input class="material-input" type="text">
+                    </td>
+                </tr>        
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="materialTable.js"></script>
+</html>
