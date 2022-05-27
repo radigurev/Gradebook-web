@@ -34,13 +34,13 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 
-                .antMatchers("/","/users/login","/users/register","/charts").permitAll()
-                .antMatchers("/teachers/entergrades").hasAnyRole("STUDENT")
-                .antMatchers("/**").authenticated().and().formLogin().loginPage("/users/login")
+                .antMatchers("/","/login","/register").permitAll()
+//                .antMatchers("/teachers/entergrades").hasAnyRole("STUDENT")
+                .antMatchers("/**").authenticated().and().formLogin().loginPage("/login")
                 .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
                 .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
-                .defaultSuccessUrl("/users/completeInformation")
-                .failureForwardUrl("/users/login-error")
+                .defaultSuccessUrl("/users")
+                .failureForwardUrl("/login-error")
                 .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
                 .deleteCookies("JSESSIONID")

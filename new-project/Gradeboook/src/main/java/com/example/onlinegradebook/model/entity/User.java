@@ -1,21 +1,21 @@
-package Gradebook.model.entity;
+package com.example.onlinegradebook.model.entity;
 
-import org.springframework.data.annotation.TypeAlias;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class Users extends BaseEntity {
+public class User extends BaseEntity {
     private String email;
     private String firstName;
     private String middleName;
     private String lastName;
     private String school;
-    private Set<Role> role;
-
     private String password;
+    private Set<Role> role;
 
     @Column(name = "email")
     public String getEmail() {
@@ -58,6 +58,14 @@ public class Users extends BaseEntity {
         this.school = school;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @ManyToMany
     public Set<Role> getRole() {
         return role;
@@ -65,13 +73,5 @@ public class Users extends BaseEntity {
 
     public void setRole(Set<Role> role) {
         this.role = role;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

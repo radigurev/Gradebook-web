@@ -15,10 +15,10 @@
 		<input type="checkbox" id="chk" aria-hidden="true">
 
 			<div class="signup">
-				<form th:action="@{/login}" th:method="POST" th:object="${loginUserBindingModel}">
+				<form th:action="@{/login}" th:method="POST">
 					<label for="chk" aria-hidden="true">Login</label>
-					<input th:field="*{email}" type="email" name="email" placeholder="Email" required="">
-					<input th:field="*{password}" type="password" name="pswd" placeholder="Парола" required="">
+					<input id="username" name="username" type="email" placeholder="Email" required="">
+					<input id="password" name="password" type="password" placeholder="Парола" required="">
 					<button type="submit">Login</button>
 				</form>
 			</div>
