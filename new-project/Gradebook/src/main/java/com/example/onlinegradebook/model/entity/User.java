@@ -1,9 +1,6 @@
 package com.example.onlinegradebook.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -66,7 +63,8 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.EAGER)
     public Set<Role> getRole() {
         return role;
     }

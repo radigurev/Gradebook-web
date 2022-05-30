@@ -7,6 +7,8 @@ import com.example.onlinegradebook.service.RoleService;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class RolesService implements RoleService {
@@ -25,5 +27,15 @@ public class RolesService implements RoleService {
                 roleRepository.saveAndFlush(role);
             });
         }
+    }
+
+    @Override
+    public Role getStudentRole() {
+        return roleRepository.findByRole(Roles.student);
+    }
+
+    @Override
+    public List<Role> returnRoles() {
+        return roleRepository.findAll();
     }
 }

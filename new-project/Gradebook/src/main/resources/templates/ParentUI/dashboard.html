@@ -1,0 +1,183 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main menu</title>
+    <link rel="stylesheet" href="menu-style.css">
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="table.css">
+</head>
+<script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
+<body>
+
+
+    <input class="menu-icon" type="checkbox" id="menu-icon" name="menu-icon"/>
+    <label for="menu-icon"></label>
+  	<nav class="nav"> 		
+  		<ul class="pt-5">
+  			<li><a href="#"><i class="fa-solid fa-graduation-cap"></i> Оценки</a></li>
+        <li><a href="#"><i class="fa-solid fa-circle-exclamation"></i> Отсъствия</a></li>
+        <li><a href="#"><i class="fa-solid fa-medal"></i> Отзиви</a></li>
+  		</ul>
+  	</nav>
+
+      <div id="info-container">
+        <div class="cards">
+            <div class="card1 card"> <i class="fa-solid fa-graduation-cap fa-2xl"></i>
+                <div class="grades">
+                    <span id="grade">5.70</span>
+                    <br>
+                    <span id="grade2">Успех</span>
+                    <br>
+                    <span id="grade3">116</span>
+                </div>
+
+            </div>
+            <div class="card2 card"><i class="fa-solid fa-circle-exclamation fa-2xl"></i>
+                    <div class="absence">
+                            <span id="absence1">24.50</span>
+                            <br>
+                            <span id="absence2">Отсъствия</span>
+                    </div>
+                     
+            </div>
+
+            <div class="card3 card"><i class="fa-solid fa-medal fa-2xl"></i>
+                    <div class="responses">
+                        <span id="response1">4</span>
+                        <br>
+                        <span id="response2">Отзиви</span>
+                    </div>
+
+            </div>
+            <div class="card4 card"> <i class="fa-solid fa-calendar fa-2xl"></i>
+                    <div class="tests">
+                        <span id="test1">23</span>
+                        <br>
+                        <span id="test2">Контролни</span>
+                        </div>
+                    </div>
+          </div>
+
+      </div>
+
+      <div class="cd-popup1 cd-popup" role="alert">
+        <div id="cd-popup-cont" class="cd-popup-container">
+            <canvas id="myChart" width="50%" height="35%"></canvas>
+            
+                <a id="expand" href="">
+                    <i class="fa-solid fa-expand"></i>
+                </a>
+            
+            <a href="#0" class="cd-popup-close1 cd-popup-close img-replace">Close</a>
+        </div>
+    </div> 
+
+    <section class="tablee">
+        <div class="tbl-header">
+          <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Company</th>
+                <th>Price</th>
+                <th>Change</th>
+            
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="tbl-content">
+          <table cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr onclick="window.location='#asda'">
+                <td>AAC</td>
+                <td>AUSTRALIAN COMPANY </td>
+                <td>$1.38</td>
+                <td>+2.01</td>
+              </tr>
+              <tr>
+                <td>AAC</td>
+                <td>AUSTRALIAN COMPANY </td>
+                <td>$1.38</td>
+                <td>+2.01</td>
+              </tr>
+              <tr>
+                <td>AAC</td>
+                <td>AUSTRALIAN COMPANY </td>
+                <td>$1.38</td>
+                <td>+2.01</td>
+              </tr>
+              <tr>
+                <td>AAC</td>
+                <td>AUSTRALIAN COMPANY </td>
+                <td>$1.38</td>
+                <td>+2.01</td>
+              </tr>
+              <tr>
+                <td>AAC</td>
+                <td>AUSTRALIAN COMPANY </td>
+                <td>$1.38</td>
+                <td>+2.01</td>
+              </tr>
+              <tr>
+                <td>AAC</td>
+                <td>AUSTRALIAN COMPANY </td>
+                <td>$1.38</td>
+                <td>+2.01</td>
+              </tr>
+              <tr>
+                <td>AAC</td>
+                <td>AUSTRALIAN COMPANY </td>
+                <td>$1.38</td>
+                <td>+2.01</td>
+              </tr>
+              <tr>
+                <td>AAC</td>
+                <td>AUSTRALIAN COMPANY </td>
+                <td>$1.38</td>
+                <td>+2.01</td>
+              </tr>
+              <tr>
+                <td>AAC</td>
+                <td>AUSTRALIAN COMPANY </td>
+                <td>$1.38</td>
+                <td>+2.01</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div id="info">
+            <div class="info-info">
+               <div id="info-name">
+                <span>Име: Радослав Гурев</span>
+               </div>
+
+                <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
+                <div class="stats">
+                    
+                    <span>
+                        Училище: СПГЕ "Джон Атанасов"
+                    </span>
+                    <br><br>
+                    <span>
+                        Телефон: 088 8888 888
+                    </span>
+                    <br><br>
+                    <span>
+                        Клас: 11б
+                    </span>
+                </div>
+            </div>
+            <i class="fa-solid fa-user-graduate fa-2xl info-icon"></i>
+      </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script src="menu.js"></script>
+<script src="charts.js"></script>
+</html>

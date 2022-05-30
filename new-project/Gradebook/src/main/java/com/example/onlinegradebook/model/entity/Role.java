@@ -12,6 +12,8 @@ import javax.persistence.Table;
 public class Role extends BaseEntity {
     private Roles role;
 
+
+
     @Enumerated(EnumType.STRING)
     public Roles getRole() {
         return role;

@@ -1,0 +1,110 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="responseTable-style.css">
+    <link rel="stylesheet" href="/main menu/nav.css">
+</head>
+<body>
+    <input class="menu-icon" type="checkbox" id="menu-icon" name="menu-icon"/>
+    <label for="menu-icon"></label>
+  	<nav class="nav"> 		
+  		<ul class="pt-5">
+  			<li><a href="#"><i class="fa-solid fa-graduation-cap"></i> Оценки</a></li>
+        <li><a href="#"><i class="fa-solid fa-circle-exclamation"></i> Отсъствия</a></li>
+              <li><a href="#"><i class="fa-solid fa-medal"></i> Отзиви</a></li>
+  		</ul>
+  	</nav>
+      <div class="container">
+
+            <div class="user">
+                <div>
+                    <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
+                    <p><i class="fa-solid fa-graduation-cap"></i> Radoslav Gurev</p>
+                </div>
+            </div>
+
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Учител</th>
+                    <th>Предмет</th>
+                    <th>Забележки</th>
+                    <th>Похвали</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row">
+                    <td class="num">1</td>
+                    <td><i class="fa-solid fa-person-chalkboard fa-lg"></i> Мариана Василева</td>
+                    <td><i class="fa-solid fa-book-open"></i> Математика</td>
+                    <td>
+                        <div class="grade-semester gra" style="background-color: rgb(180, 31, 31);">
+                                <p>3</p>
+                                <div class="absences">
+                                    <div class="absence">
+                                        <p class="info">2022-12-19 11:55:34</p>
+                                        <p class="info">Час: 6</p>
+                                        <p class="info">Въведено от: Анка Ушанова</p>
+                                        <p class="info">Плебей</p>
+                                        <p class="info">0</p>
+                                    </div>
+                                    <div class="absence">
+                                        <p class="info">2022-02-19 11:55:34</p>
+                                        <p class="info">Час: 5</p>
+                                        <p class="info">Въведено от: Анка Ушанова</p>
+                                        <p class="info">Лоша дисциплина</p>
+                                        <p class="info">0</p>
+                                    </div>
+                                    <div class="absence">
+                                        <p class="info">2022-03-19 11:55:34</p>
+                                        <p class="info">Час: 4</p>
+                                        <p class="info">Въведено от: Анка Ушанова</p>
+                                        <p class="info">Без униформа</p>
+                                        <p class="info">0</p>
+                                    </div>
+                                </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="grade-semester gra" style="background-color: rgb(134, 255, 134);">
+                            <p>2</p>
+                           <div class="absences">
+                            <div class="absence">
+                                <p class="info">2022-03-19 11:55:34</p>
+                                <p class="info">Час: 4</p>
+                                <p class="info">Въведено от: Анка Ушанова</p>
+                                <p class="info">Изпълнена задача</p>
+                                <p class="info">0</p>
+                            </div>
+
+                            <div class="absence">
+                                <p class="info">2022-03-19 11:55:34</p>
+                                <p class="info">Час: 4</p>
+                                <p class="info">Въведено от: Анка Ушанова</p>
+                                <p class="info">Изпълнена задача</p>
+                                <p class="info">0</p>
+                            </div>
+                           </div>
+                        </div>
+                    </td>
+                       
+                </tr>               
+            </tbody>
+        </table>
+
+        <!-- <div id="add-info" class="additional-info">
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+        </div> -->
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="responseTable.js"></script>
+</html>

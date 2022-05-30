@@ -36,10 +36,10 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/","/login","/register").permitAll()
 //                .antMatchers("/teachers/entergrades").hasAnyRole("STUDENT")
-                .antMatchers("/**").authenticated().and().formLogin().loginPage("/dashboard")
+                .antMatchers("/**").authenticated().and().formLogin().loginPage("/login")
                 .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
                 .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
-                .defaultSuccessUrl("/users")
+                .defaultSuccessUrl("/dashboard")
                 .failureForwardUrl("/login-error")
                 .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")

@@ -1,0 +1,152 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="programTable-style.css">
+    <link rel="stylesheet" href="/main menu/nav.css">
+</head>
+<body>
+    <a class="exit-button" href=""><i class="fa-solid fa-arrow-right-from-bracket fa-3x"></i></a>
+
+      <div class="container">
+
+            <div class="user">
+                <div>
+                    <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
+                    <p><i class="fa-solid fa-graduation-cap"></i> Radoslav Gurev</p>
+                </div>
+            </div>
+
+            <div class="toogle-container">
+                <div class="toggle-button-cover">
+                    <div class="button-cover">
+                        <p><i id="switch-icon" class="fa-solid fa-eye"></i></p>
+                      <div class="button r" id="button-1">
+                        <input type="checkbox" id="change-box" class="checkbox" />
+                        <div class="knobs"></div>
+                        <div class="layer"></div>
+                      </div>
+                    </div>
+                  </div> 
+            </div>
+
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Понеделник</th>
+                    <th>Вторник</th>
+                    <th>Сряда</th>
+                    <th>Четвърък</th>
+                    <th>Петък</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row">
+                    <td class="num">1</td>
+                        
+                    <td>
+                        <div>
+                            <p>Операционни Систени</p>
+                           <div class="class-info">
+                            <p class="teacher">11в</p>
+                            <p class="room">5.7</p>
+                           </div>
+                        </div>
+                    </td>
+                    <td>
+                      <p> Физическо възпитание и спорт </p>
+                      <div class="class-info">
+                        <p class="teacher">11б</p>
+                        <p class="room">ФС</p>
+                      </div>
+                    </td>
+                    <td>
+                        <p>Обектно ориентирано програмиране</p>
+                       <div class="class-info">
+                        <p class="teacher">9ж</p>
+                        <p class="room">6.2</p>
+                      </div>
+                    </td>
+                    <td>
+                       <p>Обектно ориентирано програмиране</p>
+                       <div class="class-info">
+                        <p class="teacher">10а</p>
+                        <p class="room">6.2</p>
+                      </div>
+                    </td>
+                    <td>
+                        <p>Бизнес комуникации</p>
+                        <div class="class-info">
+                         <p class="teacher">12р</p>
+                         <p class="room">2.2</p>
+                       </div>
+                    </td>
+                </tr>               
+            </tbody>
+        </table>
+
+        <table id="table2">
+            <thead>
+                <tr>
+                   
+                    <th>Учител</th>
+                    <th>Предмет</th>
+                    <th>Час</th>
+                    <th>Ден</th>
+                    <th>Клас</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row">
+                        
+                    <td>
+                       <p>Анка Ушанова</p>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">Програмиране</option>
+                            <option value="">C#</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                            <option value="">4</option>
+                            <option value="">5</option>
+                        </select>
+                    </td>
+                    <td>
+                       <select name="" id="">
+                          <option value="">Понеделник</option>
+                          <option value="">Вторник</option>
+                          <option value="">Сряда</option>
+                          <option value="">Четвърък</option>
+                          <option value="">Петък</option>
+                       </select>
+                    </td>
+                    <td>
+                       <Select>
+                           <option value="">8a</option>
+                           <option value="">8б</option>
+                           <option value="">8в</option>
+                           <option value="">8г</option>
+                           <option value="">8д</option>
+                           <option value="">8е</option>
+                           <option value="">8ж</option>
+
+                       </Select>
+                    </td>
+                </tr>               
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="programTable.js"></script>
+</html>
