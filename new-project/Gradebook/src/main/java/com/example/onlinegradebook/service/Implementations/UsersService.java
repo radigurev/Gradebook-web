@@ -35,7 +35,7 @@ public class UsersService implements UserService {
     @Override
     public String getName(String name) {
         User user = userRepository.findByEmail(name).orElse(null);
-
+        System.out.println();
         return String.format("%s %s",user.getFirstName(),user.getLastName());
     }
 }

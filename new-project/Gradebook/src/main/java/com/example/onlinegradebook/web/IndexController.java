@@ -49,7 +49,7 @@ public class IndexController {
     public String dashboard(Model model) {
         System.out.println();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("Name",userService.getName(auth.getName()));
+        model.addAttribute("studentName",userService.getName(auth.getName()));
         if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_teacher")))
         return "TeacherUI/dashboard";
          else if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_parent")))

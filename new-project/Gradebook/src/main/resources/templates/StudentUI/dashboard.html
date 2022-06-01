@@ -1,14 +1,18 @@
-html lang="en">
+<html class="mainBody" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main menu</title>
-    <link rel="stylesheet" href="menu-style.css">
-    <link rel="stylesheet" href="nav.css">
-    <link rel="stylesheet" href="table.css">
+    <link rel="stylesheet" href="/css/StudentUI/menu-style.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/table.css">
 </head>
 <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
+<script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script defer src="/js/StudentUI/menu.js"></script>
 <body>
 
 
@@ -154,7 +158,7 @@ html lang="en">
       <div id="info">
             <div class="info-info">
                <div id="info-name">
-                <span>Име: Радослав Гурев</span>
+                <span th:text="|Име: ${studentName}|">Име: Радослав Гурев</span>
                </div>
 
                 <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
@@ -176,8 +180,4 @@ html lang="en">
             <i class="fa-solid fa-user-graduate fa-2xl info-icon"></i>
       </div>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-<script src="menu.js"></script>
-<script src="charts.js"></script>
 </html>
