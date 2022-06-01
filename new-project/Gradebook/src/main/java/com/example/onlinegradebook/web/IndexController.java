@@ -47,15 +47,14 @@ public class IndexController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
-        System.out.println();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("studentName",userService.getName(auth.getName()));
-        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_teacher")))
+
+          if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_admin")))
+            return "AdminUI/dashboard";
+        else if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_teacher")))
         return "TeacherUI/dashboard";
          else if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_parent")))
             return "ParentUI/dashboard";
-         else if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_admin")))
-            return "AdminUI/dashboard";
          else
             return "StudentUI/dashboard";
     }

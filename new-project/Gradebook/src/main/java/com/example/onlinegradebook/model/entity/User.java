@@ -1,5 +1,8 @@
 package com.example.onlinegradebook.model.entity;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -10,8 +13,9 @@ public class User extends BaseEntity {
     private String firstName;
     private String middleName;
     private String lastName;
-    private String school;
     private String password;
+    private School school;
+    private Classes userClass;
     private Set<Role> role;
 
     @Column(name = "email")
@@ -22,6 +26,7 @@ public class User extends BaseEntity {
     public void setEmail(String email) {
         this.email = email;
     }
+
     @Column(name = "first_name")
     public String getFirstName() {
         return firstName;
@@ -30,6 +35,7 @@ public class User extends BaseEntity {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
     @Column(name = "middle_name")
     public String getMiddleName() {
         return middleName;
@@ -38,6 +44,7 @@ public class User extends BaseEntity {
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
     }
+
     @Column(name = "last_name")
     public String getLastName() {
         return lastName;
@@ -46,14 +53,25 @@ public class User extends BaseEntity {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    @Column(name = "school")
-    public String getSchool() {
+
+    @ManyToOne
+    public Classes getUserClass() {
+        return userClass;
+    }
+
+    public void setUserClass(Classes userClass) {
+        this.userClass = userClass;
+    }
+
+    @ManyToOne
+    public School getSchool() {
         return school;
     }
 
-    public void setSchool(String school) {
+    public void setSchool(School school) {
         this.school = school;
     }
+
 
     public String getPassword() {
         return password;

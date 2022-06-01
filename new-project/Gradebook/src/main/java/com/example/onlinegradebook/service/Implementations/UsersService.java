@@ -2,6 +2,7 @@ package com.example.onlinegradebook.service.Implementations;
 
 import com.example.onlinegradebook.model.entity.Role;
 import com.example.onlinegradebook.model.entity.User;
+import com.example.onlinegradebook.model.view.DashboardInfoText;
 import com.example.onlinegradebook.repository.UserRepository;
 import com.example.onlinegradebook.service.RoleService;
 import com.example.onlinegradebook.service.UserService;
@@ -33,9 +34,11 @@ public class UsersService implements UserService {
     }
 
     @Override
-    public String getName(String name) {
+    public DashboardInfoText getUserInformationForDashboard(String name) {
         User user = userRepository.findByEmail(name).orElse(null);
-        System.out.println();
-        return String.format("%s %s",user.getFirstName(),user.getLastName());
+
+        return new DashboardInfoText(String.format("%s %s",user.getFirstName(),user.getLastName()),user.getSchool().getName(),user.getEmail(),user.getUserClass().getClassNumber());
     }
+
+
 }
