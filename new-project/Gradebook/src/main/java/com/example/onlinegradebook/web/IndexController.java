@@ -49,13 +49,28 @@ public class IndexController {
     public String dashboard(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-          if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_admin")))
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String currentPrincipalName = authentication.getName();
+
+        model.addAttribute("dashboardInfo", userService.getUserInformationForDashboard(currentPrincipalName));
+        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_admin")))
             return "AdminUI/dashboard";
         else if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_teacher")))
-        return "TeacherUI/dashboard";
-         else if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_parent")))
+            return "TeacherUI/dashboard";
+        else if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_parent")))
             return "ParentUI/dashboard";
-         else
+        else
             return "StudentUI/dashboard";
+    }
+
+    @GetMapping("/error-login")
+    public String errorLogin() {
+        return "login";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "redirect:/error-login";
     }
 }

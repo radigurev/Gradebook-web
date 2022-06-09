@@ -1,12 +1,14 @@
-<html lang="en">
+<html class="mainBody" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main menu</title>
-    <link rel="stylesheet" href="menu-style.css">
-    <link rel="stylesheet" href="nav.css">
-    <link rel="stylesheet" href="table.css">
+    <link rel="stylesheet" href="css/AdminUI/menu-style.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/table.css">
 </head>
 <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
 <body>
@@ -16,9 +18,10 @@
     <label for="menu-icon"></label>
   	<nav class="nav"> 		
   		<ul class="pt-5">
-  			<li><a href="#"><i class="fa-solid fa-graduation-cap"></i> Оценки</a></li>
+  			<li><a href="#"><i class="fa-solid fa-graduation-cap"></i>Оценки</a></li>
         <li><a href="#"><i class="fa-solid fa-circle-exclamation"></i> Отсъствия</a></li>
               <li><a href="#"><i class="fa-solid fa-medal"></i> Отзиви</a></li>
+              <li><a href="#"><i class="fa-solid fa-medal"></i> Учители</a></li>
   		</ul>
   	</nav>
 
@@ -79,10 +82,10 @@
           <table cellpadding="0" cellspacing="0" border="0">
             <thead>
               <tr>
-                <th>Code</th>
-                <th>Company</th>
-                <th>Price</th>
-                <th>Change</th>
+                <th>№</th>
+                <th>Предмет</th>
+                <th>Участници</th>
+                <th>Създател</th>
               </tr>
             </thead>
           </table>
@@ -91,60 +94,11 @@
           <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
               <tr onclick="window.location='#asda'">
-                <td>AAC</td>
-                <td>AUSTRALIAN COMPANY </td>
-                <td>$1.38</td>
-                <td>+2.01</td>
+                <td>1</td>
+                <td>Нов електронен дневник</td>
+                <td>1226</td>
+                <td>Мариела Харизанова</td>
               </tr>
-              <tr>
-                <td>AAC</td>
-                <td>AUSTRALIAN COMPANY </td>
-                <td>$1.38</td>
-                <td>+2.01</td>
-              </tr>
-              <tr>
-                <td>AAC</td>
-                <td>AUSTRALIAN COMPANY </td>
-                <td>$1.38</td>
-                <td>+2.01</td>
-              </tr>
-              <tr>
-                <td>AAC</td>
-                <td>AUSTRALIAN COMPANY </td>
-                <td>$1.38</td>
-                <td>+2.01</td>
-              </tr>
-              <tr>
-                <td>AAC</td>
-                <td>AUSTRALIAN COMPANY </td>
-                <td>$1.38</td>
-                <td>+2.01</td>
-              </tr>
-              <tr>
-                <td>AAC</td>
-                <td>AUSTRALIAN COMPANY </td>
-                <td>$1.38</td>
-                <td>+2.01</td>
-              </tr>
-              <tr>
-                <td>AAC</td>
-                <td>AUSTRALIAN COMPANY </td>
-                <td>$1.38</td>
-                <td>+2.01</td>
-              </tr>
-              <tr>
-                <td>AAC</td>
-                <td>AUSTRALIAN COMPANY </td>
-                <td>$1.38</td>
-                <td>+2.01</td>
-              </tr>
-              <tr>
-                <td>AAC</td>
-                <td>AUSTRALIAN COMPANY </td>
-                <td>$1.38</td>
-                <td>+2.01</td>
-              </tr>
-              
             </tbody>
           </table>
         </div>
@@ -153,22 +107,22 @@
       <div id="info">
             <div class="info-info">
                <div id="info-name">
-                <span>Име: Радослав Гурев</span>
+                <spanc th:text="|Име: ${dashboardInfo.getName()}|">Име: Радослав Гурев</spanc>
                </div>
 
                 <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
                 <div class="stats">
                     
-                    <span>
+                    <span th:text="|Училище: ${dashboardInfo.getSchool()}|">
                         Училище: СПГЕ "Джон Атанасов"
                     </span>
                     <br><br>
-                    <span>
+                    <span th:text="|Телефон: ${dashboardInfo.getPhoneNumber()}|">
                         Телефон: 088 8888 888
                     </span>
                     <br><br>
-                    <span>
-                        Класен: 11б
+                    <span th:text="|Клас: ${dashboardInfo.getUserClass()}|">
+                        Клас: 11б
                     </span>
                 </div>
             </div>
@@ -177,6 +131,6 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-<script src="menu.js"></script>
+<script src="/js/AdminUI/menu.js"></script>
 <script src="charts.js"></script>
 </html>

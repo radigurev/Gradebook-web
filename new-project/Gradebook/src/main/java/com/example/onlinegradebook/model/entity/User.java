@@ -15,6 +15,7 @@ public class User extends BaseEntity {
     private String lastName;
     private String password;
     private School school;
+    private String phoneNumber;
     private Classes userClass;
     private Set<Role> role;
 
@@ -43,6 +44,14 @@ public class User extends BaseEntity {
 
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Column(name = "last_name")

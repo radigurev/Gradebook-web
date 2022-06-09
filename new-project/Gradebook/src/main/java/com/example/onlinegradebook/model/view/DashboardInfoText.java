@@ -1,15 +1,20 @@
 package com.example.onlinegradebook.model.view;
 
+import java.util.ArrayList;
+
 public class DashboardInfoText {
     private String name;
     private String school;
-    private String email;
+    private String phoneNumber;
     private String userClass;
 
-    public DashboardInfoText(String name, String school, String email, String userClass) {
+    public DashboardInfoText() {
+    }
+
+    public DashboardInfoText(String name, String school, String phoneNumber, String userClass) {
         this.name = name;
         this.school = school;
-        this.email = email;
+        this.phoneNumber = phoneNumber;
         this.userClass = userClass;
     }
 
@@ -29,12 +34,12 @@ public class DashboardInfoText {
         this.school = school;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getUserClass() {
