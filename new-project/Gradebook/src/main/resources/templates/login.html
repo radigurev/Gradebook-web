@@ -17,9 +17,11 @@
 			<div class="signup">
 				<form th:action="@{/login}" th:method="POST">
 					<label for="chk" aria-hidden="true">Login</label>
-					<input id="username" name="username" type="email" placeholder="Email" required="">
+					<input id="username" th:value="${email}" name="username" type="email" placeholder="Email" required="">
 					<input id="password" name="password" type="password" placeholder="Парола" required="">
 					<button type="submit">Login</button>
+
+					<p th:if="${invalid_login}" class="bad-credentials">Invalid email address or password</p>
 				</form>
 			</div>
 

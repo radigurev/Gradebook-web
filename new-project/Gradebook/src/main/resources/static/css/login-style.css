@@ -23,6 +23,15 @@ body{
 	width:100%;
 	height: 100%;
 }
+
+.bad-credentials {
+	color: rgba(255, 0, 0, 0.68);
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	text-align: center;
+}
+
 label{
 	color: #fff;
 	font-size: 2.3em;

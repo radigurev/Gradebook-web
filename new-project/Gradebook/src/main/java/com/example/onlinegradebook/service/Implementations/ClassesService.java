@@ -5,6 +5,8 @@ import com.example.onlinegradebook.repository.ClassesRepository;
 import com.example.onlinegradebook.service.ClassService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClassesService implements ClassService {
 
@@ -17,5 +19,10 @@ public class ClassesService implements ClassService {
     @Override
     public Classes getClass(String number) {
         return classesRepository.findByClassNumber(number);
+    }
+
+    @Override
+    public List<Classes> getAll() {
+        return classesRepository.findAll();
     }
 }

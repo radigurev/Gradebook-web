@@ -3,6 +3,9 @@ package com.example.onlinegradebook.model.view;
 import java.util.ArrayList;
 
 public class DashboardInfoText {
+
+    //TODO -> Array for message table should be after adding messages to the DB and website
+
     private String name;
     private String school;
     private String phoneNumber;

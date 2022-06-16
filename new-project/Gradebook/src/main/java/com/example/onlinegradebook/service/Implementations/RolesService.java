@@ -35,6 +35,11 @@ public class RolesService implements RoleService {
     }
 
     @Override
+    public Role getTeacherRole() {
+        return roleRepository.findByRole(Roles.teacher);
+    }
+
+    @Override
     public List<Role> returnRoles() {
         return roleRepository.findAll();
     }

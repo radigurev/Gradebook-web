@@ -8,11 +8,13 @@ import com.example.onlinegradebook.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -64,13 +66,19 @@ public class IndexController {
             return "StudentUI/dashboard";
     }
 
-    @GetMapping("/error-login")
-    public String errorLogin() {
-        return "login";
+    @PostMapping("/login-error")
+    public String loginError(@ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+                                     String email, RedirectAttributes attributes){
+
+        attributes.addFlashAttribute("invalid_login",true);
+        attributes.addFlashAttribute("email",email);
+
+        return "redirect:/";
     }
+
 
     @GetMapping("/login")
     public String login() {
-        return "redirect:/error-login";
+        return "redirect:/";
     }
 }

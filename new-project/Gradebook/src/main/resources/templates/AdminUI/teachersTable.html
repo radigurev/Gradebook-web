@@ -1,80 +1,86 @@
-<html lang="en">
+<html class="mainBody" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="teachersTable-style.css">
+    <link rel="stylesheet" href="/css/AdminUI/teachersTable-style.css">
 </head>
 <body>
-    <a class="exit-button" href=""><i class="fa-solid fa-arrow-right-from-bracket fa-3x"></i></a>
-
       <div class="container">
+          <a class="exit-button" href=""><i class="fa-solid fa-arrow-right-from-bracket fa-3x"></i></a>
 
-            <div class="user">
+          <div class="user">
                 <div>
                     <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
                     <p><i class="fa-solid fa-graduation-cap"></i> Radoslav Gurev</p>
                 </div>
             </div>
-            <button onclick="tbChange()" class="add-button">Добави учител</button>
+
+          <div onclick="tbChange()" class="wrapper" title="Sort">
+        <span class="fa-stack fa-lg">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i id="icon" class="fa-solid fa-eye fa-stack-1x fa-inverse"></i>
+          </span>
+          </div>
+
         <table id="table">
             <thead>
                 <tr>
                     <th>№</th>
                     <th>Учител</th>
+                    <th>Предмет</th>
+                    <th>Клас</th>
                     <th></th>
-                   
                 </tr>
             </thead>
             <tbody>
-                <tr class="row">
-                    <td class="num">1</td>
+                <tr class="row" th:each="t,iter : ${teachers}">
+                    <td class="num" th:text="${iter.index + 1}">1</td>
                         
                     <td>
                         <div>
-                            <p>Анка Ушанова</p>
+                            <p th:text="|${t.firstName} ${t.middleName} ${t.lastName}|"><i class="fa-solid fa-person-chalkboard"></i> Анка Ушанова</p>
                         </div>
                     </td>
                     <td>
-                     <button class="button-a">Премахване</button>
+                       <div>
+                           <select class="row-select">
+                               <option th:each="s : ${subjects}" th:value="${s.name}" th:text="${s.name}">aas</option>
+                           </select>
+                           <a class="row-button">Добави</a>
+                       </div>
+                    </td>
+                    <td>
+                        <div>
+                            <select class="row-select">
+                                <option th:each="c : ${classes}" th:value="${c.classNumber}" th:text="${c.classNumber}">aas</option>
+                            </select>
+                            <a href="#" class="row-button">Добави</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="remove-button">
+                            <div class="text">Премахни</div>
+                        </div>
                     </td>
                 </tr>
-                <tr class="row">
-                    <td class="num">2</td>
-                        
-                    <td>
-                        <div>
-                            <p>Анка Ушанова</p>
-                        </div>
-                    </td>
-                    <td>
-                     <button class="button-a">Премахване</button>
-                    </td>
-                    <tr class="row">
-                        <td class="num">2</td>
-                            
-                        <td>
-                            <div>
-                                <p>Анка Ушанова</p>
-                            </div>
-                        </td>
-                        <td>
-                            <button class="button-a">Премахване</button>
-                        
-                        </td>
-                    </tr>      
-                </tr>             
+
             </tbody>
         </table>
 
-        
-       <div id="table2" class="add-teachers">
-
-       </div>
+          <form th:action="@{/admin/teachers}" th:method="POST" th:object="${teacherBindingModel}">
+              <div id="table2" class="add-teachers">
+                  <input th:field="*{firstName}" type="text" placeholder="Име">
+                  <input th:field="*{lastName}" type="text" placeholder="Фамилия">
+                  <input th:field="*{email}" type="text" placeholder="Email">
+                  <button>Готово</button>
+              </div>
+          </form>
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="teachersTable.js"></script>
+<script src="/js/AdminUI/teachersTable.js"></script>
 </html>
