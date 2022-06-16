@@ -131,6 +131,7 @@ th, td {
     font-family: sans-serif,Arial, Helvetica;
     
 }
+
 thead th {
     background-color: #078282FF;
 }
@@ -192,12 +193,21 @@ tbody td {
     margin-left: 40px;
     color: #fff;
     border: #fff solid;
+    z-index: 2;
 }
 
 .user p {
     margin-top: -35px;
     margin-left: 80px;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.nav-buttons {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
+    z-index: 1;
 }
 
 .user img {
@@ -207,12 +217,12 @@ tbody td {
     border-radius: 50%;
 }
 
-.wrapper:hover .fa-stack{
+ .fa-stack:hover{
     transition: 0.9s;
     transform: rotateY(180deg);
     cursor: pointer;
 }
-.wrapper .fa-stack {
+ .fa-stack {
     transition: 0.9s;
 }
 .fa-circle {
@@ -248,8 +258,8 @@ tbody td {
 }
 
 .row-button {
-
-    padding: 7px;
+    border: none;
+    padding: 8px;
     border-radius: 15px;
     text-align: center;
     color: black;
@@ -272,6 +282,7 @@ tbody td {
     color: black;
     transition: all .6s ease-out;
     display: block;
+    text-decoration: none;
 }
 
 .text:hover {

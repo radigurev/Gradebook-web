@@ -1,9 +1,18 @@
-package com.example.onlinegradebook.model.view;
+package com.example.onlinegradebook.model.view.admin;
 
 public class AdminTeacherTableViewModel {
+    private String id;
     private String firstName;
     private String lastName;
     private String middleName;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;

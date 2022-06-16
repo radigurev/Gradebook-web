@@ -10,7 +10,29 @@
 </head>
 <body>
       <div class="container">
-          <a class="exit-button" href=""><i class="fa-solid fa-arrow-right-from-bracket fa-3x"></i></a>
+          <div class="nav-buttons">
+            <span onclick="window.location='/dashboard'" title="grades" class="fa-stack fa-lg">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-graduation-cap fa-stack-1x fa-inverse"></i>
+          </span>
+              <span class="fa-stack fa-lg" title="absences">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-exclamation fa-stack-1x fa-inverse"></i>
+          </span>
+              </span>
+              <span class="fa-stack fa-lg" title="responses">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-medal fa-stack-1x fa-inverse"></i>
+          </span>
+              <span class="fa-stack fa-lg" title="teachers">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-person-chalkboard fa-stack-1x fa-inverse"></i>
+         </span>
+              <span class="fa-stack fa-lg" title="dashboard">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-arrow-right-from-bracket fa-stack-1x fa-inverse"></i>
+          </span>
+          </div>
 
           <div class="user">
                 <div>
@@ -19,7 +41,7 @@
                 </div>
             </div>
 
-          <div onclick="tbChange()" class="wrapper" title="Sort">
+          <div onclick="tbChange()" class="wrapper">
         <span class="fa-stack fa-lg">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i id="icon" class="fa-solid fa-eye fa-stack-1x fa-inverse"></i>
@@ -30,9 +52,9 @@
             <thead>
                 <tr>
                     <th>№</th>
-                    <th>Учител</th>
-                    <th>Предмет</th>
-                    <th>Клас</th>
+                    <th><i class="fa-solid fa-person-chalkboard"></i> Учител</th>
+                    <th><i class="fa-solid fa-book"></i> Предмет</th>
+                    <th><i class="fa-solid fa-people-group"></i> Клас</th>
                     <th></th>
                 </tr>
             </thead>
@@ -42,28 +64,33 @@
                         
                     <td>
                         <div>
-                            <p th:text="|${t.firstName} ${t.middleName} ${t.lastName}|"><i class="fa-solid fa-person-chalkboard"></i> Анка Ушанова</p>
+                        <p th:text="|${t.firstName} ${t.middleName} ${t.lastName}|">Name name name</p>
                         </div>
                     </td>
                     <td>
-                       <div>
-                           <select class="row-select">
-                               <option th:each="s : ${subjects}" th:value="${s.name}" th:text="${s.name}">aas</option>
-                           </select>
-                           <a class="row-button">Добави</a>
-                       </div>
+
+                        <form th:action="@{/admin/teacher/add/subject/{id}/(id=${t.id})}" th:method="POST" th:object="${adminGetTeacherUpdate}">
+                            <div>
+                                <select th:field="*{update}" class="row-select">
+                                    <option th:each="s : ${subjects}" th:value="${s.name}" th:text="${s.name}">aas</option>
+                                </select>
+                                <button class="row-button">Добави</button>
+                            </div>
+                        </form>
                     </td>
                     <td>
-                        <div>
-                            <select class="row-select">
-                                <option th:each="c : ${classes}" th:value="${c.classNumber}" th:text="${c.classNumber}">aas</option>
-                            </select>
-                            <a href="#" class="row-button">Добави</a>
-                        </div>
+                        <form th:action="@{/admin/teacher/add/class/{id}/(id=${t.id})}" th:method="POST" th:object="${adminGetTeacherUpdate}">
+                            <div>
+                                <select th:field="*{update}" class="row-select">
+                                    <option th:each="c : ${classes}" th:value="${c.classNumber}" th:text="${c.classNumber}">aas</option>
+                                </select>
+                                <button class="row-button">Добави</button>
+                            </div>
+                        </form>
                     </td>
                     <td>
                         <div class="remove-button">
-                            <div class="text">Премахни</div>
+                            <a th:href="@{/admin/teacher/remove/{id}/(id=${t.id})}" class="text">Премахни</a>
                         </div>
                     </td>
                 </tr>

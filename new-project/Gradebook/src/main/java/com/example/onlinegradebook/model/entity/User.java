@@ -18,6 +18,8 @@ public class User extends BaseEntity {
     private String phoneNumber;
     private Classes userClass;
     private Set<Role> role;
+    private Set<UsersSubjects> subjects;
+
 
     @Column(name = "email")
     public String getEmail() {

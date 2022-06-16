@@ -6,6 +6,7 @@ import com.example.onlinegradebook.service.ClassService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClassesService implements ClassService {
@@ -23,6 +24,6 @@ public class ClassesService implements ClassService {
 
     @Override
     public List<Classes> getAll() {
-        return classesRepository.findAll();
+        return classesRepository.findAll().stream().filter(c -> !c.getClassNumber().equals("None")).collect(Collectors.toList());
     }
 }

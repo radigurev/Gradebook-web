@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface SubjectService {
     List<Subjects> getAll();
+
+    Subjects getSubjectByName(String name);
 }

@@ -20,4 +20,9 @@ public class SubjectsService implements SubjectService {
     public List<Subjects> getAll() {
         return subjectRepository.findAll();
     }
+
+    @Override
+    public Subjects getSubjectByName(String name) {
+        return subjectRepository.getByName(name);
+    }
 }
