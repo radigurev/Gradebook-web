@@ -73,5 +73,14 @@ public class AdminController {
         return "redirect:/admin/teachers";
     }
 
+    @GetMapping("/material")
+    public String getMaterialPage() {
+        return "AdminUI/materialTable";
+    }
+    @GetMapping("/classes")
+    public String getClassesPage() {
+        return "/AdminUI/classTable";
+    }
+
 
 }

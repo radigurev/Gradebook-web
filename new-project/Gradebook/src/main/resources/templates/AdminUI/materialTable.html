@@ -5,31 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="materialTable-style.css">
+    <link rel="stylesheet" href="/css/AdminUI/materialTable-style.css">
 </head>
 <body>
-    <a class="exit-button" href=""><i class="fa-solid fa-arrow-right-from-bracket fa-3x"></i></a>
-
       <div class="container">
-
+          <div class="nav-buttons">
+            <span title="grades" class="fa-stack fa-lg">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-graduation-cap fa-stack-1x fa-inverse"></i>
+          </span>
+              <span class="fa-stack fa-lg" title="absences">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-exclamation fa-stack-1x fa-inverse"></i>
+          </span>
+              </span>
+              <span class="fa-stack fa-lg" title="responses">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-medal fa-stack-1x fa-inverse"></i>
+          </span>
+              <span class="fa-stack fa-lg" title="teachers">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-person-chalkboard fa-stack-1x fa-inverse"></i>
+         </span>
+              <span onclick="window.location='/dashboard'"  class="fa-stack fa-lg" title="dashboard">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-arrow-right-from-bracket fa-stack-1x fa-inverse"></i>
+          </span>
+          </div>
             <div class="user">
                 <div>
                     <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
                     <p><i class="fa-solid fa-graduation-cap"></i> Radoslav Gurev</p>
                 </div>
             </div>
-            <div class="toogle-container">
-                <div class="toggle-button-cover">
-                    <div class="button-cover">
-                        <p><i id="switch-icon" class="fa-solid fa-eye"></i></p>
-                      <div class="button r" id="button-1">
-                        <input type="checkbox" id="change-box" class="checkbox" />
-                        <div class="knobs"></div>
-                        <div class="layer"></div>
-                      </div>
-                    </div>
-                  </div> 
-            </div>
+
+          <div onclick="tbChange()" class="wrapper">
+        <span class="fa-stack fa-lg">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i id="icon" class="fa-solid fa-eye fa-stack-1x fa-inverse"></i>
+          </span>
+          </div>
+
+          <div id="add-remove-div">
+              <span onclick="addRow()" id="plus-button" class="fa-stack fa-lg">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-plus fa-stack-1x fa-inverse"></i>
+          </span>
+              <span onclick="removeRow()" id="minus-button" class="fa-stack fa-lg">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-minus fa-stack-1x fa-inverse"></i>
+          </span>
+          </div>
         <table id="table">
             <thead>
                 <tr>
@@ -50,6 +76,7 @@
                     </td>
                     <td>
                      <button class="button-a">Не Взет</button>
+                        <p class="isItTaken" style="display: none;"></p>
                     </td>
                 </tr>
                 <tr class="row">
@@ -62,10 +89,11 @@
                     </td>
                     <td>
                      <button class="button-a">Не Взет</button>
+                        <p class="isItTaken" style="display: none;"></p>
                     </td>
                     <tr class="row">
                         <td class="num">2</td>
-                            
+
                         <td>
                             <div>
                                 <p>Произведението "Крадеца на праскови"</p>
@@ -77,9 +105,9 @@
                             <p>Дата: 2012.10.12</p>
                             <p>2</p>
                      </div></button>
-                        
+
                         </td>
-                    </tr>      
+                    </tr>
                 </tr>             
             </tbody>
         </table>
@@ -89,9 +117,8 @@
             <thead>
                 <tr>
                     <th>№</th>
-                    <th>Материал</th>
-                    <th>Взет</th>
-                   
+                    <th><i class="fa-solid fa-book-open"></i> Предмет</th>
+                    <th><i class="fa-solid fa-book"></i> Материал</th>
                 </tr>
             </thead>
             <tbody>
@@ -100,29 +127,31 @@
                         
                     <td>
                         <div>
-                            <p>Предмет: <i class="fa-solid fa-book-open"></i> Математика</p>
+                            <p>Предмет: </i> Математика</p>
                         </div>
                     </td>
                     <td>
                      <input class="material-input" type="text">
                     </td>
                 </tr>
-                <tr class="row">
-                    <td class="num">1</td>
-                        
-                    <td>
-                        <div>
-                            <p>Предмет: <i class="fa-solid fa-book-open"></i> Математика</p>
-                        </div>
-                    </td>
-                    <td>
-                     <input class="material-input" type="text">
-                    </td>
-                </tr>        
             </tbody>
         </table>
+
+         <div id="select-wrapper">
+             <select name="" id="subjects">
+                 <option value="">Math</option>
+                 <option value="">Programing</option>
+                 <option value="">English</option>
+             </select>
+
+             <select name="" id="">
+                 <option value="">11a</option>
+                 <option value="">11b</option>
+                 <option value="">11v</option>
+             </select>
+         </div>
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="materialTable.js"></script>
+<script src="/js/AdminUI/materialTable.js"></script>
 </html>

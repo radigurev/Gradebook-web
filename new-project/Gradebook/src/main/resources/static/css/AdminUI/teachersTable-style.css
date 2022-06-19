@@ -202,19 +202,19 @@ tbody td {
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 
+.user img {
+    margin: 8px;
+    height: 35px;
+    width: 45px;
+    border-radius: 50%;
+}
+
 .nav-buttons {
     position: absolute;
     left: 50%;
     top: 20px;
     transform: translateX(-50%);
     z-index: 1;
-}
-
-.user img {
-    margin: 8px;
-    height: 35px;
-    width: 45px;
-    border-radius: 50%;
 }
 
  .fa-stack:hover{
