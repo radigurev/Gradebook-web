@@ -34,4 +34,4 @@ function tbChange() {
         table.style.left="50%";
     }
     document.getElementById('table').style.top = 150;
-};
+}
