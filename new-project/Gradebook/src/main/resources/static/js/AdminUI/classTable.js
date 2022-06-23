@@ -7,6 +7,7 @@ const table2 = document.getElementById('table2');
 const icon = document.getElementById('icon');
 const iconTable = document.getElementById('icon-table-change');
 const secondButton=document.getElementById('second-button');
+const selects=document.getElementById('select-wrapper');
 table.style.top=150;
 
 rows.forEach(r => {
@@ -16,8 +17,15 @@ rows.forEach(r => {
     i+=300;
 });
 
-function changeEditTables() {
-
+function addClass() {
+    let width=$(window).width();
+    console.log(width)
+        if(width>1200) {
+            selects.style.left = '70%';
+            table2.style.left = '30%';
+        }else {
+            document.getElementById('above-table-buttons').style.left=0;
+        }
 }
 
 function tbChange() {
@@ -27,7 +35,6 @@ function tbChange() {
         table2.style.left="50%";
         icon.classList.remove("fa-eye");
         icon.classList.add('fa-pen');
-        table2.style.width = 700;
         secondButton.classList.remove('second-button');
         setTimeout(function () {
             secondButton.style.opacity=1;
@@ -35,6 +42,7 @@ function tbChange() {
     } else {
         icon.classList.add("fa-eye");
         icon.classList.remove('fa-pen');
+        selects.style.left='160%';
         table2.style.left="150%";
         table.style.left="50%";
         secondButton.classList.remove('second-button');

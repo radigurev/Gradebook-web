@@ -6,34 +6,45 @@
     <title>Document</title>
     <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/AdminUI/classTable-style.css">
-    <link rel="stylesheet" href="/main menu/nav.css">
 </head>
 <body>
 
       <div class="container">
 
           <div class="nav-buttons">
-            <span title="grades" class="fa-stack fa-lg">
+
+              <div class="nav-wrapper">
+                   <span title="grades" class="fa-stack fa-lg">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i  class="fa-solid fa-graduation-cap fa-stack-1x fa-inverse"></i>
           </span>
-              <span class="fa-stack fa-lg" title="absences">
+              </div>
+
+            <div class="nav-wrapper">
+                  <span class="fa-stack fa-lg" title="absences">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i  class="fa-solid fa-exclamation fa-stack-1x fa-inverse"></i>
           </span>
+            </div>
               </span>
-              <span class="fa-stack fa-lg" title="responses">
+            <div class="nav-wrapper">
+                  <span class="fa-stack fa-lg" title="responses">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i  class="fa-solid fa-medal fa-stack-1x fa-inverse"></i>
           </span>
-              <span class="fa-stack fa-lg" title="teachers">
+            </div>
+            <div class="nav-wrapper">
+                  <span class="fa-stack fa-lg" title="teachers">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i  class="fa-solid fa-person-chalkboard fa-stack-1x fa-inverse"></i>
          </span>
-              <span onclick="window.location='/dashboard'"  class="fa-stack fa-lg" title="dashboard">
+            </div>
+            <div class="nav-wrapper">
+                  <span onclick="window.location='/dashboard'"  class="fa-stack fa-lg" title="dashboard">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i  class="fa-solid fa-arrow-right-from-bracket fa-stack-1x fa-inverse"></i>
           </span>
+            </div>
           </div>
 
             <div class="user">
@@ -43,17 +54,21 @@
                 </div>
             </div>
 
-          <div onclick="tbChange()" class="wrapper">
+
+          <div class="above-table-buttons">
+              <div onclick="tbChange()" class="wrapper">
         <span class="fa-stack fa-lg">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i id="icon" class="fa-solid fa-eye fa-stack-1x fa-inverse"></i>
           </span>
-          </div>
-
-          <span id="second-button" class="fa-stack fa-lg second-button">
+              </div>
+              <div onclick="addClass()" class="nav-wrapper">
+                  <span id="second-button" class="fa-stack fa-lg second-button">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i id="icon-table-change" class="fa-solid fa-eye fa-stack-1x fa-inverse"></i>
           </span>
+              </div>
+          </div>
 
 
           <table id="table">
@@ -112,7 +127,7 @@
               </tbody>
           </table>
 
-          <div id="add-class">
+          <div id="select-wrapper">
               <form action="">
                   <select name="">
                       <option>1</option>
@@ -135,6 +150,7 @@
                       <option value="">в</option>
                       <option value="">г</option>
                   </select>
+                  <button>Confirm</button>
               </form>
           </div>
     </div>
