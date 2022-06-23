@@ -55,7 +55,7 @@
             </div>
 
 
-          <div class="above-table-buttons">
+          <div id="buttons-div" class="above-table-buttons">
               <div onclick="tbChange()" class="wrapper">
         <span class="fa-stack fa-lg">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
@@ -74,36 +74,64 @@
           <table id="table">
               <thead>
               <tr>
+                  <th>№</th>
                   <th>Клас</th>
-                  <th>Взет</th>
+                  <th>Класен</th>
               </tr>
               </thead>
               <tbody>
               <tr class="row">
-
+                <td>1</td>
                   <td>
                       <div>
-                          <p><i class="fa-solid fa-users-line"></i> Клас: 11б</p>
+                          <p>11б</p>
                       </div>
                   </td>
                   <td>
-                      <a href="" class="button">Отвори</a>
+                      <p>Ivan</p>
                   </td>
               </tr>
               <tr class="row">
-
+                <td>2</td>
                   <td>
                       <div>
-                          <p><i class="fa-solid fa-users-line"></i> Клас: 11в</p>
+                          <p>11в</p>
                       </div>
                   </td>
                   <td>
-                      <a href="" class="button">Отвори</a>
+                      <p>Ivan</p>
                   </td>
               </tr>
               </tbody>
           </table>
 
+
+          <div class="cd-popup" role="alert">
+              <div class="cd-popup-container">
+                  <section id="table3" class="tablee">
+                      <div class="tbl-header">
+                          <table cellpadding="0" cellspacing="0" border="0">
+                              <thead>
+                              <tr>
+                                  <th>№</th>
+                                  <th>Име</th>
+                                  <th>Клас</th>
+                                  <th>Премахни</th>
+                              </tr>
+                              </thead>
+                          </table>
+                      </div>
+                      <div class="tbl-content">
+                          <table cellpadding="0" cellspacing="0" border="0">
+                              <tbody>
+                             <tr></tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </section>
+<!--                  <a href="#0" class="cd-popup-close img-replace">Close</a>-->
+              </div>
+          </div>
 
           <table id="table2">
               <thead>
@@ -121,6 +149,11 @@
                       </div>
                   </td>
                   <td>
+                      <select >
+                          <option value="">11а</option>
+                          <option value="">11б</option>
+                          <option value="">11в</option>
+                      </select>
                       <a href="" class="button">Отвори</a>
                   </td>
               </tr>
@@ -150,10 +183,31 @@
                       <option value="">в</option>
                       <option value="">г</option>
                   </select>
-                  <button>Confirm</button>
+                  <button class="add-button">Confirm</button>
               </form>
           </div>
-    </div>
+
+      </div>
+
+
+        <div id="students-div" style="display: none;">
+            <div>
+                <p>Radoslav Gurev</p>
+                <p>11б</p>
+            </div>
+            <div>
+                <p>Lora Dimitrova</p>
+                <p>11б</p>
+            </div>
+            <div>
+            <p>Luboslav Stancov</p>
+            <p>11б</p>
+        </div>
+            <div>
+                <p>Radoslav Velikin</p>
+                <p>11в</p>
+            </div>
+        </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/js/AdminUI/classTable.js"></script>
