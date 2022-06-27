@@ -12,6 +12,7 @@ const secondButton=document.getElementById('second-button');
 const selects=document.getElementById('select-wrapper');
 const aboveButtons=document.getElementById('buttons-div');
 let numberInTable=1;
+var studentsByClass=JSON.parse(test.replace(/&quot;/g, '"'));
 table.style.top=150;
 
 students.remove();
@@ -23,23 +24,26 @@ rows.forEach(r => {
     i+=300;
 });
 
+
+
 for (let i=0; i<tableOneRows.length;i++) {
     jQuery(document).ready(function($){
         $(tableOneRows[i]).on('click', function(event){
             event.preventDefault();
             const classNumber=tableOneRows[i].childNodes[3].childNodes[1].childNodes[1].textContent;
-            for (let j = 0; j < students.childNodes.length; j++) {
-                if(j%2!==0 && classNumber===students.childNodes[j].childNodes[3].textContent) {
+            for (let j = 0; j < Object.keys(studentsByClass).length; j++) {
+                if(studentsByClass.classes[j]===classNumber) {
                     var html=' <tr>\n' +
-                        '                                  <td>'+numberInTable+'</td>\n' +
-                        '                                  <td>'+students.childNodes[j].childNodes[1].textContent+'</td>\n' +
-                        '                                  <td>'+students.childNodes[j].childNodes[3].textContent+'</td>\n' +
-                        '                                  <td><a th:href="" class="remove-button">Remove</a></td>\n' +
-                        '                              </tr>';
-                    numberInTable++;
+                                '                                  <td>'+numberInTable+'</td>\n' +
+                                '                                  <td>'+studentsByClass.names[j]+'</td>\n' +
+                                '                                  <td>'+studentsByClass.classes[j]+'</td>\n' +
+                                '                                  <td><a th:href="" class="remove-button">Remove</a></td>\n' +
+                                '                              </tr>';
+                            numberInTable++;
                     $('#table3 tbody>').eq(-1).after(html);
                 }
             }
+
             $('.cd-popup').addClass('is-visible');
 
         });

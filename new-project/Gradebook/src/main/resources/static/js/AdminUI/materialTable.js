@@ -68,6 +68,7 @@ function addRow() {
 function removeRow() {
     $('#table2>tbody>').eq(rowNum-1).remove();
     rowNum--;
+    rowNum--;
 }
 
 function tbChange() {

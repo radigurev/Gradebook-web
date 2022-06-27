@@ -65,12 +65,13 @@
               <div onclick="addClass()" class="nav-wrapper">
                   <span id="second-button" class="fa-stack fa-lg second-button">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
-            <i id="icon-table-change" class="fa-solid fa-eye fa-stack-1x fa-inverse"></i>
+            <i id="icon-table-change" class="fa-solid fa-plus fa-stack-1x fa-inverse"></i>
           </span>
               </div>
           </div>
 
-
+        <h1 th:text="${test}">t</h1>
+          <h1 id="asdasd"></h1>
           <table id="table">
               <thead>
               <tr>
@@ -209,6 +210,12 @@
             </div>
         </div>
 </body>
+
+<script>
+    var test ='[[${kyswe}]]';
+
+</script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/js/AdminUI/classTable.js"></script>
 </html>

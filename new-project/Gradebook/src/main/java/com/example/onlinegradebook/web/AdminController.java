@@ -1,10 +1,14 @@
 package com.example.onlinegradebook.web;
 
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
+import com.example.onlinegradebook.model.view.admin.AdminClassesViewModel;
 import com.example.onlinegradebook.model.view.admin.AdminGetTeacherUpdate;
 import com.example.onlinegradebook.service.Implementations.ClassesService;
 import com.example.onlinegradebook.service.SubjectService;
 import com.example.onlinegradebook.service.UserService;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -77,9 +81,35 @@ public class AdminController {
         return "AdminUI/materialTable";
     }
     @GetMapping("/classes")
-    public String getClassesPage() {
+    public String getClassesPage(Model model) {
+
+        //TODO method that returns objects of students with attributes for table #1
+        JsonArray names=new JsonArray();
+        JsonArray classes=new JsonArray();
+        JsonObject jsonObject=new JsonObject();
+        names.add("Radoslav Gurev");
+        names.add("AdasdasdA aSDAdadasd");
+        classes.add("11б");
+        classes.add("11в");
+        jsonObject.add("names",names);
+        jsonObject.add("classes",classes);
+        String json=jsonObject.toString();
+        model.addAttribute("kyswe",json);
+
+        //TODO a method that removes a given student from his school class
+
         return "/AdminUI/classTable";
     }
+
+    @GetMapping("/students")
+    public String getStudentsPage() {
+
+        //TODO Populate both tables and make functionality
+
+        return "/AdminUI/studentsTable";
+
+    }
+
 
 
 }
