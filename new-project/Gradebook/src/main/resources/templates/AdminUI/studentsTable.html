@@ -1,4 +1,5 @@
-<html lang="en">
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -57,60 +58,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="row students">
-                    <td class="num">1</td>
+                <tr th:each="r,iter : ${schoolStudents}" class="row students">
+                    <td th:text="${iter.index+1}" class="num">1</td>
                         
                     <td>
                         <div>
-                            <p>Радослав Гурев</p>
+                            <p th:text="|${r.getFirstName()} ${r.getLastName()}|">Радослав Гурев</p>
                         </div>
                     </td>
                     <td>
-                     radi.gurev@gmail.com
+                     <p th:text="${r.getEmail()}">email@domain.</p>
                     </td>
                     <td>
                         11б
                     </td>
                     <td>
-                        <a class="remove-button" href="">Изгони</a>
-                    </td>
-                </tr>
-
-                <tr class="row students">
-                    <td class="num">1</td>
-
-                    <td>
-                        <div>
-                            <p>Цветан Христов</p>
-                        </div>
-                    </td>
-                    <td>
-                        cucu@abv.bg
-                    </td>
-                    <td>
-                        11б
-                    </td>
-                    <td>
-                        <a class="remove-button" href="">Изгони</a>
-                    </td>
-                </tr>
-
-                <tr class="row students">
-                    <td class="num">1</td>
-
-                    <td>
-                        <div>
-                            <p>Иван Бързев</p>
-                        </div>
-                    </td>
-                    <td>
-                        ivan.barzev@gmail.com
-                    </td>
-                    <td>
-                        11б
-                    </td>
-                    <td>
-                        <a class="remove-button" href="">Изгони</a>
+                        <a th:href="@{/admin/students/remove/{id}/(id=${r.id})}" class="remove-button" href="">Изгони</a>
                     </td>
                 </tr>
             </tbody>
@@ -134,67 +97,23 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="row users">
-                <td class="num">1</td>
+            <tr th:each="r,iter : ${unassignedUsers}" class="row users">
+                <td th:text="${iter.index}+1" class="num">1</td>
 
                 <td>
                     <div>
-                        <p>Радослав Гурев</p>
+                        <p th:text="|${r.firstName} ${r.lastName}|">fistName lastName</p>
                     </div>
                 </td>
                 <td>
-                    <p>radi.gurev@gmail.com</p>
+                    <p th:text="${r.email}">email@domain</p>
                 </td>
                 <td>
-                    <a class="add-button" href="">Приеми</a>
-                </td>
-            </tr>
-            <tr class="row users">
-                <td class="num">1</td>
-
-                <td>
-                    <div>
-                        <p>Алиса Спасова</p>
-                    </div>
-                </td>
-                <td>
-                    <p>alice.spassova@gmail.com</p>
-                </td>
-                <td>
-                    <a class="add-button" href="">Приеми</a>
-                </td>
-            </tr>
-            <tr class="row users">
-                <td class="num">1</td>
-
-                <td>
-                    <div>
-                        <p>Любослав Станков</p>
-                    </div>
-                </td>
-                <td>
-                    <p>luboslavstancov@gmail.com</p>
-                </td>
-                <td>
-                    <a class="add-button" href="">Приеми</a>
+                    <a th:href="@{/admin/students/add/{id}/(id=${r.id})}" class="add-button" href="">Приеми</a>
                 </td>
             </tr>
             </tbody>
         </table>
-
-         <div id="select-wrapper">
-             <select name="" id="subjects">
-                 <option value="">Math</option>
-                 <option value="">Programing</option>
-                 <option value="">English</option>
-             </select>
-
-             <select name="" id="">
-                 <option value="">11a</option>
-                 <option value="">11b</option>
-                 <option value="">11v</option>
-             </select>
-         </div>
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

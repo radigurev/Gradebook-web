@@ -2,6 +2,7 @@ package com.example.onlinegradebook.service;
 
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
 import com.example.onlinegradebook.model.entity.User;
+import com.example.onlinegradebook.model.view.admin.AdminStudentsTableView;
 import com.example.onlinegradebook.model.view.admin.AdminTeacherTableViewModel;
 import com.example.onlinegradebook.model.view.DashboardInfoText;
 
@@ -21,4 +22,12 @@ public interface UserService {
     void updateTeacherClass(String id, String update);
 
     void removeTeacher(String id);
+
+    User getUser();
+
+    List<AdminStudentsTableView> getUsersBySchool(String school);
+
+    void updateUserSchool(String id);
+
+    void removeUserFromSchool(String id);
 }

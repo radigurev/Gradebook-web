@@ -1,9 +1,11 @@
 package com.example.onlinegradebook.web;
 
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
+import com.example.onlinegradebook.model.entity.School;
 import com.example.onlinegradebook.model.view.admin.AdminClassesViewModel;
 import com.example.onlinegradebook.model.view.admin.AdminGetTeacherUpdate;
 import com.example.onlinegradebook.service.Implementations.ClassesService;
+import com.example.onlinegradebook.service.SchoolService;
 import com.example.onlinegradebook.service.SubjectService;
 import com.example.onlinegradebook.service.UserService;
 import com.google.gson.JsonArray;
@@ -102,14 +104,26 @@ public class AdminController {
     }
 
     @GetMapping("/students")
-    public String getStudentsPage() {
-
+    public String getStudentsPage(Model model) {
         //TODO Populate both tables and make functionality
-
+        model.addAttribute("unassignedUsers",userService.getUsersBySchool("None"));
+        model.addAttribute("schoolStudents",userService.getUsersBySchool(userService.getUser().getSchool().getName()));
         return "/AdminUI/studentsTable";
-
     }
 
+    @GetMapping("/students/add/{id}")
+    public String addUserToSchool(@PathVariable String id) {
+        userService.updateUserSchool(id);
+
+        return "redirect:/admin/students";
+    }
+
+    @GetMapping("students/remove/{id}")
+    public String removeUserFromSchool(@PathVariable String id) {
+        userService.removeUserFromSchool(id);
+
+        return "redirect:/admin/students";
+    }
 
 
 }

@@ -4,6 +4,7 @@ import com.example.onlinegradebook.model.binding.TeacherBindingModel;
 import com.example.onlinegradebook.model.entity.Role;
 import com.example.onlinegradebook.model.entity.User;
 import com.example.onlinegradebook.model.entity.UsersSubjects;
+import com.example.onlinegradebook.model.view.admin.AdminStudentsTableView;
 import com.example.onlinegradebook.model.view.admin.AdminTeacherTableViewModel;
 import com.example.onlinegradebook.model.view.DashboardInfoText;
 import com.example.onlinegradebook.repository.UserRepository;
@@ -14,9 +15,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 @Service
 public class UsersService implements UserService {
@@ -54,8 +57,8 @@ public class UsersService implements UserService {
 
     //Information for users dashboard
     @Override
-    public DashboardInfoText getUserInformationForDashboard(String name) {
-        User user = userRepository.findByEmail(name).orElse(null);
+    public DashboardInfoText getUserInformationForDashboard(String email) {
+        User user = userRepository.findByEmail(email).orElse(null);
 
         assert user != null;
         return new DashboardInfoText(String.format("%s %s",user.getFirstName(),user.getLastName()),user.getSchool().getName(),user.getPhoneNumber(),user.getUserClass().getClassNumber());
@@ -65,7 +68,7 @@ public class UsersService implements UserService {
     @Override
     public void saveTeacher(TeacherBindingModel teacherBindingModel) {
 
-        User admin=getUserEmail();
+        User admin=getUser();
         User user= modelMapper.map(teacherBindingModel,User.class);
 
         Set<Role> roles=new HashSet<>();
@@ -83,7 +86,7 @@ public class UsersService implements UserService {
 
     @Override
     public List<AdminTeacherTableViewModel> getAllTeacherNames() {
-       User admin=getUserEmail();
+       User admin=getUser();
 
         assert admin != null;
 
@@ -118,10 +121,32 @@ public class UsersService implements UserService {
         userRepository.deleteById(id);
     }
 
+    //Get all unassigned users
+    @Override
+    public List<AdminStudentsTableView> getUsersBySchool(String school) {
+        Set<Role> roles=new HashSet<>();
+        roles.add(roleService.getStudentRole());
+
+        System.out.println();
+        return userRepository.getAllBySchoolAndRoleIn(schoolservice.findSchool(school),roles)
+                .stream()
+                .map(u -> modelMapper.map(u, AdminStudentsTableView.class)).toList();
+    }
+
+    @Override
+    public void updateUserSchool(String id) {
+        userRepository.updateSchool(getUser().getSchool(),id);
+    }
+
+    @Override
+    public void removeUserFromSchool(String id) {
+        userRepository.updateSchool(schoolservice.findSchool("None"), id);
+    }
+
 
     //Getting current user email
-
-    private User getUserEmail() {
+    @Override
+    public User getUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username;
         if (principal instanceof UserDetails) {
