@@ -1,25 +1,27 @@
 package com.example.onlinegradebook.service.Implementations;
 
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
+import com.example.onlinegradebook.model.entity.Classes;
 import com.example.onlinegradebook.model.entity.Role;
+import com.example.onlinegradebook.model.entity.School;
 import com.example.onlinegradebook.model.entity.User;
-import com.example.onlinegradebook.model.entity.UsersSubjects;
+import com.example.onlinegradebook.model.view.admin.AdminGetClassesWithTeacher;
+import com.example.onlinegradebook.model.view.admin.AdminGetNonAssignedStudentsViewModel;
 import com.example.onlinegradebook.model.view.admin.AdminStudentsTableView;
 import com.example.onlinegradebook.model.view.admin.AdminTeacherTableViewModel;
 import com.example.onlinegradebook.model.view.DashboardInfoText;
 import com.example.onlinegradebook.repository.UserRepository;
 import com.example.onlinegradebook.service.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Stream;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UsersService implements UserService {
@@ -51,6 +53,7 @@ public class UsersService implements UserService {
         user.setRole(roles);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setSchool(schoolservice.findSchool("None"));
+        user.setMiddleName("");
         user.setUserClass(classService.getClass("None"));
         userRepository.saveAndFlush(user);
     }
@@ -76,6 +79,7 @@ public class UsersService implements UserService {
         user.setRole(roles);
         user.setPassword(passwordEncoder.encode("newUser123"));
         user.setMiddleName("");
+//        user.setUserClass(classService.getClass("None"));
         assert admin != null;
         user.setSchool(schoolservice.findSchool(admin.getSchool().getName()));
         userRepository.saveAndFlush(user);
@@ -141,6 +145,71 @@ public class UsersService implements UserService {
     @Override
     public void removeUserFromSchool(String id) {
         userRepository.updateSchool(schoolservice.findSchool("None"), id);
+    }
+
+    @Override
+    public String getUsersBySchoolInJson(School school) {
+        JsonArray names=new JsonArray();
+        JsonArray id=new JsonArray();
+        JsonArray classes=new JsonArray();
+        JsonObject jsonObject=new JsonObject();
+        Set<Role> roles=new HashSet<>();
+        roles.add(roleService.getStudentRole());
+     userRepository.getAllBySchoolAndRoleIn(school, roles)
+      .forEach(s -> {
+            String name;
+            if (s.getMiddleName()==null)
+                name=String.format("%s %s",s.getFirstName(),s.getLastName());
+            else
+                name=String.format("%s %s. %s",s.getFirstName(),s.getLastName().charAt(0),s.getLastName());
+
+           if (!(s.getUserClass().getClassNumber().equals("None"))) {
+               id.add(s.getId());
+               names.add(name);
+               classes.add(s.getUserClass().getClassNumber());
+           }
+        });
+        jsonObject.add("ids",id);
+        jsonObject.add("names",names);
+        jsonObject.add("classes",classes);
+
+        return jsonObject.toString();
+    }
+
+    @Override
+    public List<AdminGetNonAssignedStudentsViewModel> getUsersBySchoolAndClass() {
+        Set<Role> roles=new HashSet<>();
+        roles.add(roleService.getStudentRole());
+        return userRepository
+                .getAllBySchoolAndUserClassAndRoleIn(getUser().getSchool(), classService.getClass("None"),roles)
+                .stream()
+                .map(s -> modelMapper.map(s, AdminGetNonAssignedStudentsViewModel.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AdminGetClassesWithTeacher> getClassWithTeacher() {
+        Set<Role> roles=new HashSet<>();
+        roles.add(roleService.getTeacherRole());
+
+        return userRepository
+                .getAllBySchoolAndRoleIn(getUser().getSchool(), roles)
+                .stream()
+                .filter(t -> t.getUserClass()!=null)
+                .map(t -> modelMapper.map(t,AdminGetClassesWithTeacher.class))
+                .collect(Collectors.toList());
+
+    }
+
+    @Override
+    public void addUserToClass(String id,String userClass) {
+        System.out.println();
+        userRepository.updateClass(id,classService.getClass(userClass));
+    }
+
+    @Override
+    public void removeUserFromClass(String id) {
+        userRepository.updateClass(id,classService.getClass("None"));
     }
 
 

@@ -172,12 +172,12 @@ tbody td {
     z-index: 1;
 }
 
-.fa-stack:hover{
+.wrapper:hover .fa-stack, .nav-wrapper:hover .fa-stack{
     transition: 0.9s;
     transform: rotateY(180deg);
     cursor: pointer;
 }
-.fa-stack {
+.wrapper .fa-stack,.nav-wrapper .fa-stack {
     transition: 0.9s;
 }
 .fa-circle {
@@ -187,12 +187,18 @@ tbody td {
 .wrapper{
     display: inline-block;
     width: 50px;
-    /* border: 1px red solid; */
     overflow: hidden;
     text-align: center;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.nav-wrapper {
+    display: inline-block;
+    width: 50px;
+    overflow: hidden;
+    text-align: center;
 }
 
 .button-a {

@@ -17,7 +17,9 @@ import java.util.Set;
 public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByEmail(String email);
 
-    Collection<User> getAllBySchoolAndRoleIn(School school, Set<Role> roles);
+    List<User> getAllBySchoolAndRoleIn(School school, Set<Role> roles);
+
+    List<User> getAllBySchoolAndUserClassAndRoleIn(School school, Classes classes, Set<Role> roles);
 
     @Transactional
     @Modifying

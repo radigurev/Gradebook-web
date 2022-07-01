@@ -1,4 +1,5 @@
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +13,6 @@
       <div class="container">
 
           <div class="nav-buttons">
-
               <div class="nav-wrapper">
                    <span title="grades" class="fa-stack fa-lg">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
@@ -70,7 +70,6 @@
               </div>
           </div>
 
-        <h1 th:text="${test}">t</h1>
           <h1 id="asdasd"></h1>
           <table id="table">
               <thead>
@@ -81,28 +80,18 @@
               </tr>
               </thead>
               <tbody>
-              <tr class="row">
-                <td>1</td>
+              <tr th:each="c,iter : ${schoolClasses}" class="row">
+                <td th:text="${iter.index+1}">1</td>
                   <td>
                       <div>
-                          <p>11б</p>
+                          <p th:text="${c.userClass}" >11б</p>
                       </div>
                   </td>
                   <td>
-                      <p>Ivan</p>
+                      <p th:text="|${c.firstName} ${c.middleName} ${c.lastName}|">Ivan</p>
                   </td>
               </tr>
-              <tr class="row">
-                <td>2</td>
-                  <td>
-                      <div>
-                          <p>11в</p>
-                      </div>
-                  </td>
-                  <td>
-                      <p>Ivan</p>
-                  </td>
-              </tr>
+
               </tbody>
           </table>
 
@@ -142,21 +131,22 @@
               </tr>
               </thead>
               <tbody>
-              <tr class="row">
-
-                  <td>
-                      <div>
-                          <p><i class="fa-solid fa-users-line"></i> Клас: 11б</p>
-                      </div>
-                  </td>
-                  <td>
-                      <select >
-                          <option value="">11а</option>
-                          <option value="">11б</option>
-                          <option value="">11в</option>
-                      </select>
-                      <a href="" class="button">Отвори</a>
-                  </td>
+              <tr class="row" th:each="s : ${nonAssignedStudents}">
+                  <form th:action="@{/admin/students/add/class/{id}(id=${s.id})}" th:method="POST" th:object="${adminUpdateStudentClass}">
+                      <td>
+                          <div>
+                              <p th:text="|${s.firstName} ${s.middleName} ${s.lastName}|">Name name</p>
+                          </div>
+                          <p style="display: none
+" th:text="${s.id}" th:field="*{id}"></p>
+                      </td>
+                      <td>
+                          <select th:field="*{userClass}">
+                              <option  th:each="c : ${classes}" th:text="${c.classNumber}" th:value="${c.classNumber}">11а</option>
+                          </select>
+                          <button th:href="@{/admin/students/add/class{id}(id=${s.id})}" class="button">Отвори</button>
+                      </td>
+                  </form>
               </tr>
               </tbody>
           </table>
@@ -179,40 +169,31 @@
                   </select>
 
                   <select name="">
-                      <option value="">а</option>
-                      <option value="">б</option>
-                      <option value="">в</option>
-                      <option value="">г</option>
+                      <option value="а">а</option>
+                      <option value="б">б</option>
+                      <option value="в">в</option>
+                      <option value="г">г</option>
+                      <option value="г">д</option>
+                      <option value="е">е</option>
+                      <option value="ж">ж</option>
+                      <option value="з">з</option>
+                      <option value="и">и</option>
+                      <option value="к">к</option>
+                      <option value="л">л</option>
+                      <option value="м">м</option>
+                      <option value="н">н</option>
+                      <option value="о">о</option>
+                      <option value="п">п</option>
                   </select>
                   <button class="add-button">Confirm</button>
               </form>
           </div>
 
       </div>
-
-
-        <div id="students-div" style="display: none;">
-            <div>
-                <p>Radoslav Gurev</p>
-                <p>11б</p>
-            </div>
-            <div>
-                <p>Lora Dimitrova</p>
-                <p>11б</p>
-            </div>
-            <div>
-            <p>Luboslav Stancov</p>
-            <p>11б</p>
-        </div>
-            <div>
-                <p>Radoslav Velikin</p>
-                <p>11в</p>
-            </div>
-        </div>
 </body>
 
 <script>
-    var test ='[[${kyswe}]]';
+    var test ='[[${studentsAndTheirClass}]]';
 
 </script>
 

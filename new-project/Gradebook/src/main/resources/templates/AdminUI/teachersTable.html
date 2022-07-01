@@ -67,7 +67,7 @@
                     </td>
                     <td>
 
-                        <form th:action="@{/admin/teacher/add/subject/{id}/(id=${t.id})}" th:method="POST" th:object="${adminGetTeacherUpdate}">
+                        <form th:action="@{/admin/teacher/add/subject/{id}/(id=${t.id})}" th:method="POST" th:object="${adminGetTeacherUpdateBindingModel}">
                             <div>
                                 <select th:field="*{update}" class="row-select">
                                     <option th:each="s : ${subjects}" th:value="${s.name}" th:text="${s.name}">aas</option>
@@ -77,7 +77,7 @@
                         </form>
                     </td>
                     <td>
-                        <form th:action="@{/admin/teacher/add/class/{id}/(id=${t.id})}" th:method="POST" th:object="${adminGetTeacherUpdate}">
+                        <form th:action="@{/admin/teacher/add/class/{id}/(id=${t.id})}" th:method="POST" th:object="${adminGetTeacherUpdateBindingModel}">
                             <div>
                                 <select th:field="*{update}" class="row-select">
                                     <option th:each="c : ${classes}" th:value="${c.classNumber}" th:text="${c.classNumber}">aas</option>

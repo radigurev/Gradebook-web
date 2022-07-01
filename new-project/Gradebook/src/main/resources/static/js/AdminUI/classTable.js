@@ -15,8 +15,6 @@ let numberInTable=1;
 var studentsByClass=JSON.parse(test.replace(/&quot;/g, '"'));
 table.style.top=150;
 
-students.remove();
-
 rows.forEach(r => {
     setTimeout(() => {
         r.style.opacity=1;
@@ -37,7 +35,7 @@ for (let i=0; i<tableOneRows.length;i++) {
                                 '                                  <td>'+numberInTable+'</td>\n' +
                                 '                                  <td>'+studentsByClass.names[j]+'</td>\n' +
                                 '                                  <td>'+studentsByClass.classes[j]+'</td>\n' +
-                                '                                  <td><a th:href="" class="remove-button">Remove</a></td>\n' +
+                                '                                  <td><a href="/admin/students/remove/class/'+studentsByClass.ids[j]+'" class="remove-button">Remove</a></td>\n' +
                                 '                              </tr>';
                             numberInTable++;
                     $('#table3 tbody>').eq(-1).after(html);

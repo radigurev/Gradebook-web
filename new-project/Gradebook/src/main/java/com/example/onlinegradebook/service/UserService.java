@@ -1,7 +1,10 @@
 package com.example.onlinegradebook.service;
 
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
+import com.example.onlinegradebook.model.entity.School;
 import com.example.onlinegradebook.model.entity.User;
+import com.example.onlinegradebook.model.view.admin.AdminGetClassesWithTeacher;
+import com.example.onlinegradebook.model.view.admin.AdminGetNonAssignedStudentsViewModel;
 import com.example.onlinegradebook.model.view.admin.AdminStudentsTableView;
 import com.example.onlinegradebook.model.view.admin.AdminTeacherTableViewModel;
 import com.example.onlinegradebook.model.view.DashboardInfoText;
@@ -30,4 +33,14 @@ public interface UserService {
     void updateUserSchool(String id);
 
     void removeUserFromSchool(String id);
+
+    String getUsersBySchoolInJson(School school);
+
+    List<AdminGetNonAssignedStudentsViewModel> getUsersBySchoolAndClass();
+
+    List<AdminGetClassesWithTeacher> getClassWithTeacher();
+
+    void addUserToClass(String id,String userClass);
+
+    void removeUserFromClass(String id);
 }

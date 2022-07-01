@@ -1,16 +1,11 @@
 package com.example.onlinegradebook.web;
 
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
-import com.example.onlinegradebook.model.entity.School;
-import com.example.onlinegradebook.model.view.admin.AdminClassesViewModel;
-import com.example.onlinegradebook.model.view.admin.AdminGetTeacherUpdate;
+import com.example.onlinegradebook.model.binding.admin.AdminGetTeacherUpdateBindingModel;
+import com.example.onlinegradebook.model.binding.admin.AdminUpdateStudentClass;
 import com.example.onlinegradebook.service.Implementations.ClassesService;
-import com.example.onlinegradebook.service.SchoolService;
 import com.example.onlinegradebook.service.SubjectService;
 import com.example.onlinegradebook.service.UserService;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +18,13 @@ public class AdminController {
         return new TeacherBindingModel();
         }
         @ModelAttribute
-        public AdminGetTeacherUpdate adminGetTeacherUpdate() {
-        return new AdminGetTeacherUpdate();
+        public AdminGetTeacherUpdateBindingModel adminGetTeacherUpdate() {
+        return new AdminGetTeacherUpdateBindingModel();
+        }
+
+        @ModelAttribute
+        public AdminUpdateStudentClass updateStudentClass() {
+        return new AdminUpdateStudentClass();
         }
 
     private final UserService userService;
@@ -56,7 +56,7 @@ public class AdminController {
     //@{/admin/teacher/add/subject/{id}/(id=${t.id})}
 
     @PostMapping("/teacher/add/subject/{id}")
-    public String addSubjectToTeacher(@PathVariable String id,AdminGetTeacherUpdate adminGetTeacherUpdate) {
+    public String addSubjectToTeacher(@PathVariable String id, AdminGetTeacherUpdateBindingModel adminGetTeacherUpdate) {
 
         userService.updateTeacherSubject(adminGetTeacherUpdate.getUpdate(),id);
 
@@ -64,7 +64,8 @@ public class AdminController {
     }
 
     @PostMapping("/teacher/add/class/{id}")
-    public String addClassToTeacher(@PathVariable String id, AdminGetTeacherUpdate adminGetTeacherUpdate) {
+    public String addClassToTeacher(@PathVariable String id, AdminGetTeacherUpdateBindingModel adminGetTeacherUpdate) {
+
         userService.updateTeacherClass(id,adminGetTeacherUpdate.getUpdate());
 
         return "redirect:/admin/teachers";
@@ -80,32 +81,26 @@ public class AdminController {
 
     @GetMapping("/material")
     public String getMaterialPage() {
+        //TODO There is a UI bug with adding new lines for meterial + resizing
+        //TODO Populate tables and selects after
+        //TODO make functionality for adding, removing material
         return "AdminUI/materialTable";
     }
     @GetMapping("/classes")
     public String getClassesPage(Model model) {
-
-        //TODO method that returns objects of students with attributes for table #1
-        JsonArray names=new JsonArray();
-        JsonArray classes=new JsonArray();
-        JsonObject jsonObject=new JsonObject();
-        names.add("Radoslav Gurev");
-        names.add("AdasdasdA aSDAdadasd");
-        classes.add("11б");
-        classes.add("11в");
-        jsonObject.add("names",names);
-        jsonObject.add("classes",classes);
-        String json=jsonObject.toString();
-        model.addAttribute("kyswe",json);
-
-        //TODO a method that removes a given student from his school class
-
+        //returns students without classes
+        model.addAttribute("nonAssignedStudents",userService.getUsersBySchoolAndClass());
+        //getting existing classes
+        model.addAttribute("classes",classesService.getAll());
+        //get classes with head teacher
+        model.addAttribute("schoolClasses",userService.getClassWithTeacher());
+        //Returns users with school and class
+        model.addAttribute("studentsAndTheirClass",userService.getUsersBySchoolInJson(userService.getUser().getSchool()));
         return "/AdminUI/classTable";
     }
 
     @GetMapping("/students")
     public String getStudentsPage(Model model) {
-        //TODO Populate both tables and make functionality
         model.addAttribute("unassignedUsers",userService.getUsersBySchool("None"));
         model.addAttribute("schoolStudents",userService.getUsersBySchool(userService.getUser().getSchool().getName()));
         return "/AdminUI/studentsTable";
@@ -125,5 +120,18 @@ public class AdminController {
         return "redirect:/admin/students";
     }
 
+    @GetMapping("students/remove/class/{id}")
+    public String removeUserFromClass(@PathVariable String id) {
+        System.out.println();
+        userService.removeUserFromClass(id);
+        return "redirect:/admin/classes";
+    }
+
+    @PostMapping("/students/add/class/{id}")
+    public String addStudentToClass(@PathVariable String id,AdminUpdateStudentClass adminUpdateStudentClass) {
+        userService.addUserToClass(id,adminUpdateStudentClass.getUserClass());
+
+        return "redirect:/admin/classes";
+    }
 
 }
