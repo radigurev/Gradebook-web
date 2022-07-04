@@ -1,4 +1,5 @@
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,30 +9,40 @@
     <link rel="stylesheet" href="/css/AdminUI/materialTable-style.css">
 </head>
 <body>
-      <div class="container">
-          <div class="nav-buttons">
-            <span title="grades" class="fa-stack fa-lg">
+<div class="nav-buttons">
+    <div class="nav-wrapper">
+                   <span title="grades" class="fa-stack fa-lg">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i  class="fa-solid fa-graduation-cap fa-stack-1x fa-inverse"></i>
           </span>
-              <span class="fa-stack fa-lg" title="absences">
+    </div>
+
+    <div class="nav-wrapper">
+                  <span class="fa-stack fa-lg" title="absences">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i  class="fa-solid fa-exclamation fa-stack-1x fa-inverse"></i>
           </span>
-              </span>
-              <span class="fa-stack fa-lg" title="responses">
+    </div>
+    </span>
+    <div class="nav-wrapper">
+                  <span class="fa-stack fa-lg" title="responses">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i  class="fa-solid fa-medal fa-stack-1x fa-inverse"></i>
           </span>
-              <span class="fa-stack fa-lg" title="teachers">
+    </div>
+    <div class="nav-wrapper">
+                  <span class="fa-stack fa-lg" title="teachers">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i  class="fa-solid fa-person-chalkboard fa-stack-1x fa-inverse"></i>
          </span>
-              <span onclick="window.location='/dashboard'"  class="fa-stack fa-lg" title="dashboard">
+    </div>
+    <div class="nav-wrapper">
+                  <span onclick="window.location='/dashboard'"  class="fa-stack fa-lg" title="dashboard">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i  class="fa-solid fa-arrow-right-from-bracket fa-stack-1x fa-inverse"></i>
           </span>
-          </div>
+    </div>
+</div>
             <div class="user">
                 <div>
                     <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
@@ -56,6 +67,7 @@
             <i  class="fa-solid fa-minus fa-stack-1x fa-inverse"></i>
           </span>
           </div>
+
         <table id="table">
             <thead>
                 <tr>
@@ -75,7 +87,7 @@
                         </div>
                     </td>
                     <td>
-                     <button class="button-a">Не Взет</button>
+                     <a class="button-a">Не Взет</a>
                         <p class="isItTaken" style="display: none;"></p>
                     </td>
                 </tr>
@@ -88,7 +100,7 @@
                         </div>
                     </td>
                     <td>
-                     <button class="button-a">Не Взет</button>
+                     <a class="button-a">Не Взет</a>
                         <p class="isItTaken" style="display: none;"></p>
                     </td>
                     <tr class="row">
@@ -100,11 +112,11 @@
                             </div>
                         </td>
                         <td>
-                         <button class="taken-button">Взет  <div class="info">
+                         <a class="taken-button">Взет  <div class="info">
                             <p>Учител: Анка Ушанова</p>
                             <p>Дата: 2012.10.12</p>
                             <p>2</p>
-                     </div></button>
+                     </div></a>
 
                         </td>
                     </tr>
@@ -112,30 +124,33 @@
             </tbody>
         </table>
 
-        
-        <table id="table2">
-            <thead>
-                <tr>
-                    <th>№</th>
-                    <th><i class="fa-solid fa-book-open"></i> Предмет</th>
-                    <th><i class="fa-solid fa-book"></i> Материал</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="row">
-                    <td class="num">1</td>
-                        
-                    <td>
-                        <div>
-                            <p>Предмет: </i> Математика</p>
-                        </div>
-                    </td>
-                    <td>
-                     <input class="material-input" type="text">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+    <form th:action="@{/admin/material}" th:method="POST">
+        <button onclick="changeTest()" id="add-button" type="button">ready</button>
+    <table id="table2">
+        <thead>
+        <tr>
+            <th>№</th>
+            <th><i class="fa-solid fa-book-open"></i> Предмет</th>
+            <th><i class="fa-solid fa-book"></i> Материал</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="row">
+            <td class="num">1</td>
+
+            <td>
+                <div>
+                    <p>Предмет: </i> Математика</p>
+                </div>
+            </td>
+            <td>
+                <input class="material-input" type="text">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
 
          <div id="select-wrapper">
              <select name="" id="subjects">
@@ -150,7 +165,6 @@
                  <option value="">11v</option>
              </select>
          </div>
-    </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/js/AdminUI/materialTable.js"></script>

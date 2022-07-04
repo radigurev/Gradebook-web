@@ -1,6 +1,7 @@
 package com.example.onlinegradebook.web;
 
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
+import com.example.onlinegradebook.model.binding.Test;
 import com.example.onlinegradebook.model.binding.admin.AdminGetTeacherUpdateBindingModel;
 import com.example.onlinegradebook.model.binding.admin.AdminUpdateStudentClass;
 import com.example.onlinegradebook.service.Implementations.ClassesService;
@@ -27,6 +28,11 @@ public class AdminController {
         return new AdminUpdateStudentClass();
         }
 
+        @ModelAttribute
+        public Test test() {
+        return new Test();
+        }
+
     private final UserService userService;
     private final SubjectService subjectService;
     private final ClassesService classesService;
@@ -50,6 +56,7 @@ public class AdminController {
     public String addTeacher(TeacherBindingModel teacherBindingModel) {
 
         userService.saveTeacher(teacherBindingModel);
+
         return "redirect:/admin/teachers";
     }
 
@@ -74,17 +81,31 @@ public class AdminController {
     @GetMapping("/teacher/remove/{id}")
     public String removeTeacher(@PathVariable String id) {
 
+        //TODO UI BUG fix buttons (add wrappers)
+
         userService.removeTeacher(id);
 
         return "redirect:/admin/teachers";
     }
 
     @GetMapping("/material")
-    public String getMaterialPage() {
-        //TODO There is a UI bug with adding new lines for meterial + resizing
-        //TODO Populate tables and selects after
+    public String getMaterialPage(Model model) {
+
+        //TODO Populate tables and selects
+        //TODO parse new material for BD via JSON string from js to java
+        model.addAttribute("classes",classesService.getAll());
+        model.addAttribute("subjects",subjectService.getAll());
         //TODO make functionality for adding, removing material
+
         return "AdminUI/materialTable";
+    }
+
+    @PostMapping("/material")
+    public String getMaterials(Test test) {
+
+        System.out.println(test.getTest());
+
+        return "redirect:material";
     }
     @GetMapping("/classes")
     public String getClassesPage(Model model) {

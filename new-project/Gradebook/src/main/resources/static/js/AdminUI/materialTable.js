@@ -9,11 +9,13 @@ var table=document.getElementById('table');
 var table2=document.getElementById('table2');
 var plusAndMinus=document.getElementById('add-remove-div');
 var subjectSelect=document.getElementById('select-wrapper');
-
+const addButton=document.getElementById('add-button');
 var subjectAtTheMoment=$('#subjects :selected').text();
 var i=300;
 
 let rowNum=1;
+
+
 
 table.style.top=150;
 console.log(subjectSelect)
@@ -35,20 +37,6 @@ subjectSelect.addEventListener('click', () => {
     });
 });
 
-buttons.forEach((b,inx) => {
-
-    b.addEventListener('click',function() {
-        if(!b.classList.contains('clicked-button')) {
-            b.classList.add('clicked-button');
-            takenP[inx].textContent='taken';
-        }
-        else {
-            b.classList.remove('clicked-button');
-            takenP[inx].textContent='';
-        }
-    });
-});
-
 takenButtons.forEach((b,inx) => {
     b.addEventListener('click', function() {
         $('.no-border').remove();
@@ -58,6 +46,16 @@ takenButtons.forEach((b,inx) => {
     });
 });
 
+function changeTest() {
+
+    console.log(table2.childNodes[3].childNodes)
+    let length=table2.rows.length;
+    for (let j = 1; j <length; j++) {
+       console.log(table2.rows[j].cells[2].children[0].value);
+    }
+
+}
+
 function addRow() {
     rowNum++;
     const html = "<tr class='row' style='opacity: 1'><td class='num'>" + rowNum + "</td> <td><div><p>" + "Предмет:" + subjectAtTheMoment + "</p></div></td><td><input class='material-input' type='text'></td></tr>";
@@ -66,9 +64,10 @@ function addRow() {
 }
 
 function removeRow() {
-    $('#table2>tbody>').eq(rowNum-1).remove();
-    rowNum--;
-    rowNum--;
+    if(rowNum!==1) {
+        $('#table2>tbody>').eq(rowNum - 1).remove();
+        rowNum--;
+    }
 }
 
 function tbChange() {
@@ -79,18 +78,20 @@ function tbChange() {
             plusAndMinus.style.opacity=1;
         },900);
         setTimeout(function () {
-            subjectSelect.style.left='80%';
+                subjectSelect.style.right='3%';
+
         },100);
         icon.classList.remove("fa-eye");
         icon.classList.add('fa-pen');
-        table2.style.width = 700;
+        addButton.style.left="30%";
     } else {
         icon.classList.add("fa-eye");
         icon.classList.remove('fa-pen');
-        plusAndMinus.style.opacity=0
+        plusAndMinus.style.opacity=0;
         table2.style.left="150%";
         table.style.left="50%";
-        subjectSelect.style.left='160%';
+        addButton.style.left="150%";
+        subjectSelect.style.right='-160%';
     }
     document.getElementById('table').style.top = 150;
 }
