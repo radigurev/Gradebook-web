@@ -1,6 +1,6 @@
-package com.example.onlinegradebook.model.binding;
+package com.example.onlinegradebook.model.binding.admin;
 
-public class Test {
+public class AdminGetJsonMaterial {
 
     private String test;
 

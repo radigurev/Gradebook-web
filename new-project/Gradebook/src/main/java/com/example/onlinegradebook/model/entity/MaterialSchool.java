@@ -3,6 +3,7 @@ package com.example.onlinegradebook.model.entity;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.security.auth.Subject;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,10 +13,11 @@ public class MaterialSchool extends BaseEntity {
     private Material material;
     private School school;
     private User user;
-    private Classes classes;
+    private ClassesSchool classes;
     private LocalDateTime date;
     private boolean isTaken;
 
+    private Subjects subject;
     @ManyToOne
     public Material getMaterial() {
         return material;
@@ -43,12 +45,21 @@ public class MaterialSchool extends BaseEntity {
         this.user = user;
     }
 
+
     @ManyToOne
-    public Classes getClasses() {
+    public Subjects getSubject() {
+        return subject;
+    }
+    public void setSubject(Subjects subject) {
+        this.subject = subject;
+    }
+
+    @ManyToOne
+    public ClassesSchool getClasses() {
         return classes;
     }
 
-    public void setClasses(Classes classes) {
+    public void setClasses(ClassesSchool classes) {
         this.classes = classes;
     }
 

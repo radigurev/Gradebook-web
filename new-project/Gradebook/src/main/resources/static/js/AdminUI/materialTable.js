@@ -2,7 +2,6 @@ const rows = [...document.getElementsByClassName('row')];
 const grades= [...document.getElementsByClassName('gra')];
 var buttons = [...document.getElementsByClassName('button-a')];
 var takenButtons =[...document.getElementsByClassName('taken-button')];
-var takenP=document.getElementsByClassName('isItTaken');
 var checkbox=document.getElementById('change-box');
 var infoBar=document.getElementById('add-info');
 var table=document.getElementById('table');
@@ -11,11 +10,33 @@ var plusAndMinus=document.getElementById('add-remove-div');
 var subjectSelect=document.getElementById('select-wrapper');
 const addButton=document.getElementById('add-button');
 var subjectAtTheMoment=$('#subjects :selected').text();
+var classAtTheMoment=$('#classes :selected').text();
 var i=300;
 
 let rowNum=1;
 
+var tbRows, switching, inx, x, y, shouldSwitch;
+switching = true;
 
+while (switching) {
+    switching = false;
+    tbRows = table.rows;
+
+    for (inx = 1; inx < (tbRows.length - 1); inx++) {
+        shouldSwitch = false;
+        x = tbRows[inx].getElementsByTagName("TD")[0];
+        y = tbRows[inx + 1].getElementsByTagName("TD")[0];
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            shouldSwitch = true;
+            break;
+        }
+    }
+    if (shouldSwitch) {
+
+        tbRows[inx].parentNode.insertBefore(tbRows[inx + 1], tbRows[inx]);
+        switching = true;
+    }
+}
 
 table.style.top=150;
 console.log(subjectSelect)
@@ -25,6 +46,8 @@ rows.forEach(r => {
     },i)
     i+=300;
 });
+
+
 
 subjectSelect.addEventListener('click', () => {
     subjectSelect.addEventListener("change", () => {
@@ -41,18 +64,23 @@ takenButtons.forEach((b,inx) => {
     b.addEventListener('click', function() {
         $('.no-border').remove();
         var html = 
-                "<td id='info-row' class='no-border'><p>"+b.childNodes[1].childNodes[1].textContent+"</p></td> <td class='no-border'><p>"+b.childNodes[1].childNodes[3].textContent+"</p></td><td class='no-border'></td>";
-                $('table > tbody> tr').eq(b.childNodes[1].childNodes[5].textContent).after(html);
+                "<td id='info-row' class='no-border'><p><i class=\"fa-solid fa-person-chalkboard\"></i> "+b.childNodes[1].childNodes[1].textContent+"</p></td> <td class='no-border'><p><i class=\"fa-solid fa-calendar\"></i> "+b.childNodes[1].childNodes[3].textContent+"</p></td><td class='no-border'></td><td class='no-border'></td><td class='no-border'><a href='/admin/material/undo/"+b.childNodes[1].childNodes[5].textContent+"' class='remove-button'>undo</a></td>";
+                $('table > tbody> tr').eq(b.childNodes[1].childNodes[7].textContent).after(html);
     });
 });
 
 function changeTest() {
-
-    console.log(table2.childNodes[3].childNodes)
+    const materials=[];
     let length=table2.rows.length;
     for (let j = 1; j <length; j++) {
-       console.log(table2.rows[j].cells[2].children[0].value);
+        // table2.rows[j].cells[2].children[0].value
+        var materialRow={};
+        materialRow.subject=subjectAtTheMoment;
+        materialRow.classes=classAtTheMoment;
+        materialRow.material=table2.rows[j].cells[2].children[0].value;
+        materials.push(materialRow);
     }
+   document.getElementById('json-input').value=JSON.stringify(materials);
 
 }
 

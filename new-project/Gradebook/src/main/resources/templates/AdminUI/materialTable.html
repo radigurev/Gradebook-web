@@ -71,62 +71,64 @@
         <table id="table">
             <thead>
                 <tr>
-                    <th>№</th>
-                    <th>Материал</th>
+                    <th><i class="fa-solid fa-people-group"></i> Клас</th>
+                    <th><i class="fa-solid fa-book-open"></i> Предмет</th>
+                    <th><i class="fa-solid fa-book"></i> Материал</th>
                     <th>Взет</th>
+                    <th></th>
                    
                 </tr>
             </thead>
             <tbody>
-                <tr class="row">
-                    <td class="num">1</td>
-                        
+
+<!--            nontaken-->
+            <tr class="row" th:each="t,inx : ${Taken}">
+                <td class="num" th:text="${t.classes}">2</td>
+                <td>
+                    <p th:text="${t.subject}">subject</p>
+                </td>
+                <td>
+                    <div>
+                        <p th:text="${t.name}">Произведението "Крадеца на праскови"</p>
+                    </div>
+                </td>
+                <td>
+                    <a class="taken-button">Взет  <div class="info">
+                        <p th:text="|Учител: ${t.teacher}|">Учител: Анка Ушанова</p>
+                        <p th:text="${t.date}">Дата: 2012.10.12</p>
+                        <p th:text="${t.id}"></p>
+                        <p th:text="${inx.index}">row</p>
+                    </div></a>
+                </td>
+                <td>
+                    <a th:class="remove-button" th:href="@{/admin/material/remove/{id}(id=${t.id})}">Remove</a>
+                </td>
+            </tr>
+
+
+                <tr class="row" th:each="t,inx : ${nonTaken}">
+                    <td class="num" th:text="${t.classes}">1</td>
+                    <td>
+                        <p th:text="${t.subject}">subject</p>
+                    </td>
                     <td>
                         <div>
-                            <p>Произведението "Крадеца на праскови"</p>
+                            <p th:text="${t.name}">Произведението "Крадеца на праскови"</p>
                         </div>
                     </td>
                     <td>
-                     <a class="button-a">Не Взет</a>
-                        <p class="isItTaken" style="display: none;"></p>
+                     <a th:href="@{/admin/material/take/{id}(id=${t.id})}" class="button-a">Не Взет</a>
+                    </td>
+                    <td>
+                        <a th:class="remove-button" th:href="@{/admin/material/remove/{id}(id=${t.id})}">Remove</a>
                     </td>
                 </tr>
-                <tr class="row">
-                    <td class="num">2</td>
-                        
-                    <td>
-                        <div>
-                            <p>Произведението "Крадеца на праскови"</p>
-                        </div>
-                    </td>
-                    <td>
-                     <a class="button-a">Не Взет</a>
-                        <p class="isItTaken" style="display: none;"></p>
-                    </td>
-                    <tr class="row">
-                        <td class="num">2</td>
-
-                        <td>
-                            <div>
-                                <p>Произведението "Крадеца на праскови"</p>
-                            </div>
-                        </td>
-                        <td>
-                         <a class="taken-button">Взет  <div class="info">
-                            <p>Учител: Анка Ушанова</p>
-                            <p>Дата: 2012.10.12</p>
-                            <p>2</p>
-                     </div></a>
-
-                        </td>
-                    </tr>
-                </tr>             
             </tbody>
         </table>
 
 
-    <form th:action="@{/admin/material}" th:method="POST">
-        <button onclick="changeTest()" id="add-button" type="button">ready</button>
+    <form th:action="@{/admin/material}" th:method="POST" th:object="${adminGetJsonMaterial}">
+        <button onclick="changeTest()" id="add-button">ready</button>
     <table id="table2">
         <thead>
         <tr>
@@ -141,7 +143,7 @@
 
             <td>
                 <div>
-                    <p>Предмет: </i> Математика</p>
+                    <p>Предмет: Математика</p>
                 </div>
             </td>
             <td>
@@ -150,19 +152,17 @@
         </tr>
         </tbody>
     </table>
+        <input th:field="*{test}" type="text" id="json-input" style="display: none">
 </form>
 
          <div id="select-wrapper">
              <select name="" id="subjects">
-                 <option value="">Math</option>
-                 <option value="">Programing</option>
-                 <option value="">English</option>
+                 <option th:each="s : ${subjects}" th:text="${s.name}" th:value="${s.name}">Math</option>
+
              </select>
 
-             <select name="" id="">
-                 <option value="">11a</option>
-                 <option value="">11b</option>
-                 <option value="">11v</option>
+             <select name="" id="classes">
+                 <option th:each="c :${classes}" th:text="${c}" th:value="${c}">11a</option>
              </select>
          </div>
 </body>

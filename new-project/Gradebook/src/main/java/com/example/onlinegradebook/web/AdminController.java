@@ -1,18 +1,26 @@
 package com.example.onlinegradebook.web;
 
+import com.example.onlinegradebook.model.binding.MaterialPageViewModel;
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
-import com.example.onlinegradebook.model.binding.Test;
+import com.example.onlinegradebook.model.binding.admin.AdminGetJsonMaterial;
 import com.example.onlinegradebook.model.binding.admin.AdminGetTeacherUpdateBindingModel;
+import com.example.onlinegradebook.model.binding.admin.AdminNewClassBindingModel;
 import com.example.onlinegradebook.model.binding.admin.AdminUpdateStudentClass;
+import com.example.onlinegradebook.model.binding.json.MaterialImportBindingModel;
+import com.example.onlinegradebook.service.*;
 import com.example.onlinegradebook.service.Implementations.ClassesService;
-import com.example.onlinegradebook.service.SubjectService;
-import com.example.onlinegradebook.service.UserService;
+import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
+    //TODO start making absence/grades and responses pages
 
     @ModelAttribute
     public TeacherBindingModel teacherBindingModel() {
@@ -29,18 +37,28 @@ public class AdminController {
         }
 
         @ModelAttribute
-        public Test test() {
-        return new Test();
+        public AdminNewClassBindingModel adminNewClassBindingModel() {
+        return new AdminNewClassBindingModel();
+        }
+
+        @ModelAttribute
+        public AdminGetJsonMaterial adminGetJsonMaterial() {
+        return new AdminGetJsonMaterial();
         }
 
     private final UserService userService;
     private final SubjectService subjectService;
-    private final ClassesService classesService;
-
-    public AdminController(UserService userService, SubjectService subjectService, ClassesService classesService) {
+    private final ClassService classesService;
+    private final Gson gson;
+    private final MaterialService materialService;
+    private final SpecialityService specialityService;
+    public AdminController(UserService userService, SubjectService subjectService, ClassesService classesService, Gson gson, MaterialService materialService, SpecialityService specialityService) {
         this.userService = userService;
         this.subjectService = subjectService;
         this.classesService = classesService;
+        this.gson = gson;
+        this.materialService = materialService;
+        this.specialityService = specialityService;
     }
 
 
@@ -90,22 +108,38 @@ public class AdminController {
 
     @GetMapping("/material")
     public String getMaterialPage(Model model) {
-
-        //TODO Populate tables and selects
-        //TODO parse new material for BD via JSON string from js to java
-        model.addAttribute("classes",classesService.getAll());
+        model.addAttribute("nonTaken",materialService.getMaterialsByIfItsTaken(false));
+        model.addAttribute("Taken",materialService.getMaterialsByIfItsTaken(true));
+        model.addAttribute("classes",classesService.getAllClasses());
         model.addAttribute("subjects",subjectService.getAll());
-        //TODO make functionality for adding, removing material
 
         return "AdminUI/materialTable";
     }
 
+
     @PostMapping("/material")
-    public String getMaterials(Test test) {
+    public String getMaterials(AdminGetJsonMaterial test) {
 
-        System.out.println(test.getTest());
-
+        MaterialImportBindingModel[] materials=gson.fromJson(test.getTest(),MaterialImportBindingModel[].class);
+        System.out.println();
+        materialService.saveMaterials(materials);
         return "redirect:material";
+    }
+
+    @GetMapping("/material/undo/{id}")
+    public String undoMaterial(@PathVariable String id) {
+        materialService.takeMaterial(id,false,null);
+        return "redirect:/admin/material";
+    }
+    @GetMapping("/material/take/{id}")
+    public String takeMaterial(@PathVariable String id) {
+        materialService.takeMaterial(id,true,userService.getUser());
+        return "redirect:/admin/material";
+    }
+    @GetMapping("/material/remove/{id}")
+    public String removeMaterial(@PathVariable String id) {
+        materialService.removeMaterial(id);
+        return "redirect:/admin/material";
     }
     @GetMapping("/classes")
     public String getClassesPage(Model model) {
@@ -115,9 +149,17 @@ public class AdminController {
         model.addAttribute("classes",classesService.getAll());
         //get classes with head teacher
         model.addAttribute("schoolClasses",userService.getClassWithTeacher());
+        model.addAttribute("speciality",specialityService.getAll());
         //Returns users with school and class
         model.addAttribute("studentsAndTheirClass",userService.getUsersBySchoolInJson(userService.getUser().getSchool()));
         return "/AdminUI/classTable";
+    }
+
+    @PostMapping("/classes/save/class")
+    public String saveNewClass(AdminNewClassBindingModel newClass) {
+        classesService.save(newClass);
+
+        return "redirect:classes";
     }
 
     @GetMapping("/students")

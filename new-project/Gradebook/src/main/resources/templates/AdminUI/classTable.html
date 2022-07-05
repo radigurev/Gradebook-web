@@ -152,38 +152,24 @@
           </table>
 
           <div id="select-wrapper">
-              <form action="">
-                  <select name="">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                      <option>6</option>
-                      <option>7</option>
-                      <option>8</option>
-                      <option>9</option>
-                      <option>10</option>
-                      <option>11</option>
-                      <option>12</option>
+              <form th:action="@{/admin/classes/save/class}" th:method="POST" th:object="${adminNewClassBindingModel}">
+                  <select th:field="*{number}" name="">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
                   </select>
 
-                  <select name="">
-                      <option value="а">а</option>
-                      <option value="б">б</option>
-                      <option value="в">в</option>
-                      <option value="г">г</option>
-                      <option value="г">д</option>
-                      <option value="е">е</option>
-                      <option value="ж">ж</option>
-                      <option value="з">з</option>
-                      <option value="и">и</option>
-                      <option value="к">к</option>
-                      <option value="л">л</option>
-                      <option value="м">м</option>
-                      <option value="н">н</option>
-                      <option value="о">о</option>
-                      <option value="п">п</option>
+                  <select th:field="*{speciality}" name="">
+                      <option th:each="s :${speciality}" th:value="${s.name}" th:text="${s.name}">speciality</option>
                   </select>
                   <button class="add-button">Confirm</button>
               </form>
