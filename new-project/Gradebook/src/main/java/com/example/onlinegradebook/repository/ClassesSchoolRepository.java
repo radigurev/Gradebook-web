@@ -14,6 +14,9 @@ import java.util.Optional;
 
 @Repository
 public interface ClassesSchoolRepository extends JpaRepository<ClassesSchool, String> {
+
+    ClassesSchool findByClasses(Classes classes);
+
     List<ClassesSchool> findAllByClassesAndSchool( Classes classes,School school);
     List<ClassesSchool> findAllBySchool(School school);
 

@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface ClassService {
     Classes getClass(String number);
+
+    ClassesSchool getClassesSchool(String number);
+
     List<Classes> getAll();
 
     void save(AdminNewClassBindingModel newClass);

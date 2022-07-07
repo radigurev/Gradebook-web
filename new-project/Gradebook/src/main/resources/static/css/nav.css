@@ -180,6 +180,14 @@ h1{
 .nav ul li:nth-child(5){
   transition-delay: 50ms;
 }
+
+.nav ul li:nth-child(6){
+  transition-delay: 50ms;
+}
+
+.nav ul li:nth-child(7){
+  transition-delay: 50ms;
+}
 .nav ul li a{
   font-family: 'Montserrat', sans-serif;
   font-size: 9vh;
@@ -236,6 +244,14 @@ h1{
 
 .menu-icon:checked ~ .nav ul li:nth-child(5){
   transition-delay: 1720ms;
+}
+
+.menu-icon:checked ~ .nav ul li:nth-child(6){
+  transition-delay: 1800ms;
+}
+
+.menu-icon:checked ~ .nav ul li:nth-child(7){
+  transition-delay: 1880ms;
 }
 
 

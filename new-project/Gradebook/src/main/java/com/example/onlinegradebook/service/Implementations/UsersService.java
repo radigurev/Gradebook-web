@@ -54,7 +54,7 @@ public class UsersService implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setSchool(schoolservice.findSchool("None"));
         user.setMiddleName("");
-        user.setUserClass(classService.getClass("None"));
+        user.setUserClass(classService.getClassesSchool("None"));
         userRepository.saveAndFlush(user);
     }
 
@@ -64,7 +64,7 @@ public class UsersService implements UserService {
         User user = userRepository.findByEmail(email).orElse(null);
 
         assert user != null;
-        return new DashboardInfoText(String.format("%s %s",user.getFirstName(),user.getLastName()),user.getSchool().getName(),user.getPhoneNumber(),user.getUserClass().getClassNumber());
+        return new DashboardInfoText(String.format("%s %s",user.getFirstName(),user.getLastName()),user.getSchool().getName(),user.getPhoneNumber(),user.getUserClass().getClasses().getClassNumber());
     }
 
     //Saving new Teachers
@@ -163,10 +163,10 @@ public class UsersService implements UserService {
             else
                 name=String.format("%s %s. %s",s.getFirstName(),s.getLastName().charAt(0),s.getLastName());
 
-           if (!(s.getUserClass().getClassNumber().equals("None"))) {
+           if (!(s.getUserClass().getClasses().getClassNumber().equals("None"))) {
                id.add(s.getId());
                names.add(name);
-               classes.add(s.getUserClass().getClassNumber());
+               classes.add(s.getUserClass().getClasses().getClassNumber());
            }
         });
         jsonObject.add("ids",id);

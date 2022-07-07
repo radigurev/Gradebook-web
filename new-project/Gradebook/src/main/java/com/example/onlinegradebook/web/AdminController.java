@@ -171,6 +171,7 @@ public class AdminController {
 
     @GetMapping("/students/add/{id}")
     public String addUserToSchool(@PathVariable String id) {
+
         userService.updateUserSchool(id);
 
         return "redirect:/admin/students";

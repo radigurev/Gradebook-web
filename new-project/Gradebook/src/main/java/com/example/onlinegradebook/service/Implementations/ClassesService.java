@@ -33,7 +33,12 @@ public class ClassesService implements ClassService {
 
     @Override
     public Classes getClass(String number) {
-        return classesRepository.findByClassNumber(number).orElse(null);
+        return classesRepository.findByClassNumber("None").orElse(null);
+    }
+
+    @Override
+    public ClassesSchool getClassesSchool(String number) {
+        return classesSchoolRepository.findByClasses(getClass(number));
     }
 
     //getting all classes with letter

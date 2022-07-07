@@ -16,7 +16,7 @@ public class User extends BaseEntity {
     private String password;
     private School school;
     private String phoneNumber;
-    private Classes userClass;
+    private ClassesSchool userClass;
     private Set<Role> role;
     private Set<UsersSubjects> subjects;
 
@@ -66,11 +66,11 @@ public class User extends BaseEntity {
     }
 
     @ManyToOne
-    public Classes getUserClass() {
+    public ClassesSchool getUserClass() {
         return userClass;
     }
 
-    public void setUserClass(Classes userClass) {
+    public void setUserClass(ClassesSchool userClass) {
         this.userClass = userClass;
     }
 
