@@ -5,34 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="programTable-style.css">
-    <link rel="stylesheet" href="/main menu/nav.css">
+    <link rel="stylesheet" href="/css/AdminUI/programTable-style.css">
 </head>
 <body>
-    <a class="exit-button" href=""><i class="fa-solid fa-arrow-right-from-bracket fa-3x"></i></a>
 
       <div class="container">
+          <div class="nav-buttons">
+              <div class="nav-wrapper">
+                   <span title="grades" class="fa-stack fa-lg">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-graduation-cap fa-stack-1x fa-inverse"></i>
+          </span>
+              </div>
 
+              <div class="nav-wrapper">
+                  <span class="fa-stack fa-lg" title="absences">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-exclamation fa-stack-1x fa-inverse"></i>
+          </span>
+              </div>
+              </span>
+              <div class="nav-wrapper">
+                  <span class="fa-stack fa-lg" title="responses">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-medal fa-stack-1x fa-inverse"></i>
+          </span>
+              </div>
+              <div class="nav-wrapper">
+                  <span class="fa-stack fa-lg" title="teachers">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-person-chalkboard fa-stack-1x fa-inverse"></i>
+         </span>
+              </div>
+              <div class="nav-wrapper">
+                  <span onclick="window.location='/dashboard'"  class="fa-stack fa-lg" title="dashboard">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-arrow-right-from-bracket fa-stack-1x fa-inverse"></i>
+          </span>
+              </div>
+          </div>
             <div class="user">
                 <div>
                     <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
                     <p><i class="fa-solid fa-graduation-cap"></i> Radoslav Gurev</p>
                 </div>
             </div>
-
-            <div class="toogle-container">
-                <div class="toggle-button-cover">
-                    <div class="button-cover">
-                        <p><i id="switch-icon" class="fa-solid fa-eye"></i></p>
-                      <div class="button r" id="button-1">
-                        <input type="checkbox" id="change-box" class="checkbox" />
-                        <div class="knobs"></div>
-                        <div class="layer"></div>
-                      </div>
-                    </div>
-                  </div> 
-            </div>
-
+          <div onclick="tbChange()" class="wrapper">
+        <span class="fa-stack fa-lg">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i id="icon" class="fa-solid fa-eye fa-stack-1x fa-inverse"></i>
+          </span>
+          </div>
         <table id="table">
             <thead>
                 <tr>
@@ -139,7 +162,6 @@
                            <option value="">8д</option>
                            <option value="">8е</option>
                            <option value="">8ж</option>
-
                        </Select>
                     </td>
                 </tr>               
@@ -148,5 +170,5 @@
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="programTable.js"></script>
+<script src="/js/AdminUI/programTable.js"></script>
 </html>

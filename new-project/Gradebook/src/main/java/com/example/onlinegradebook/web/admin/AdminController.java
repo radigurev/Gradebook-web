@@ -1,4 +1,4 @@
-package com.example.onlinegradebook.web;
+package com.example.onlinegradebook.web.admin;
 
 import com.example.onlinegradebook.model.binding.MaterialPageViewModel;
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
@@ -159,7 +159,7 @@ public class AdminController {
     public String saveNewClass(AdminNewClassBindingModel newClass) {
         classesService.save(newClass);
 
-        return "redirect:classes";
+        return "redirect:/admin/classes";
     }
 
     @GetMapping("/students")

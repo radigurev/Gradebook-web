@@ -1,7 +1,6 @@
 const rows = [...document.getElementsByClassName('row')];
 const grades = [...document.getElementsByClassName('gra')];
 var buttons = [...document.getElementsByClassName('button-a')];
-var takenButtons = [...document.getElementsByClassName('taken-button')];
 var checkbox = document.getElementById('change-box');
 var infoBar = document.getElementById('add-info');
 var table = document.getElementById('table');
@@ -25,7 +24,6 @@ function tbChange() {
         table2.style.left="50%";
         icon.classList.remove("fa-eye");
         icon.classList.add('fa-pen');
-        table2.style.width = 700;
 
     } else {
         icon.classList.add("fa-eye");
@@ -33,5 +31,4 @@ function tbChange() {
         table2.style.left="150%";
         table.style.left="50%";
     }
-    document.getElementById('table').style.top = 150;
 }

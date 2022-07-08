@@ -1,6 +1,8 @@
 package com.example.onlinegradebook.service;
 
 import com.example.onlinegradebook.model.binding.admin.AdminNewClassBindingModel;
+import com.example.onlinegradebook.model.entity.School;
+import com.example.onlinegradebook.model.view.admin.AdminClassViewModel;
 import com.example.onlinegradebook.model.entity.Classes;
 import com.example.onlinegradebook.model.entity.ClassesSchool;
 
@@ -17,5 +19,11 @@ public interface ClassService {
 
     List<String> getAllClasses();
 
-    List<ClassesSchool> getClassBySpecialityAndClass(String speciality, String classes);
+    List<ClassesSchool> getClassBySpecialityAndClassAndSchool(String speciality, String classes, School school);
+
+    ClassesSchool getClassesSchoolWithLetter(String number, String letter);
+
+    List<AdminClassViewModel> getAllWithId();
+
+    void addSubjectToClass(String id, String subject);
 }

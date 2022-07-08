@@ -19,12 +19,12 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     List<User> getAllBySchoolAndRoleIn(School school, Set<Role> roles);
 
-    List<User> getAllBySchoolAndUserClassAndRoleIn(School school, Classes classes, Set<Role> roles);
+    List<User> getAllBySchoolAndUserClassAndRoleIn(School school, ClassesSchool classes, Set<Role> roles);
 
     @Transactional
     @Modifying
     @Query("update User u set u.userClass=:class where u.id=:id")
-    void updateClass(@Param(value = "id") String id, @Param(value = "class") Classes classes);
+    void updateClass(@Param(value = "id") String id, @Param(value = "class") ClassesSchool classes);
 
     @Transactional
     @Modifying

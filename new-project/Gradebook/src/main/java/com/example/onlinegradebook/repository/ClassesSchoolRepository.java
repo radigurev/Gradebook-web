@@ -17,9 +17,11 @@ public interface ClassesSchoolRepository extends JpaRepository<ClassesSchool, St
 
     ClassesSchool findByClasses(Classes classes);
 
+    ClassesSchool findByClassesAndLetter(Classes classes,String c);
+
     List<ClassesSchool> findAllByClassesAndSchool( Classes classes,School school);
     List<ClassesSchool> findAllBySchool(School school);
 
-    @Query("select c from ClassesSchool c WHERE c.speciality.name=:speciality and c.classes.classNumber=:classes")
-    List<ClassesSchool> findByClassesAndSubject(@Param(value = "speciality") String speciality, @Param(value = "classes") String classes);
+    @Query("select c from ClassesSchool c WHERE c.speciality.name=:speciality and c.classes.classNumber=:classes and c.school=:school")
+    List<ClassesSchool> findByClassesAndSubjectAndSchool(@Param(value = "speciality") String speciality, @Param(value = "classes") String classes,@Param(value = "school") School school);
 }

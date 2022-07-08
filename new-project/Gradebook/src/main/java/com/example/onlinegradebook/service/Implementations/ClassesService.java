@@ -1,13 +1,17 @@
 package com.example.onlinegradebook.service.Implementations;
 
 import com.example.onlinegradebook.model.binding.admin.AdminNewClassBindingModel;
+import com.example.onlinegradebook.model.entity.ClassesSubjects;
+import com.example.onlinegradebook.model.view.admin.AdminClassViewModel;
 import com.example.onlinegradebook.model.entity.Classes;
 import com.example.onlinegradebook.model.entity.ClassesSchool;
 import com.example.onlinegradebook.model.entity.School;
 import com.example.onlinegradebook.repository.ClassesRepository;
 import com.example.onlinegradebook.repository.ClassesSchoolRepository;
+import com.example.onlinegradebook.repository.ClassesSubjectsRepository;
 import com.example.onlinegradebook.service.ClassService;
 import com.example.onlinegradebook.service.SpecialityService;
+import com.example.onlinegradebook.service.SubjectService;
 import com.example.onlinegradebook.service.UserService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -21,19 +25,22 @@ public class ClassesService implements ClassService {
     private final ClassesRepository classesRepository;
     private final ClassesSchoolRepository classesSchoolRepository;
     private final UserService userService;
-
     private final SpecialityService specialityService;
+    private final SubjectService subjectService;
+    private final ClassesSubjectsRepository classesSubjectsRepository;
 
-    public ClassesService(ClassesRepository classesRepository, ClassesSchoolRepository classesSchoolRepository, @Lazy UserService userService, SpecialityService specialityService) {
+    public ClassesService(ClassesRepository classesRepository, ClassesSchoolRepository classesSchoolRepository, @Lazy UserService userService, SpecialityService specialityService, SubjectService subjectService, ClassesSubjectsRepository classesSubjectsRepository) {
         this.classesRepository = classesRepository;
         this.classesSchoolRepository = classesSchoolRepository;
         this.userService = userService;
         this.specialityService = specialityService;
+        this.subjectService = subjectService;
+        this.classesSubjectsRepository = classesSubjectsRepository;
     }
 
     @Override
     public Classes getClass(String number) {
-        return classesRepository.findByClassNumber("None").orElse(null);
+        return classesRepository.findByClassNumber(number).orElse(null);
     }
 
     @Override
@@ -99,7 +106,37 @@ public class ClassesService implements ClassService {
     }
 
     @Override
-    public List<ClassesSchool> getClassBySpecialityAndClass(String speciality, String classes) {
-        return classesSchoolRepository.findByClassesAndSubject(speciality,classes);
+    public List<ClassesSchool> getClassBySpecialityAndClassAndSchool(String speciality, String classes,School school) {
+        return classesSchoolRepository.findByClassesAndSubjectAndSchool(speciality,classes,school);
+    }
+
+    @Override
+    public ClassesSchool getClassesSchoolWithLetter(String number, String letter) {
+        Classes aClass = getClass(number);
+        return classesSchoolRepository.findByClassesAndLetter(getClass(number),letter);
+    }
+
+    @Override
+    public List<AdminClassViewModel> getAllWithId() {
+        List<ClassesSchool> allBySchool = classesSchoolRepository.findAllBySchool(userService.getUser().getSchool());
+        List<AdminClassViewModel> classes=new ArrayList<>();
+        allBySchool.forEach(s -> {
+            AdminClassViewModel schoolClass= new AdminClassViewModel();
+            schoolClass.setClassWithSpeciality(String.format("%s%s %s",s.getClasses().getClassNumber(),s.getLetter(),s.getSpeciality().getName()));
+            schoolClass.setId(s.getId());
+            classes.add(schoolClass);
+
+        });
+        return classes;
+    }
+
+    @Override
+    public void addSubjectToClass(String id, String subject) {
+        ClassesSchool byId = classesSchoolRepository.findById(id).orElse(null);
+
+        ClassesSubjects classesSubjects=new ClassesSubjects();
+        classesSubjects.setClasses(byId);
+        classesSubjects.setSubject(subjectService.getSubjectByNameAndSchool(userService.getUser().getSchool(),subject));
+        classesSubjectsRepository.saveAndFlush(classesSubjects);
     }
 }

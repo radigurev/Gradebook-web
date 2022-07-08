@@ -55,30 +55,52 @@ public class MaterialsService implements MaterialService {
                 token[1]=String.format("%s %s",token[1],token[2]);
             }
             System.out.println();
-            List<ClassesSchool> classBySpecialityAndClass = classService.getClassBySpecialityAndClass(token[1], token[0]);
+            List<ClassesSchool> classBySpecialityAndClass = classService.getClassBySpecialityAndClassAndSchool(token[1], token[0],userService.getUser().getSchool());
+
             if(classBySpecialityAndClass.size()!=1) {
+
                 Material finalMaterial = material;
+
                 classBySpecialityAndClass.forEach(c -> {
+
                     MaterialSchool materialSchool=new MaterialSchool();
+
                     materialSchool.setUser(null);
+
                     materialSchool.setTaken(false);
+
                     materialSchool.setMaterial(finalMaterial);
+
                     materialSchool.setSubject(subjectService.getSubjectByName(m.getSubject()));
+
                     materialSchool.setSchool(userService.getUser().getSchool());
+
                     materialSchool.setDate(LocalDateTime.now());
+
                     materialSchool.setClasses(c);
+
                     materialSchoolRepository.saveAndFlush(materialSchool);
+
                 });
             }else {
                 MaterialSchool materialSchool=new MaterialSchool();
+
                 materialSchool.setUser(null);
+
                 materialSchool.setTaken(false);
+
                 materialSchool.setMaterial(material);
+
                 materialSchool.setSubject(subjectService.getSubjectByName(m.getSubject()));
+
                 materialSchool.setSchool(userService.getUser().getSchool());
+
                 materialSchool.setDate(LocalDateTime.now());
+
                 materialSchool.setClasses(classBySpecialityAndClass.get(0));
+
                 materialSchoolRepository.saveAndFlush(materialSchool);
+
             }
         });
     }
@@ -86,16 +108,27 @@ public class MaterialsService implements MaterialService {
     @Override
     public List<MaterialPageViewModel> getMaterialsByIfItsTaken(boolean taken) {
         List<MaterialPageViewModel> materialList=new ArrayList<>();
+
         materialSchoolRepository.getAllBySchoolAndTaken(userService.getUser().getSchool(), taken).forEach(m-> {
+
             MaterialPageViewModel model=new MaterialPageViewModel();
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
             model.setDate(m.getDate().format(formatter));
+
             model.setId(m.getId());
+
             model.setSubject(m.getSubject().getName());
+
             model.setName(m.getMaterial().getName());
+
             model.setClasses(String.format("%s%s",m.getClasses().getClasses().getClassNumber(),m.getClasses().getLetter()));
+
             if (m.getUser()!=null)
+
                 model.setTeacher(String.format("%s %s",m.getUser().getFirstName(),m.getUser().getLastName()));
+
 
             materialList.add(model);
         });

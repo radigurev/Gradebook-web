@@ -6,8 +6,6 @@ public class AdminStudentsTableView {
     private String lastName;
     private String email;
 
-
-
     public String getId() {
         return id;
     }

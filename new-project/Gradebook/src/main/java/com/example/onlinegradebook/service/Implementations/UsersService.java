@@ -1,10 +1,7 @@
 package com.example.onlinegradebook.service.Implementations;
 
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
-import com.example.onlinegradebook.model.entity.Classes;
-import com.example.onlinegradebook.model.entity.Role;
-import com.example.onlinegradebook.model.entity.School;
-import com.example.onlinegradebook.model.entity.User;
+import com.example.onlinegradebook.model.entity.*;
 import com.example.onlinegradebook.model.view.admin.AdminGetClassesWithTeacher;
 import com.example.onlinegradebook.model.view.admin.AdminGetNonAssignedStudentsViewModel;
 import com.example.onlinegradebook.model.view.admin.AdminStudentsTableView;
@@ -114,7 +111,15 @@ public class UsersService implements UserService {
 
     @Override
     public void updateTeacherClass(String id, String update) {
-        userRepository.updateClass(id,classService.getClass(update));
+        String number,letter;
+        if (update.length()==3) {
+            number=update.substring(0,2);
+            letter=update.substring(2,3);
+        }else {
+            number = update.substring(0, 1);
+            letter=update.substring(1,2);
+        }
+        userRepository.updateClass(id,classService.getClassesSchoolWithLetter(number,letter));
     }
 
     @Override
@@ -166,7 +171,7 @@ public class UsersService implements UserService {
            if (!(s.getUserClass().getClasses().getClassNumber().equals("None"))) {
                id.add(s.getId());
                names.add(name);
-               classes.add(s.getUserClass().getClasses().getClassNumber());
+               classes.add(String.format("%s%s",s.getUserClass().getClasses().getClassNumber(),s.getUserClass().getLetter()));
            }
         });
         jsonObject.add("ids",id);
@@ -181,7 +186,7 @@ public class UsersService implements UserService {
         Set<Role> roles=new HashSet<>();
         roles.add(roleService.getStudentRole());
         return userRepository
-                .getAllBySchoolAndUserClassAndRoleIn(getUser().getSchool(), classService.getClass("None"),roles)
+                .getAllBySchoolAndUserClassAndRoleIn(getUser().getSchool(), classService.getClassesSchool("None"),roles)
                 .stream()
                 .map(s -> modelMapper.map(s, AdminGetNonAssignedStudentsViewModel.class))
                 .collect(Collectors.toList());
@@ -195,7 +200,7 @@ public class UsersService implements UserService {
         return userRepository
                 .getAllBySchoolAndRoleIn(getUser().getSchool(), roles)
                 .stream()
-                .filter(t -> t.getUserClass()!=null)
+                .filter(t -> !t.getUserClass().getClasses().getClassNumber().equals("None"))
                 .map(t -> modelMapper.map(t,AdminGetClassesWithTeacher.class))
                 .collect(Collectors.toList());
 
@@ -203,13 +208,21 @@ public class UsersService implements UserService {
 
     @Override
     public void addUserToClass(String id,String userClass) {
-        System.out.println();
-        userRepository.updateClass(id,classService.getClass(userClass));
+        String number,letter;
+        if (userClass.length()==3) {
+            number=userClass.substring(0,2);
+            letter=userClass.substring(2,3);
+        }else {
+            number = userClass.substring(0, 1);
+            letter=userClass.substring(1,2);
+        }
+
+        userRepository.updateClass(id,classService.getClassesSchoolWithLetter(number,letter));
     }
 
     @Override
     public void removeUserFromClass(String id) {
-        userRepository.updateClass(id,classService.getClass("None"));
+        userRepository.updateClass(id,classService.getClassesSchool("None"));
     }
 
 

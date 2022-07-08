@@ -1,9 +1,11 @@
 package com.example.onlinegradebook.model.view.admin;
 
+import com.example.onlinegradebook.model.entity.ClassesSchool;
+
 public class AdminGetClassesWithTeacher {
 
     private String firstName,lastName,middleName;
-    private String userClass;
+    private ClassesSchool userClass;
 
     public String getFirstName() {
         return firstName;
@@ -29,11 +31,11 @@ public class AdminGetClassesWithTeacher {
         this.middleName = middleName;
     }
 
-    public String getUserClass() {
+    public ClassesSchool getUserClass() {
         return userClass;
     }
 
-    public void setUserClass(String userClass) {
+    public void setUserClass(ClassesSchool userClass) {
         this.userClass = userClass;
     }
 }

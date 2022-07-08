@@ -61,60 +61,41 @@
             <thead>
                 <tr>
                     <th>№</th>
-                    <th><i class="fa-solid fa-person-chalkboard"></i> Учител</th>
-                    <th><i class="fa-solid fa-book"></i> Предмет</th>
                     <th><i class="fa-solid fa-people-group"></i> Клас</th>
-                    <th></th>
-                </tr>
+                    <th><i class="fa-solid fa-book"></i> Предмет</th>
+`z                </tr>
             </thead>
             <tbody>
-                <tr class="row" th:each="t,iter : ${teachers}">
-                    <td class="num" th:text="${iter.index + 1}">1</td>
+                <tr class="row" th:each="c,iter : ${classesWithId}">
+                    <td class="num" th:text="${iter.index}+1">1</td>
                         
                     <td>
                         <div>
-                        <p th:text="|${t.firstName} ${t.middleName} ${t.lastName}|">Name name name</p>
+                        <p th:text="${c.classWithSpeciality}">Class</p>
                         </div>
                     </td>
                     <td>
-
-                        <form th:action="@{/admin/teacher/add/subject/{id}/(id=${t.id})}" th:method="POST" th:object="${adminGetTeacherUpdateBindingModel}">
+<!--th:action="@{/admin/teacher/add/subject/{id}/(id=${t.id})}"-->
+                        <form th:method="GET" th:action="@{/admin/subject/class/add/{id}(id=${c.id})}" th:object="${adminSubjectBindingModel}">
                             <div>
-                                <select th:field="*{update}" class="row-select">
-                                    <option th:each="s : ${subjects}" th:value="${s.name}" th:text="${s.name}">aas</option>
+                                <select th:field="*{subject}" class="row-select">
+                                    <option th:each="s : ${subjects}" th:text="${s.name}" th:value="${s.name}">aas</option>
                                 </select>
                                 <button class="row-button">Добави</button>
                             </div>
                         </form>
-                    </td>
-                    <td>
-                        <form th:action="@{/admin/teacher/add/class/{id}/(id=${t.id})}" th:method="POST" th:object="${adminGetTeacherUpdateBindingModel}">
-                            <div>
-                                <select th:field="*{update}" class="row-select">
-                                    <option th:each="c : ${classes}" th:value="${c.classNumber}" th:text="${c.classNumber}">aas</option>
-                                </select>
-                                <button class="row-button">Добави</button>
-                            </div>
-                        </form>
-                    </td>
-                    <td>
-                        <div class="remove-button">
-                            <a th:href="@{/admin/teacher/remove/{id}/(id=${t.id})}" class="text">Премахни</a>
-                        </div>
                     </td>
                 </tr>
-
             </tbody>
         </table>
 
-          <form th:action="@{/admin/teachers}" th:method="POST" th:object="${teacherBindingModel}">
+          <form th:method="POST" th:action="@{/admin/subjects}" th:object="${adminSubjectBindingModel}">
               <div id="table2" class="add-teachers">
-                  <input th:field="*{firstName}" type="text" placeholder="Име">
-                  <input th:field="*{lastName}" type="text" placeholder="Фамилия">
-                  <input th:field="*{email}" type="text" placeholder="Email">
+                  <input th:field="*{subject}" type="text" placeholder="Предмет">
                   <button>Готово</button>
               </div>
           </form>
+      </div>
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

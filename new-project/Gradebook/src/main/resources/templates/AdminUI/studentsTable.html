@@ -63,7 +63,7 @@
                     <th>№</th>
                     <th>Ученик</th>
                     <th>Email</th>
-                    <th>Клас</th>
+<!--                    <th>ЕГН</th>-->
                     <th></th>
                 </tr>
             </thead>
@@ -79,9 +79,9 @@
                     <td>
                      <p th:text="${r.getEmail()}">email@domain.</p>
                     </td>
-                    <td>
-                        11б
-                    </td>
+<!--                    <td th:text="${}">-->
+<!--                        0342032952423-->
+<!--                    </td>-->
                     <td>
                         <a th:href="@{/admin/students/remove/{id}/(id=${r.id})}" class="remove-button" href="">Изгони</a>
                     </td>
