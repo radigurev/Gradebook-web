@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
-    //TODO start making absence/grades and responses pages
+    //TODO start making (priority)program + absence,grades and responses pages
 
     @ModelAttribute
     public TeacherBindingModel teacherBindingModel() {
@@ -83,7 +83,7 @@ public class AdminController {
     @PostMapping("/teacher/add/subject/{id}")
     public String addSubjectToTeacher(@PathVariable String id, AdminGetTeacherUpdateBindingModel adminGetTeacherUpdate) {
 
-        userService.updateTeacherSubject(adminGetTeacherUpdate.getUpdate(),id);
+        userService.addClassToUser(adminGetTeacherUpdate.getUpdate(),id);
 
         return "redirect:/admin/teachers";
     }
@@ -91,7 +91,7 @@ public class AdminController {
     @PostMapping("/teacher/add/class/{id}")
     public String addClassToTeacher(@PathVariable String id, AdminGetTeacherUpdateBindingModel adminGetTeacherUpdate) {
 
-        userService.updateTeacherClass(id,adminGetTeacherUpdate.getUpdate());
+        userService.addClassToUser(id,adminGetTeacherUpdate.getUpdate());
 
         return "redirect:/admin/teachers";
     }
@@ -193,7 +193,7 @@ public class AdminController {
 
     @PostMapping("/students/add/class/{id}")
     public String addStudentToClass(@PathVariable String id,AdminUpdateStudentClass adminUpdateStudentClass) {
-        userService.addUserToClass(id,adminUpdateStudentClass.getUserClass());
+        userService.addClassToUser(id,adminUpdateStudentClass.getUserClass());
 
         return "redirect:/admin/classes";
     }

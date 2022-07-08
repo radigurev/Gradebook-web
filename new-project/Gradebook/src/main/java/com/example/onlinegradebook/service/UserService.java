@@ -3,10 +3,7 @@ package com.example.onlinegradebook.service;
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
 import com.example.onlinegradebook.model.entity.School;
 import com.example.onlinegradebook.model.entity.User;
-import com.example.onlinegradebook.model.view.admin.AdminGetClassesWithTeacher;
-import com.example.onlinegradebook.model.view.admin.AdminGetNonAssignedStudentsViewModel;
-import com.example.onlinegradebook.model.view.admin.AdminStudentsTableView;
-import com.example.onlinegradebook.model.view.admin.AdminTeacherTableViewModel;
+import com.example.onlinegradebook.model.view.admin.*;
 import com.example.onlinegradebook.model.view.DashboardInfoText;
 
 import java.util.List;
@@ -20,9 +17,8 @@ public interface UserService {
 
     List<AdminTeacherTableViewModel> getAllTeacherNames();
 
-    void updateTeacherSubject(String update,String id);
+    void addClassToUser(String id,String update);
 
-    void updateTeacherClass(String id, String update);
 
     void removeTeacher(String id);
 
@@ -40,7 +36,9 @@ public interface UserService {
 
     List<AdminGetClassesWithTeacher> getClassWithTeacher();
 
-    void addUserToClass(String id,String userClass);
-
     void removeUserFromClass(String id);
+
+    List<AdminTeacherProgramTableViewModel> getAllTeacherNamesAndSubjects();
+
+    User getById(String id);
 }

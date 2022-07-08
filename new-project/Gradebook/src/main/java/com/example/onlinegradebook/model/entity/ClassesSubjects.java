@@ -10,6 +10,7 @@ public class ClassesSubjects extends BaseEntity{
 
     private ClassesSchool classes;
     private SubjectSchool subject;
+    private User teacher;
 
     @ManyToOne
     public ClassesSchool getClasses() {
@@ -26,5 +27,13 @@ public class ClassesSubjects extends BaseEntity{
 
     public void setSubject(SubjectSchool subject) {
         this.subject = subject;
+    }
+    @ManyToOne
+    public User getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(User teacher) {
+        this.teacher = teacher;
     }
 }

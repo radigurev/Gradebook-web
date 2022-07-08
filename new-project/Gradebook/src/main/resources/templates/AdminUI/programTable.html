@@ -1,4 +1,5 @@
-<html lang="en">
+<html class="mainBody" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -121,54 +122,66 @@
                     <th>Час</th>
                     <th>Ден</th>
                     <th>Клас</th>
+                    <th>Стая</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="row">
-                        
+                <tr class="row" th:each="t : ${teachers}">
+                    <form th:action="@{/admin/program/add/{id}(id=${t.id})}" th:method="POST" th:object="${adminProgramBindingModel}">
                     <td>
-                       <p>Анка Ушанова</p>
-                    </td>
-                    <td>
-                        <select name="" id="">
-                            <option value="">Програмиране</option>
-                            <option value="">C#</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select name="" id="">
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                            <option value="">4</option>
-                            <option value="">5</option>
-                        </select>
-                    </td>
-                    <td>
-                       <select name="" id="">
-                          <option value="">Понеделник</option>
-                          <option value="">Вторник</option>
-                          <option value="">Сряда</option>
-                          <option value="">Четвърък</option>
-                          <option value="">Петък</option>
-                       </select>
-                    </td>
-                    <td>
-                       <Select>
-                           <option value="">8a</option>
-                           <option value="">8б</option>
-                           <option value="">8в</option>
-                           <option value="">8г</option>
-                           <option value="">8д</option>
-                           <option value="">8е</option>
-                           <option value="">8ж</option>
-                       </Select>
-                    </td>
+                        <p th:text="${t.name}">Анка Ушанова</p>
+                        <td>
+                            <select th:field="${adminProgramBindingModel.subject}" name="">
+                                <option th:each="s : ${t.subjects}" th:text="${s.name}" th:value="${s.name}" value="">Програмиране</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select th:field="${adminProgramBindingModel.numOfClass}" name="">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select th:field="${adminProgramBindingModel.day}" name="">
+                                <option value="Понеделник">Понеделник</option>
+                                <option value="Вторник">Вторник</option>
+                                <option value="Сряда">Сряда</option>
+                                <option value="Четвърък">Четвърък</option>
+                                <option value="Петък">Петък</option>
+                            </select>
+                        </td>
+                        <td>
+                            <Select th:field="${adminProgramBindingModel.classes}">
+                                <option th:each="c : ${classes}" th:text="${c.classNumber}" th:value="${c.classNumber}">8a</option>
+                            </Select>
+                        </td>
+                        <td><input th:field="${adminProgramBindingModel.room}" type="text" placeholder="Стая"></td>
+                            <td><select th:field="${adminProgramBindingModel.dateHours}">
+                                <option value="8:00">8:00</option>
+                            </select></td>
+                        <td><button class="add-button">Добави</button></td>
+                    </form>
                 </tr>               
             </tbody>
         </table>
     </div>
 </body>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script src="/js/AdminUI/programTable.js"></script>
+
 </html>
