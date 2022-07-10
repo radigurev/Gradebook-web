@@ -1,6 +1,5 @@
 package com.example.onlinegradebook.web.admin;
 
-import com.example.onlinegradebook.model.binding.MaterialPageViewModel;
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
 import com.example.onlinegradebook.model.binding.admin.AdminGetJsonMaterial;
 import com.example.onlinegradebook.model.binding.admin.AdminGetTeacherUpdateBindingModel;
@@ -13,8 +12,6 @@ import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -52,13 +49,15 @@ public class AdminController {
     private final Gson gson;
     private final MaterialService materialService;
     private final SpecialityService specialityService;
-    public AdminController(UserService userService, SubjectService subjectService, ClassesService classesService, Gson gson, MaterialService materialService, SpecialityService specialityService) {
+    private final UsersSubjectsService usersSubjectsService;
+    public AdminController(UserService userService, SubjectService subjectService, ClassesService classesService, Gson gson, MaterialService materialService, SpecialityService specialityService, UsersSubjectsService usersSubjectsService) {
         this.userService = userService;
         this.subjectService = subjectService;
         this.classesService = classesService;
         this.gson = gson;
         this.materialService = materialService;
         this.specialityService = specialityService;
+        this.usersSubjectsService = usersSubjectsService;
     }
 
 
@@ -83,7 +82,7 @@ public class AdminController {
     @PostMapping("/teacher/add/subject/{id}")
     public String addSubjectToTeacher(@PathVariable String id, AdminGetTeacherUpdateBindingModel adminGetTeacherUpdate) {
 
-        userService.addClassToUser(adminGetTeacherUpdate.getUpdate(),id);
+        usersSubjectsService.addSubjectToUser(adminGetTeacherUpdate.getUpdate(),id);
 
         return "redirect:/admin/teachers";
     }

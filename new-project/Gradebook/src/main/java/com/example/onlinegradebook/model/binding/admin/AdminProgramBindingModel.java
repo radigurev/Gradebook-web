@@ -5,7 +5,6 @@ public class AdminProgramBindingModel {
     private String numOfClass;
     private String day;
     private String classes;
-    private String dateHours;
     private String room;
 
     public String getSubject() {
@@ -48,11 +47,4 @@ public class AdminProgramBindingModel {
         this.room = room;
     }
 
-    public String getDateHours() {
-        return dateHours;
-    }
-
-    public void setDateHours(String dateHours) {
-        this.dateHours = dateHours;
-    }
 }

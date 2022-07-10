@@ -36,8 +36,7 @@ public class AdminProgramController {
     public String getProgramPage(Model model) {
         //TODO populate program table + make it so admin can see every class program
 
-        List<AdminTeacherProgramTableViewModel> allTeacherNamesAndSubjects = userService.getAllTeacherNamesAndSubjects();
-
+        model.addAttribute("programs",programService.getAllPrograms());
 
         model.addAttribute("teachers",userService.getAllTeacherNamesAndSubjects());
 

@@ -65,6 +65,7 @@ public class SubjectsService implements SubjectService {
     public SubjectSchool getSubjectByNameAndSchool(School school, String subjectByName) {
         return subjectSchoolRepository.findBySchoolAndSubject(school,getSubjectByName(subjectByName)).orElse(null);
     }
+
 }
 
 

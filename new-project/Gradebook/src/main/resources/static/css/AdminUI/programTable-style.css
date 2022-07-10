@@ -53,7 +53,7 @@ body {
     width: 100vw;
     height: 100vh;
 }
-table {
+#table {
     width: 1400px;
     position: absolute;
     left: 50%;
@@ -66,7 +66,7 @@ table {
 
 
 #table2 {
-    width: 1400px;
+    width: 140px;
     position: absolute;
     left: 150%;
     top: 150px;
@@ -299,14 +299,17 @@ tbody td {
       border: 0;
   }
 
-    .material-input {
-        width: 200px;
-        height: 40px;
+    .room-input {
+        width: 150px;
+        height: 30px;
         border: none;
         outline: none;
         border-radius: 15px;
         background-color: #078282FF;
         padding-left: 5px;
+        color: #fff;
+    }
+    .room-input::placeholder {
         color: #fff;
     }
 
@@ -375,6 +378,47 @@ tbody td {
 .add-button:hover {
     background-position: right bottom;
     color: #000;
+}
+
+#classSelect {
+    margin-top: 20px;
+}
+
+@media (max-width: 1200px) {
+    #table,#table2 {
+        width: 100vw;
+    }
+    #table2 {
+        left: 300%;
+    }
+
+    .nav-buttons {
+        left: auto;
+        right: -50px;
+        top: 8px;
+    }
+
+    #select-wrapper {
+        top: 110px;
+    }
+
+    #table {
+        width: 100vw;
+    }
+
+    .user {
+        width: 63px;
+    }
+
+    .user p {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 800px) {
+    body {
+        overflow-x: auto;
+    }
 }
 
 

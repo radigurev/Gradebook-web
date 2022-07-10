@@ -14,4 +14,6 @@ public interface UsersSubjectsService {
     void saveNewSubjects(User user,Subjects subjects);
 
     void removeUser(Optional<User> byId);
+
+    void addSubjectToUser(String update, String id);
 }

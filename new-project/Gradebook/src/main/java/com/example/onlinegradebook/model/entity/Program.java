@@ -10,14 +10,11 @@ public class Program extends BaseEntity{
     private String room;
     private Subjects subject;
     private User teacher;
-    private String dateHours;
-
     private ClassesSchool classes;
-
     private String day;
-
     private String numClass;
 
+    private School school;
 
     public String getRoom() {
         return room;
@@ -43,14 +40,6 @@ public class Program extends BaseEntity{
         this.teacher = teacher;
     }
 
-    public String getDateHours() {
-        return dateHours;
-    }
-
-    public void setDateHours(String dateHours) {
-        this.dateHours = dateHours;
-    }
-
     @ManyToOne
     public ClassesSchool getClasses() {
         return classes;
@@ -74,5 +63,14 @@ public class Program extends BaseEntity{
 
     public void setNumClass(String numClass) {
         this.numClass = numClass;
+    }
+
+    @ManyToOne
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
     }
 }

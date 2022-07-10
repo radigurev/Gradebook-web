@@ -8,7 +8,7 @@
     <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/AdminUI/programTable-style.css">
 </head>
-<body>
+<body id="body">
 
       <div class="container">
           <div class="nav-buttons">
@@ -57,6 +57,8 @@
             <i id="icon" class="fa-solid fa-eye fa-stack-1x fa-inverse"></i>
           </span>
           </div>
+
+          <select name="" id="classSelect"></select>
         <table id="table">
             <thead>
                 <tr>
@@ -69,54 +71,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="row">
-                    <td class="num">1</td>
-                        
-                    <td>
-                        <div>
-                            <p>Операционни Систени</p>
-                           <div class="class-info">
-                            <p class="teacher">11в</p>
-                            <p class="room">5.7</p>
-                           </div>
-                        </div>
-                    </td>
-                    <td>
-                      <p> Физическо възпитание и спорт </p>
-                      <div class="class-info">
-                        <p class="teacher">11б</p>
-                        <p class="room">ФС</p>
-                      </div>
-                    </td>
-                    <td>
-                        <p>Обектно ориентирано програмиране</p>
-                       <div class="class-info">
-                        <p class="teacher">9ж</p>
-                        <p class="room">6.2</p>
-                      </div>
-                    </td>
-                    <td>
-                       <p>Обектно ориентирано програмиране</p>
-                       <div class="class-info">
-                        <p class="teacher">10а</p>
-                        <p class="room">6.2</p>
-                      </div>
-                    </td>
-                    <td>
-                        <p>Бизнес комуникации</p>
-                        <div class="class-info">
-                         <p class="teacher">12р</p>
-                         <p class="room">2.2</p>
-                       </div>
-                    </td>
-                </tr>               
+               <tr style="display: none"></tr>
             </tbody>
         </table>
 
         <table id="table2">
             <thead>
                 <tr>
-                   
                     <th>Учител</th>
                     <th>Предмет</th>
                     <th>Час</th>
@@ -168,10 +129,7 @@
                                 <option th:each="c : ${classes}" th:text="${c.classNumber}" th:value="${c.classNumber}">8a</option>
                             </Select>
                         </td>
-                        <td><input th:field="${adminProgramBindingModel.room}" type="text" placeholder="Стая"></td>
-                            <td><select th:field="${adminProgramBindingModel.dateHours}">
-                                <option value="8:00">8:00</option>
-                            </select></td>
+                        <td><input th:field="${adminProgramBindingModel.room}" class="room-input" type="text" placeholder="Стая"></td>
                         <td><button class="add-button">Добави</button></td>
                     </form>
                 </tr>               
@@ -179,6 +137,10 @@
         </table>
     </div>
 </body>
+
+<script>
+    const json='[[${programs}]]';
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 

@@ -13,4 +13,5 @@ public interface SubjectService {
 
     void saveSubject(String subject);
     SubjectSchool getSubjectByNameAndSchool(School school, String subjectByName);
+
 }

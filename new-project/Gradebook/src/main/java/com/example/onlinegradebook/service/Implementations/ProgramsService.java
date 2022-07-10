@@ -1,13 +1,21 @@
 package com.example.onlinegradebook.service.Implementations;
 
+import com.example.onlinegradebook.model.binding.admin.subModels.AdminDaysViewModel;
 import com.example.onlinegradebook.model.binding.admin.AdminProgramBindingModel;
+import com.example.onlinegradebook.model.binding.admin.subModels.ProgramDayViewModel;
+import com.example.onlinegradebook.model.entity.ClassesSchool;
 import com.example.onlinegradebook.model.entity.Program;
 import com.example.onlinegradebook.repository.ProgramRepository;
 import com.example.onlinegradebook.service.ClassService;
 import com.example.onlinegradebook.service.ProgramService;
 import com.example.onlinegradebook.service.SubjectService;
 import com.example.onlinegradebook.service.UserService;
+import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProgramsService implements ProgramService {
@@ -43,8 +51,54 @@ public class ProgramsService implements ProgramService {
         program.setSubject(subjectService.getSubjectByName(model.getSubject()));
         program.setTeacher(userService.getById(id));
         program.setClasses(classService.getClassesSchoolWithLetter(number,letter));
-        program.setDateHours(model.getDateHours());
-
+        program.setSchool(userService.getUser().getSchool());
         programRepository.saveAndFlush(program);
+    }
+
+    @Override
+    public String getAllPrograms() {
+        Map<String,AdminDaysViewModel> classes=new HashMap<>();
+        programRepository.findAllBySchool(userService.getUser().getSchool()).forEach(p -> {
+            System.out.println();
+            String schoolClass=String.format("%s%s",p.getClasses().getClasses().getClassNumber(),p.getClasses().getLetter());
+            if (!classes.containsKey(schoolClass))
+                classes.put(schoolClass,new AdminDaysViewModel());
+
+                switch (p.getDay()) {
+                    case "Понеделник":
+                        classes.put(schoolClass, addNewList(classes.get(schoolClass),p.getRoom(),p.getSubject().getName(),classes.get(schoolClass).getMonday(),"monday"));
+                        break;
+                    case "Вторник":
+                        classes.put(schoolClass, addNewList(classes.get(schoolClass),p.getRoom(),p.getSubject().getName(),classes.get(schoolClass).getTuesday(),"tuesday"));
+                        break;
+                    case "Сряда":
+                        classes.put(schoolClass, addNewList(classes.get(schoolClass),p.getRoom(),p.getSubject().getName(),classes.get(schoolClass).getWednesday(),"wednesday"));
+
+                        break;
+                    case "Четвъртък":
+                        classes.put(schoolClass, addNewList(classes.get(schoolClass),p.getRoom(),p.getSubject().getName(),classes.get(schoolClass).getThursday(),"thursday"));
+
+                        break;
+                    case "Петък":
+                        classes.put(schoolClass, addNewList(classes.get(schoolClass),p.getRoom(),p.getSubject().getName(),classes.get(schoolClass).getFriday(),"friday"));
+                        break;
+                }
+        });
+        Gson gson=new Gson();
+        System.out.println();
+        return gson.toJson(classes);
+    }
+
+    private AdminDaysViewModel addNewList(AdminDaysViewModel adminDaysViewModel, String room, String name,List<ProgramDayViewModel> day,String weekDay) {
+
+        day.add(new ProgramDayViewModel(room,name));
+        switch (weekDay) {
+            case "monday"->adminDaysViewModel.setMonday(day);
+            case "thursday"->adminDaysViewModel.setThursday(day);
+            case "wednesday"->adminDaysViewModel.setWednesday(day);
+            case "tuesday"->adminDaysViewModel.setTuesday(day);
+            case "friday"->adminDaysViewModel.setFriday(day);
+        }
+        return adminDaysViewModel;
     }
 }
