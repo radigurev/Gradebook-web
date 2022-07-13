@@ -41,4 +41,6 @@ public interface UserService {
     List<AdminTeacherProgramTableViewModel> getAllTeacherNamesAndSubjects();
 
     User getById(String id);
+
+    List<AdminGetStudentsWithIdModelView> getUsersByClass(String id);
 }

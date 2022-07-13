@@ -1,38 +1,63 @@
-<html lang="en">
+<html class="mainBody" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
-    
-    <link rel="stylesheet" href="responseTable-style.css">
+    <link rel="stylesheet" href="/css/AdminUI/responseTable-style.css">
 </head>
 <body>
     
       <div class="container">
 
-        <a class="exit-button" href=""><i class="fa-solid fa-arrow-right-from-bracket fa-3x"></i></a>
+          <div class="nav-buttons">
+              <div class="nav-wrapper">
+                   <span title="grades" class="fa-stack fa-lg">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-graduation-cap fa-stack-1x fa-inverse"></i>
+          </span>
+              </div>
 
-        <div class="toogle-container">
-            <div class="toggle-button-cover">
-                <div class="button-cover">
-                    <p><i id="switch-icon" class="fa-solid fa-eye"></i></p>
-                  <div class="button r" id="button-1">
-                    <input type="checkbox" id="change-box" class="checkbox" />
-                    <div class="knobs"></div>
-                    <div class="layer"></div>
-                  </div>
-                </div>
-              </div> 
-        </div>
+              <div class="nav-wrapper">
+                  <span class="fa-stack fa-lg" title="absences">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-exclamation fa-stack-1x fa-inverse"></i>
+          </span>
+              </div>
+              </span>
+              <div class="nav-wrapper">
+                  <span class="fa-stack fa-lg" title="responses">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-medal fa-stack-1x fa-inverse"></i>
+          </span>
+              </div>
+              <div class="nav-wrapper">
+                  <span class="fa-stack fa-lg" title="teachers">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-person-chalkboard fa-stack-1x fa-inverse"></i>
+         </span>
+              </div>
+              <div class="nav-wrapper">
+                  <span onclick="window.location='/dashboard'"  class="fa-stack fa-lg" title="dashboard">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-arrow-right-from-bracket fa-stack-1x fa-inverse"></i>
+          </span>
+              </div>
+          </div>
             <div class="user">
                 <div>
                     <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
                     <p> <i class="fa-solid fa-person-chalkboard"></i> Radoslav Gurev</p>
                 </div>
             </div>
-
+          <div onclick="tbChange()" class="wrapper">
+        <span class="fa-stack fa-lg">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i id="icon" class="fa-solid fa-eye fa-stack-1x fa-inverse"></i>
+          </span>
+          </div>
             <table id="table">
                 <thead>
                     <tr>
@@ -108,33 +133,27 @@
                     <th>№</th>
                     <th>Ученик</th>
                     <th>Вид</th>
+                    <th>Час</th>
                     <th>Бележка</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="row">
-                    <td class="num">2</td>
-                    <td><i class="fa-solid fa-graduation-cap"></i> Мариана Василева</td>
+                <tr class="row" th:each="s,iter : ${students} ">
+                    <td th:text="${iter.index}+1" class="num">2</td>
+                    <td><i th:text="${s.name}" class="fa-solid fa-graduation-cap"></i> Мариана Василева</td>
                     <td><select name="" id="">
                         <option value="good">Похвала</option>
                         <option value="bad">Забележка</option>
                     </select></td>
-                    <td><input type="text"></td>                                   
-                </tr>
-                <tr class="row">
-                    <td class="num">2</td>
-                    <td><i class="fa-solid fa-graduation-cap"></i> Мариана Василева</td>
-                    <td><select name="" id="">
-                        <option value="good">Похвала</option>
-                        <option value="bad">Забележка</option>
+                    <td><select name="">
+                        <option>Mat</option>
                     </select></td>
                     <td><input type="text"></td>                                   
                 </tr>
-              
             </tbody>
         </table>
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="responseTable.js"></script>
+<script src="/js/AdminUI/responseTable.js"></script>
 </html>

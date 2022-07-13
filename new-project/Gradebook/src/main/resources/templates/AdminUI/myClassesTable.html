@@ -1,0 +1,46 @@
+<html class="mainBody" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/AdminUI/myClassesTable.css">
+</head>
+<body>
+
+      <div class="container">
+
+            <div class="user">
+                <div>
+                    <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
+                    <p><i class="fa-solid fa-graduation-cap"></i> Radoslav Gurev</p>
+                </div>
+            </div>
+
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>Клас</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c : ${classes}" class="row">
+                        
+                    <td>
+                        <div>
+                            <p th:text="|Клас: ${c.classWithSpeciality}|"> Клас: 11б</p>
+                        </div>
+                    </td>
+                    <td>
+                     <a th:href="@{/admin/responses/{id}(id=${c.id})}" class="row-button">Отвори</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</html>

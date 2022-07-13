@@ -25,7 +25,6 @@ function tbChange() {
         table2.style.left="50%";
         icon.classList.remove("fa-eye");
         icon.classList.add('fa-pen');
-        table2.style.width = 700;
         // input.classList.remove('display');
         // setTimeout(function () {
         //     input.style.opacity=1;

@@ -268,6 +268,26 @@ public class UsersService implements UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public List<AdminGetStudentsWithIdModelView> getUsersByClass(String id) {
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getStudentRole());
+        List<AdminGetStudentsWithIdModelView> students=new ArrayList<>();
+        userRepository
+                .getAllBySchoolAndUserClassAndRoleIn(getUser().getSchool(), classService.getClassesSchoolById(id),roles)
+                .forEach(u ->{
+                AdminGetStudentsWithIdModelView user = new AdminGetStudentsWithIdModelView();
+                user.setId(u.getId());
+                if(u.getMiddleName().isBlank())
+                        user.setName(String.format("%s %s",u.getFirstName(),u.getLastName()));
+                    else
+                        user.setName(String.format("%s %s. %s",u.getFirstName(),u.getMiddleName().charAt(0),u.getLastName()));
+
+                    students.add(user);
+        });
+        return students;
+    }
+
 
     //Getting current user email
     @Override

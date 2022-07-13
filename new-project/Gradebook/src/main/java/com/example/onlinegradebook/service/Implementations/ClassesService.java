@@ -139,4 +139,9 @@ public class ClassesService implements ClassService {
         classesSubjects.setSubject(subjectService.getSubjectByNameAndSchool(userService.getUser().getSchool(),subject));
         classesSubjectsRepository.saveAndFlush(classesSubjects);
     }
+
+    @Override
+    public ClassesSchool getClassesSchoolById(String id) {
+        return classesSchoolRepository.findById(id).orElse(null);
+    }
 }

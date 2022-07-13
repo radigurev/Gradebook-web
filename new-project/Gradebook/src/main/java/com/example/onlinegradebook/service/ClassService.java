@@ -26,4 +26,6 @@ public interface ClassService {
     List<AdminClassViewModel> getAllWithId();
 
     void addSubjectToClass(String id, String subject);
+
+    ClassesSchool getClassesSchoolById(String id);
 }
