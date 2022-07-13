@@ -56,6 +56,7 @@ subjectSelect.addEventListener('click', () => {
                 rowNum=0;
                 $('#table2 > tbody>').empty();
                 addRow();
+                $('#table2 tbody tr').eq(0).remove();
             }
     });
 });
@@ -70,15 +71,21 @@ takenButtons.forEach((b,inx) => {
 });
 
 function changeTest() {
+    subjectAtTheMoment=$('#subjects :selected').text();
+    classAtTheMoment=$('#classes :selected').text();
     const materials=[];
     let length=table2.rows.length;
-    for (let j = 1; j <length; j++) {
+    for (let j = 0; j <length; j++) {
         // table2.rows[j].cells[2].children[0].value
         var materialRow={};
         materialRow.subject=subjectAtTheMoment;
         materialRow.classes=classAtTheMoment;
-        materialRow.material=table2.rows[j].cells[2].children[0].value;
+         console.log(classAtTheMoment)
+         console.log(subjectAtTheMoment)
+        // console.log(document.getElementById('table2').rows[j].cells)
+         materialRow.material=table2.rows[j].cells[2].children[0].value;
         materials.push(materialRow);
+        console.log(materialRow)
     }
    document.getElementById('json-input').value=JSON.stringify(materials);
 
