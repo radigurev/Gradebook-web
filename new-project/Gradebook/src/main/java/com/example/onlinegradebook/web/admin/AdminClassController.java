@@ -1,6 +1,7 @@
 package com.example.onlinegradebook.web.admin;
 
 import com.example.onlinegradebook.model.binding.admin.AdminNewClassBindingModel;
+import com.example.onlinegradebook.model.binding.admin.AdminUpdateStudentClass;
 import com.example.onlinegradebook.service.ClassService;
 import com.example.onlinegradebook.service.SpecialityService;
 import com.example.onlinegradebook.service.UserService;
@@ -50,5 +51,10 @@ public class AdminClassController {
     @ModelAttribute
     public AdminNewClassBindingModel adminNewClassBindingModel() {
         return new AdminNewClassBindingModel();
+    }
+
+    @ModelAttribute
+    public AdminUpdateStudentClass updateStudentClass() {
+        return new AdminUpdateStudentClass();
     }
 }

@@ -48,14 +48,9 @@ public class AdminStudentController {
 
     @PostMapping("/students/add/class/{id}")
     public String addStudentToClass(@PathVariable String id,AdminUpdateStudentClass adminUpdateStudentClass) {
-        userService.addClassToUser(id,adminUpdateStudentClass.getUserClass());
+        userService.addClassToUser(id, adminUpdateStudentClass.getUserClass());
 
         return "redirect:/admin/classes";
-    }
-
-    @ModelAttribute
-    public AdminUpdateStudentClass updateStudentClass() {
-        return new AdminUpdateStudentClass();
     }
 
 }

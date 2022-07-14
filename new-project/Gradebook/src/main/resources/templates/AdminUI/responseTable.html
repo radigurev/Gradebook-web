@@ -135,21 +135,26 @@
                     <th>Вид</th>
                     <th>Час</th>
                     <th>Бележка</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="row" th:each="s,iter : ${students} ">
+            <form th:action="@{/admin/responses/{id}(id=${s.id})}" th:each="s,iter : ${students}" th:method="POST" >
+                <tr class="row">
                     <td th:text="${iter.index}+1" class="num">2</td>
-                    <td><i th:text="${s.name}" class="fa-solid fa-graduation-cap"></i> Мариана Василева</td>
+                    <td th:text="${s.name}"> </td>
                     <td><select name="" id="">
                         <option value="good">Похвала</option>
                         <option value="bad">Забележка</option>
                     </select></td>
-                    <td><select name="">
-                        <option>Mat</option>
-                    </select></td>
-                    <td><input type="text"></td>                                   
+                    <td>
+                        <select name="">
+                            <option th:each="c : ${classes}" th:text="${c.name}" th:value="${c.name}">Mat</option>
+                        </select></td>
+                    <td><input type="text"></td>
+                    <td><button class="row-button">Добави</button></td>
                 </tr>
+            </form>
             </tbody>
         </table>
     </div>
