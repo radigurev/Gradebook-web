@@ -288,7 +288,6 @@ public class UsersService implements UserService {
         return students;
     }
 
-
     //Getting current user email
     @Override
     public User getUser() {

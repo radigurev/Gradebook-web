@@ -1,4 +1,4 @@
-package com.example.onlinegradebook.model.view;
+package com.example.onlinegradebook.model.view.AdminAndTeachers;
 
 import java.time.LocalDateTime;
 

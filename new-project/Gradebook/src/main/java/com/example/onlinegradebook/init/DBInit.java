@@ -5,7 +5,9 @@ import com.example.onlinegradebook.model.entity.ClassesSchool;
 import com.example.onlinegradebook.model.entity.School;
 import com.example.onlinegradebook.repository.ClassesRepository;
 import com.example.onlinegradebook.repository.ClassesSchoolRepository;
+import com.example.onlinegradebook.repository.ResponseRepository;
 import com.example.onlinegradebook.repository.SchoolRepository;
+import com.example.onlinegradebook.service.ResponseService;
 import com.example.onlinegradebook.service.RoleService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -16,11 +18,15 @@ public class DBInit implements CommandLineRunner {
     private final SchoolRepository schoolRepository;
     private final ClassesRepository classesRepository;
     private final ClassesSchoolRepository classesSchoolRepository;
-    public DBInit(RoleService roleService, SchoolRepository schoolRepository, ClassesRepository classesRepository, ClassesSchoolRepository classesSchoolRepository) {
+    private final ResponseRepository responseRepository;
+    private final ResponseService responseService;
+    public DBInit(RoleService roleService, SchoolRepository schoolRepository, ClassesRepository classesRepository, ClassesSchoolRepository classesSchoolRepository, ResponseRepository responseRepository, ResponseService responseService) {
         this.roleService = roleService;
         this.schoolRepository = schoolRepository;
         this.classesRepository = classesRepository;
         this.classesSchoolRepository = classesSchoolRepository;
+        this.responseRepository = responseRepository;
+        this.responseService = responseService;
     }
 
     @Override
@@ -39,6 +45,10 @@ public class DBInit implements CommandLineRunner {
             ClassesSchool classesSchool=new ClassesSchool();
             classesSchool.setClasses(classes);
             classesSchoolRepository.saveAndFlush(classesSchool);
+        }
+
+        if (responseRepository.count()==0) {
+            responseService.init();
         }
     }
 }

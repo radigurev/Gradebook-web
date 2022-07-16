@@ -139,19 +139,19 @@
                 </tr>
             </thead>
             <tbody>
-            <form th:action="@{/admin/responses/{id}(id=${s.id})}" th:each="s,iter : ${students}" th:method="POST" >
+            <form th:action="@{/admin/responses/add/{id}(id=${s.id})}" th:each="s,iter : ${students}" th:method="POST" th:object="${studentResponseBindingModel}">
                 <tr class="row">
                     <td th:text="${iter.index}+1" class="num">2</td>
                     <td th:text="${s.name}"> </td>
-                    <td><select name="" id="">
-                        <option value="good">Похвала</option>
-                        <option value="bad">Забележка</option>
+                    <td><select th:field="*{type}" name="" id="">
+                        <option value="Good">Похвала</option>
+                        <option value="Bad">Забележка</option>
                     </select></td>
                     <td>
-                        <select name="">
+                        <select th:field="*{subject}" name="">
                             <option th:each="c : ${classes}" th:text="${c.name}" th:value="${c.name}">Mat</option>
                         </select></td>
-                    <td><input type="text"></td>
+                    <td><input th:field="*{description}" type="text"></td>
                     <td><button class="row-button">Добави</button></td>
                 </tr>
             </form>

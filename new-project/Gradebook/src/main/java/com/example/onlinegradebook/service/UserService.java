@@ -43,4 +43,5 @@ public interface UserService {
     User getById(String id);
 
     List<AdminGetStudentsWithIdModelView> getUsersByClass(String id);
+
 }

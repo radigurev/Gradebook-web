@@ -21,6 +21,8 @@ import java.util.List;
 @Controller
 public class IndexController {
 
+    //TODO restructure whole project break it into different packages
+
     private final UserService userService;
     private final ModelMapper modelMapper;
     private final RoleService roleService;
