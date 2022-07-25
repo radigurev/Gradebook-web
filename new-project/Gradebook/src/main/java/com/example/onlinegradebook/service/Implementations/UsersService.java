@@ -165,7 +165,6 @@ public class UsersService implements UserService {
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.getStudentRole());
 
-        System.out.println();
         return userRepository.getAllBySchoolAndRoleIn(schoolservice.findSchool(school), roles)
                 .stream()
                 .map(u -> modelMapper.map(u, AdminStudentsTableView.class)).toList();

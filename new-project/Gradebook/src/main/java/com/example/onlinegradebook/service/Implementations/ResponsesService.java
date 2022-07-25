@@ -74,7 +74,7 @@ public class ResponsesService implements ResponseService {
             entry.setName(u.getName());
             view.add(entry);
         });
-
+        System.out.println();
         return view;
     }
 

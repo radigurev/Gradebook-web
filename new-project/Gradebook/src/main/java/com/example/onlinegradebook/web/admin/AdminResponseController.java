@@ -36,7 +36,7 @@ public class AdminResponseController {
     public String getResponsePage(@PathVariable String id,Model model) {
 
         //First table
-        model.addAttribute("students",responseService.getResponses(id));
+        model.addAttribute("studentResponses",responseService.getResponses(id));
 
         //Second table
         model.addAttribute("students",userService.getUsersByClass(id))
