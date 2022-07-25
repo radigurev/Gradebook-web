@@ -65,6 +65,7 @@
                         <th>Учител</th>
                         <th>Забележки</th>
                         <th>Похвали</th>
+                        <th>Забележки</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,7 +74,7 @@
                         <td th:text="${s.name}"> Мариана Василева</td>
                         <td > </td>
                         <td>
-                            <div class="grade-semester gra" style="background-color: rgb(180, 31, 31);">
+                            <div class="grade-semester gra" style="background-color: rgb(134, 255, 134);">
                                     <p th:text="${s.goodResponses.size()}">3</p>
                                     <div class="absences">
                                         <div class="absence" th:each="a : ${s.goodResponses}">
@@ -87,7 +88,7 @@
                             </div>
                         </td>
                         <td>
-                            <div class="grade-semester gra" style="background-color: rgb(134, 255, 134);">
+                            <div class="grade-semester gra" style="background-color: rgb(180, 31, 31);">
                                 <p th:text="${s.badResponses.size()}">2</p>
                                <div class="absences">
                                 <div class="absence" th:each="a : ${s.badResponses}">

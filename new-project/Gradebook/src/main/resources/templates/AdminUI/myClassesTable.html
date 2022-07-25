@@ -35,7 +35,9 @@
                         </div>
                     </td>
                     <td>
-                     <a th:href="@{/admin/responses/{id}(id=${c.id})}" class="row-button">Отвори</a>
+                     <a th:if="${type}=='response'" th:href="@{/admin/responses/{id}(id=${c.id})}" class="row-button">Отвори</a>
+                     <a th:if="${type}=='absence'" th:href="@{/admin/absence/{id}(id=${c.id})}" class="row-button">Отвори</a>
+                     <a th:if="${type}=='grade'" th:href="@{/admin/grade/{id}(id=${c.id})}" class="row-button">Отвори</a>
                     </td>
                 </tr>
             </tbody>

@@ -27,8 +27,8 @@ public class AdminResponseController {
 
     @GetMapping("/response")
     public String getClassesResponsePage(Model model) {
-        model.addAttribute("classes", classesService.getAllWithId());
-
+        model.addAttribute("classes", classesService.getAllWithId())
+                .addAttribute("type","response");
         return "/AdminUI/myClassesTable";
     }
 

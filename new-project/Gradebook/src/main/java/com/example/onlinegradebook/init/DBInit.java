@@ -3,10 +3,8 @@ package com.example.onlinegradebook.init;
 import com.example.onlinegradebook.model.entity.Classes;
 import com.example.onlinegradebook.model.entity.ClassesSchool;
 import com.example.onlinegradebook.model.entity.School;
-import com.example.onlinegradebook.repository.ClassesRepository;
-import com.example.onlinegradebook.repository.ClassesSchoolRepository;
-import com.example.onlinegradebook.repository.ResponseRepository;
-import com.example.onlinegradebook.repository.SchoolRepository;
+import com.example.onlinegradebook.repository.*;
+import com.example.onlinegradebook.service.AbsenceService;
 import com.example.onlinegradebook.service.ResponseService;
 import com.example.onlinegradebook.service.RoleService;
 import org.springframework.boot.CommandLineRunner;
@@ -20,13 +18,17 @@ public class DBInit implements CommandLineRunner {
     private final ClassesSchoolRepository classesSchoolRepository;
     private final ResponseRepository responseRepository;
     private final ResponseService responseService;
-    public DBInit(RoleService roleService, SchoolRepository schoolRepository, ClassesRepository classesRepository, ClassesSchoolRepository classesSchoolRepository, ResponseRepository responseRepository, ResponseService responseService) {
+    private final AbsenceRepository absenceRepository;
+    private final AbsenceService absenceService;
+    public DBInit(RoleService roleService, SchoolRepository schoolRepository, ClassesRepository classesRepository, ClassesSchoolRepository classesSchoolRepository, ResponseRepository responseRepository, ResponseService responseService, AbsenceRepository absenceRepository, AbsenceService absenceService) {
         this.roleService = roleService;
         this.schoolRepository = schoolRepository;
         this.classesRepository = classesRepository;
         this.classesSchoolRepository = classesSchoolRepository;
         this.responseRepository = responseRepository;
         this.responseService = responseService;
+        this.absenceRepository = absenceRepository;
+        this.absenceService = absenceService;
     }
 
     @Override
@@ -49,6 +51,10 @@ public class DBInit implements CommandLineRunner {
 
         if (responseRepository.count()==0) {
             responseService.init();
+        }
+
+        if (absenceRepository.count()==0) {
+            absenceService.init();
         }
     }
 }
