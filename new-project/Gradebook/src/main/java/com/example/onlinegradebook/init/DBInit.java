@@ -2,8 +2,7 @@ package com.example.onlinegradebook.init;
 
 import com.example.onlinegradebook.model.entity.Classes;
 import com.example.onlinegradebook.model.entity.ClassesSchool;
-import com.example.onlinegradebook.model.entity.School;
-import com.example.onlinegradebook.repository.*;
+import com.example.onlinegradebook.model.entity.School;import com.example.onlinegradebook.repository.*;
 import com.example.onlinegradebook.service.AbsenceService;
 import com.example.onlinegradebook.service.ResponseService;
 import com.example.onlinegradebook.service.RoleService;

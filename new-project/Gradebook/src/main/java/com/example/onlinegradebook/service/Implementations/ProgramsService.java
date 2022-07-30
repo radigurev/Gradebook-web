@@ -1,9 +1,8 @@
 package com.example.onlinegradebook.service.Implementations;
 
-import com.example.onlinegradebook.model.binding.admin.subModels.AdminDaysViewModel;
+import com.example.onlinegradebook.model.binding.submodels.adminSubModels.AdminDaysViewModel;
 import com.example.onlinegradebook.model.binding.admin.AdminProgramBindingModel;
-import com.example.onlinegradebook.model.binding.admin.subModels.ProgramDayViewModel;
-import com.example.onlinegradebook.model.entity.ClassesSchool;
+import com.example.onlinegradebook.model.binding.submodels.adminSubModels.ProgramDayViewModel;
 import com.example.onlinegradebook.model.entity.Program;
 import com.example.onlinegradebook.repository.ProgramRepository;
 import com.example.onlinegradebook.service.ClassService;

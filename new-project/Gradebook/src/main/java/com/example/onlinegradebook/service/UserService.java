@@ -3,6 +3,7 @@ package com.example.onlinegradebook.service;
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
 import com.example.onlinegradebook.model.entity.School;
 import com.example.onlinegradebook.model.entity.User;
+import com.example.onlinegradebook.model.view.StudentAndGradesViewModel;
 import com.example.onlinegradebook.model.view.admin.*;
 import com.example.onlinegradebook.model.view.DashboardInfoText;
 
@@ -44,4 +45,8 @@ public interface UserService {
 
     List<AdminGetStudentsWithIdModelView> getUsersByClass(String id);
 
+
+    List<User> getStudentsBySchoolAndClassAndRole(String id);
+
+    List<StudentAndGradesViewModel> getStudentsWithGrades(String id, String subject);
 }

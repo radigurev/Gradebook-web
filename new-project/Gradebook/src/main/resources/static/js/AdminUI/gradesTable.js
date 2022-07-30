@@ -2,16 +2,20 @@ const rows = [...document.getElementsByClassName('row')];
 const grades= [...document.getElementsByClassName('grade')];
 var enterGrades=[...document.getElementsByClassName('enter-grade')];
 var gradesDiv=[...document.getElementsByClassName('grades')];
-var backButtons=[...document.getElementsByClassName('back-btn')];
 var infoBar=document.getElementById('add-info');
+const icon=document.getElementById('icon');
 var table=document.getElementById('table');
+var backButtons=[...document.getElementsByClassName('back-btn')];
 var checkbox=document.getElementById('change-box');
 var table2=document.getElementById('table2');
-var switchIcon=document.getElementById('switch-icon');
-var pg=1;
+const subjectSelect=document.getElementById('subjects');
+const sumbitButton=document.getElementById('submit-button');
 var i=300;
 
 table.style.top=150;
+
+//const program=JSON.parse(json.replace(/&quot;/g, '"'));
+
 
 rows.forEach(r => {
     setTimeout(() => {
@@ -32,21 +36,6 @@ grades.forEach((g) => {
     })
 });
 
-checkbox.addEventListener('click', function() {
-    if(table.id==='table') {
-        table.id='table2';
-        table2.id='table';
-        switchIcon.classList.remove('fa-eye');
-        switchIcon.classList.add('fa-pen');
-    }else {
-        table2.id='table2';
-        table.id='table';
-        switchIcon.classList.remove('fa-pen');
-        switchIcon.classList.add('fa-eye');
-    }
-    document.getElementById('table').style.top=150;
-});
-
 enterGrades.forEach((e,inx) => {
     e.addEventListener('click', function() {
                     var position=Math.floor(inx/5);
@@ -56,7 +45,7 @@ enterGrades.forEach((e,inx) => {
                     document.getElementsByClassName('input')[position].classList.remove('display');
             })
 });
-console.log(backButtons)
+
 backButtons.forEach((b,inx)=>{
 
     b.addEventListener('click',function() {
@@ -64,3 +53,20 @@ backButtons.forEach((b,inx)=>{
         document.getElementsByClassName('input')[inx].classList.add('display');
     })
 });
+
+function tbChange() {
+    if (icon.classList.contains('fa-eye')) {
+        table.style.left="-150%";
+        table2.style.left="50%";
+        icon.classList.remove("fa-eye");
+        icon.classList.add('fa-pen');
+        sumbitButton.classList.remove('display');
+    } else {
+        icon.classList.add("fa-eye");
+        icon.classList.remove('fa-pen');
+        table2.style.left="150%";
+        table.style.left="50%";
+        sumbitButton.classList.add('display');
+    }
+    document.getElementById('table').style.top = 150;
+}

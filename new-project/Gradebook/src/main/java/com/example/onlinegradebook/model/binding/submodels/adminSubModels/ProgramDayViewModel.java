@@ -1,4 +1,4 @@
-package com.example.onlinegradebook.model.binding.admin.subModels;
+package com.example.onlinegradebook.model.binding.submodels.adminSubModels;
 
 public class ProgramDayViewModel {
     private String room;

@@ -18,8 +18,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByEmail(String email);
 
     List<User> getAllBySchoolAndRoleIn(School school, Set<Role> roles);
-
-    List<User> getAllBySchoolAndUserClassAndRoleIn(School school, ClassesSchool classes, Set<Role> roles);
+    List<User> getAllBySchoolAndUserClassAndRoleInOrderByFirstName(School school, ClassesSchool classes, Set<Role> roles);
 
     @Transactional
     @Modifying

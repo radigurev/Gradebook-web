@@ -11,6 +11,7 @@ import com.example.onlinegradebook.service.UserService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.Subject;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,6 +65,11 @@ public class SubjectsService implements SubjectService {
     @Override
     public SubjectSchool getSubjectByNameAndSchool(School school, String subjectByName) {
         return subjectSchoolRepository.findBySchoolAndSubject(school,getSubjectByName(subjectByName)).orElse(null);
+    }
+
+    @Override
+    public Subjects getSubjectById(String id) {
+        return subjectRepository.findById(id).orElse(null);
     }
 
 }

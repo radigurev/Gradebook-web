@@ -2,14 +2,17 @@ package com.example.onlinegradebook.service.Implementations;
 
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
 import com.example.onlinegradebook.model.entity.*;
-import com.example.onlinegradebook.model.entity.enums.Roles;
+import com.example.onlinegradebook.model.view.GradeViewModel;
+import com.example.onlinegradebook.model.view.StudentAndGradesViewModel;
 import com.example.onlinegradebook.model.view.admin.*;
 import com.example.onlinegradebook.model.view.DashboardInfoText;
 import com.example.onlinegradebook.repository.UserRepository;
 import com.example.onlinegradebook.service.*;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class UsersService implements UserService {
@@ -30,7 +32,10 @@ public class UsersService implements UserService {
     private final SubjectService subjectService;
     private final UsersSubjectsService usersSubjectsService;
 
-    public UsersService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleService roleService, SchoolService schoolservice, ClassService classService, ModelMapper modelMapper, SubjectService subjectService, UsersSubjectsService usersSubjectsService) {
+    private final Gson gson;
+    private final GradeService gradeService;
+
+    public UsersService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleService roleService, SchoolService schoolservice, ClassService classService, ModelMapper modelMapper, SubjectService subjectService, UsersSubjectsService usersSubjectsService, Gson gson, @Lazy GradeService gradeService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleService = roleService;
@@ -39,6 +44,8 @@ public class UsersService implements UserService {
         this.modelMapper = modelMapper;
         this.subjectService = subjectService;
         this.usersSubjectsService = usersSubjectsService;
+        this.gson = gson;
+        this.gradeService = gradeService;
     }
 
     //Saving new users
@@ -214,7 +221,7 @@ public class UsersService implements UserService {
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.getStudentRole());
         return userRepository
-                .getAllBySchoolAndUserClassAndRoleIn(getUser().getSchool(), classService.getClassesSchool("None"), roles)
+                .getAllBySchoolAndUserClassAndRoleInOrderByFirstName(getUser().getSchool(), classService.getClassesSchool("None"), roles)
                 .stream()
                 .map(s -> modelMapper.map(s, AdminGetNonAssignedStudentsViewModel.class))
                 .collect(Collectors.toList());
@@ -273,7 +280,7 @@ public class UsersService implements UserService {
         roles.add(roleService.getStudentRole());
         List<AdminGetStudentsWithIdModelView> students=new ArrayList<>();
         userRepository
-                .getAllBySchoolAndUserClassAndRoleIn(getUser().getSchool(), classService.getClassesSchoolById(id),roles)
+                .getAllBySchoolAndUserClassAndRoleInOrderByFirstName(getUser().getSchool(), classService.getClassesSchoolById(id),roles)
                 .forEach(u ->{
                 AdminGetStudentsWithIdModelView user = new AdminGetStudentsWithIdModelView();
                 user.setId(u.getId());
@@ -285,6 +292,56 @@ public class UsersService implements UserService {
                     students.add(user);
         });
         return students;
+    }
+
+    @Override
+    public List<User> getStudentsBySchoolAndClassAndRole(String id) {
+        ClassesSchool classesSchool=classService.getClassesSchoolById(id);
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getStudentRole());
+        return userRepository.getAllBySchoolAndUserClassAndRoleInOrderByFirstName(getUser().getSchool(), classesSchool,roles);
+    }
+
+    @Override
+    public List<StudentAndGradesViewModel> getStudentsWithGrades(String id, String subject) {
+        List<StudentAndGradesViewModel> model=new ArrayList<>();
+
+       getStudentsBySchoolAndClassAndRole(id).forEach(s -> {
+           StudentAndGradesViewModel entry=new StudentAndGradesViewModel();
+
+          List<GradeViewModel> gradesFirst=new ArrayList<>();
+          List<GradeViewModel> gradesSecond=new ArrayList<>();
+
+
+          gradeService.getGradesByUser(s).forEach(g -> {
+
+              if(g.getSubject().getId().equals(subject)) {
+
+                  GradeViewModel map = modelMapper.map(g, GradeViewModel.class);
+
+                  map.setTeacher(String.format("%s %s",g.getTeacher().getFirstName(),g.getTeacher().getLastName()));
+
+                  map.setSubject(g.getSubject().getName());
+
+                  switch (map.getType()){
+                      case "first-semester"->gradesFirst.add(map);
+                      case "final-first-semester"->entry.setGradesFirstFinal(map);
+                      case "second-semester"->gradesSecond.add(map);
+                      case "final-second-semester"->entry.setGradesSecondFinal(map);
+                      case "final"->entry.setFinalGrades(map);
+                  }
+              }
+          });
+        if(!s.getMiddleName().isEmpty())
+            entry.setStudent(String.format("%s %s. %s",s.getFirstName(),s.getMiddleName().charAt(0),s.getLastName()));
+        else
+            entry.setStudent(String.format("%s %s",s.getFirstName(),s.getLastName()));
+        entry.setGradesFirst(gradesFirst);
+        entry.setGradesSecond(gradesSecond);
+        model.add(entry);
+       });
+
+        return model;
     }
 
     //Getting current user email

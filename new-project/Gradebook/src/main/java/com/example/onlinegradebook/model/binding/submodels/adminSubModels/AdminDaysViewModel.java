@@ -1,4 +1,4 @@
-package com.example.onlinegradebook.model.binding.admin.subModels;
+package com.example.onlinegradebook.model.binding.submodels.adminSubModels;
 
 import java.util.ArrayList;
 import java.util.List;

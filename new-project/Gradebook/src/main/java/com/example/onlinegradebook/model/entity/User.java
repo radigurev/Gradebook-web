@@ -19,8 +19,6 @@ public class User extends BaseEntity {
     private ClassesSchool userClass;
     private Set<Role> role;
 
-    private Set<UsersSubjects> subjects;
-
     @Column(name = "email")
     public String getEmail() {
         return email;
@@ -101,6 +99,4 @@ public class User extends BaseEntity {
     public void setRole(Set<Role> role) {
         this.role = role;
     }
-
-
 }

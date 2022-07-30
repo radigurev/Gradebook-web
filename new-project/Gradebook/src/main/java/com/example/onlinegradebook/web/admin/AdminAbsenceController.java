@@ -21,6 +21,7 @@ public class AdminAbsenceController {
     private final UserService userService;
     private final AbsenceService absenceService;
 
+
     public AdminAbsenceController(ClassService classService, UserService userService, AbsenceService absenceService) {
         this.classService = classService;
         this.userService = userService;
