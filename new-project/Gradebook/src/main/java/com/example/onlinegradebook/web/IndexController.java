@@ -1,5 +1,6 @@
 package com.example.onlinegradebook.web;
 
+import com.example.onlinegradebook.model.binding.ChangeMiddleName;
 import com.example.onlinegradebook.model.binding.UserRegisterBindingModel;
 import com.example.onlinegradebook.model.entity.Role;
 import com.example.onlinegradebook.model.entity.User;
@@ -57,7 +58,8 @@ public class IndexController {
 
         String currentPrincipalName = authentication.getName();
 
-        model.addAttribute("dashboardInfo", userService.getUserInformationForDashboard(currentPrincipalName));
+        model.addAttribute("dashboardInfo", userService.getUserInformationForDashboard(currentPrincipalName))
+                .addAttribute("hasMiddleName",userService.hasMiddleName());
         if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_admin")))
             return "AdminUI/dashboard";
         else if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_teacher")))
@@ -66,6 +68,12 @@ public class IndexController {
             return "ParentUI/dashboard";
         else
             return "StudentUI/dashboard";
+    }
+
+    @PostMapping("change/middlename")
+    public String changeUsername(ChangeMiddleName middleName) {
+        userService.changeMiddleName(middleName);
+        return "redirect:/dashboard";
     }
 
     @PostMapping("/login-error")
@@ -82,5 +90,10 @@ public class IndexController {
     @GetMapping("/login")
     public String login() {
         return "redirect:/";
+    }
+
+    @ModelAttribute
+    public ChangeMiddleName changeMiddleName() {
+        return new ChangeMiddleName();
     }
 }

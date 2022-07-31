@@ -12,41 +12,9 @@
     
       <div class="container">
 
-          <div class="nav-buttons">
-              <div class="nav-wrapper">
-                   <span title="grades" class="fa-stack fa-lg">
-            <i class="fa-solid fa-circle fa-stack-2x"></i>
-            <i  class="fa-solid fa-graduation-cap fa-stack-1x fa-inverse"></i>
-          </span>
-              </div>
+          <div th:replace="/fragments/nav::nav"></div>
 
-              <div class="nav-wrapper">
-                  <span class="fa-stack fa-lg" title="absences">
-            <i class="fa-solid fa-circle fa-stack-2x"></i>
-            <i  class="fa-solid fa-exclamation fa-stack-1x fa-inverse"></i>
-          </span>
-              </div>
-              </span>
-              <div class="nav-wrapper">
-                  <span class="fa-stack fa-lg" title="responses">
-            <i class="fa-solid fa-circle fa-stack-2x"></i>
-            <i  class="fa-solid fa-medal fa-stack-1x fa-inverse"></i>
-          </span>
-              </div>
-              <div class="nav-wrapper">
-                  <span class="fa-stack fa-lg" title="teachers">
-            <i class="fa-solid fa-circle fa-stack-2x"></i>
-            <i  class="fa-solid fa-person-chalkboard fa-stack-1x fa-inverse"></i>
-         </span>
-              </div>
-              <div class="nav-wrapper">
-                  <span onclick="window.location='/dashboard'"  class="fa-stack fa-lg" title="dashboard">
-            <i class="fa-solid fa-circle fa-stack-2x"></i>
-            <i  class="fa-solid fa-arrow-right-from-bracket fa-stack-1x fa-inverse"></i>
-          </span>
-              </div>
-          </div>
-            <div class="user">
+          <div class="user">
                 <div>
                     <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
                     <p> <i class="fa-solid fa-person-chalkboard"></i> Radoslav Gurev</p>

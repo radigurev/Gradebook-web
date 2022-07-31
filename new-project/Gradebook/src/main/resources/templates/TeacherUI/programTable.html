@@ -1,17 +1,17 @@
-<html lang="en">
+<html class="mainBody" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="programTable-style.css">
-    <link rel="stylesheet" href="/main menu/nav.css">
+    <link rel="stylesheet" href="/css/AdminUI/programTable-style.css">
 </head>
-<body>
-    <a class="exit-button" href=""><i class="fa-solid fa-arrow-right-from-bracket fa-3x"></i></a>
+<body id="body">
 
       <div class="container">
+          <div th:replace="/fragments/nav::nav"></div>
 
             <div class="user">
                 <div>
@@ -19,7 +19,14 @@
                     <p><i class="fa-solid fa-graduation-cap"></i> Radoslav Gurev</p>
                 </div>
             </div>
+          <div onclick="tbChange()" class="wrapper">
+        <span class="fa-stack fa-lg">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i id="icon" class="fa-solid fa-eye fa-stack-1x fa-inverse"></i>
+          </span>
+          </div>
 
+          <select name="" id="classSelect"></select>
         <table id="table">
             <thead>
                 <tr>
@@ -32,51 +39,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="row">
-                    <td class="num">1</td>
-                        
-                    <td>
-                        <div>
-                            <p>Операционни Систени</p>
-                           <div class="class-info">
-                            <p class="teacher">11в</p>
-                            <p class="room">5.7</p>
-                           </div>
-                        </div>
-                    </td>
-                    <td>
-                      <p> Физическо възпитание и спорт </p>
-                      <div class="class-info">
-                        <p class="teacher">11б</p>
-                        <p class="room">ФС</p>
-                      </div>
-                    </td>
-                    <td>
-                        <p>Обектно ориентирано програмиране</p>
-                       <div class="class-info">
-                        <p class="teacher">9ж</p>
-                        <p class="room">6.2</p>
-                      </div>
-                    </td>
-                    <td>
-                       <p>Обектно ориентирано програмиране</p>
-                       <div class="class-info">
-                        <p class="teacher">10а</p>
-                        <p class="room">6.2</p>
-                      </div>
-                    </td>
-                    <td>
-                        <p>Бизнес комуникации</p>
-                        <div class="class-info">
-                         <p class="teacher">12р</p>
-                         <p class="room">2.2</p>
-                       </div>
-                    </td>
-                </tr>               
+               <tr style="display: none"></tr>
             </tbody>
         </table>
     </div>
 </body>
+
+<script>
+    const json='[[${programs}]]';
+</script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="programTable.js"></script>
+
+<script src="/js/AdminUI/programTable.js"></script>
+
 </html>

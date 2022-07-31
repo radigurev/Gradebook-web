@@ -1,5 +1,6 @@
 package com.example.onlinegradebook.service.Implementations;
 
+import com.example.onlinegradebook.model.binding.ChangeMiddleName;
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
 import com.example.onlinegradebook.model.entity.*;
 import com.example.onlinegradebook.model.view.GradeViewModel;
@@ -17,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -68,7 +70,7 @@ public class UsersService implements UserService {
         User user = userRepository.findByEmail(email).orElse(null);
 
         assert user != null;
-        return new DashboardInfoText(String.format("%s %s", user.getFirstName(), user.getLastName()), user.getSchool().getName(), user.getPhoneNumber(), user.getUserClass().getClasses().getClassNumber());
+        return new DashboardInfoText(String.format("%s %s", user.getFirstName(), user.getLastName()), user.getSchool().getName(), user.getEmail(), user.getUserClass().getClasses().getClassNumber());
     }
 
     //Saving new Teachers
@@ -91,7 +93,7 @@ public class UsersService implements UserService {
 
             user.setRole(roles);
 
-            user.setPassword(passwordEncoder.encode("newUser123"));
+            user.setPassword(passwordEncoder.encode("dashboard.html"));
 
             user.setMiddleName("");
 
@@ -342,6 +344,20 @@ public class UsersService implements UserService {
        });
 
         return model;
+    }
+
+    @Override
+    public Boolean hasMiddleName() {
+        return getUser().getMiddleName() != null;
+    }
+
+    @Override
+    public void changeMiddleName(ChangeMiddleName middleName) {
+        User user = getUser();
+        user.setMiddleName(middleName.getMiddleName());
+
+        userRepository.save(user);
+
     }
 
     //Getting current user email

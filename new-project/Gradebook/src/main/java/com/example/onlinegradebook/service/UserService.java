@@ -1,5 +1,6 @@
 package com.example.onlinegradebook.service;
 
+import com.example.onlinegradebook.model.binding.ChangeMiddleName;
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
 import com.example.onlinegradebook.model.entity.School;
 import com.example.onlinegradebook.model.entity.User;
@@ -49,4 +50,8 @@ public interface UserService {
     List<User> getStudentsBySchoolAndClassAndRole(String id);
 
     List<StudentAndGradesViewModel> getStudentsWithGrades(String id, String subject);
+
+    Boolean hasMiddleName();
+
+    void changeMiddleName(ChangeMiddleName middleName);
 }

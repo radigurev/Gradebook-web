@@ -61,6 +61,7 @@ public class ClassesService implements ClassService {
                         if(c.getSchool().getName().equals(school)) {
                             Classes Class=new Classes();
                             Class.setClassNumber(String.format("%s%s",c.getClasses().getClassNumber(),c.getLetter()));
+                            Class.setId(c.getId());
                             classes.add(Class);
                         }
                     });

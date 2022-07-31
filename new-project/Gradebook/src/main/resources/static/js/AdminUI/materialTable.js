@@ -39,7 +39,6 @@ while (switching) {
 }
 
 table.style.top=150;
-console.log(subjectSelect)
 rows.forEach(r => {
     setTimeout(() => {
         r.style.opacity=1;
