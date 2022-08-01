@@ -1,4 +1,4 @@
-package com.example.onlinegradebook.web.teacher;
+package com.example.onlinegradebook.web.teacherAndAdmin;
 
 import com.example.onlinegradebook.service.AbsenceService;
 import com.example.onlinegradebook.service.ClassService;
@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/teacher")
-public class TeacherAbsenceController {
+@RequestMapping("/tables")
+public class AbsenceController {
 
     private final ClassService classService;
     private final UserService userService;
     private final AbsenceService absenceService;
 
 
-    public TeacherAbsenceController(ClassService classService, UserService userService, AbsenceService absenceService) {
+    public AbsenceController(ClassService classService, UserService userService, AbsenceService absenceService) {
         this.classService = classService;
         this.userService = userService;
         this.absenceService = absenceService;
@@ -30,7 +30,7 @@ public class TeacherAbsenceController {
         model.addAttribute("classes", classService.getAllWithId())
                 .addAttribute("type","absence");
 
-        return "/TeacherUI/myClassesTable";
+        return "/TeacherAndAdmin/myClassesTable";
     }
 
     @GetMapping("/absence/{id}")
@@ -40,7 +40,7 @@ public class TeacherAbsenceController {
 
         model.addAttribute("studentsWithId",userService.getUsersByClass(classService.getClassesSchoolById(id).getId()));
 
-        return "/TeacherUI/absenceTable";
+        return "/TeacherAndAdmin/absenceTable";
     }
 
     @GetMapping("/add/absence/{id}")
@@ -48,7 +48,7 @@ public class TeacherAbsenceController {
 
         absenceService.saveUserAbsence(id);
 
-        return String.format("redirect:/teacher/absence/%s",userService.getById(id).getUserClass().getId());
+        return String.format("redirect:/tables/absence/%s",userService.getById(id).getUserClass().getId());
     }
 
     @GetMapping("/add/late/{id}")
@@ -56,7 +56,7 @@ public class TeacherAbsenceController {
 
         absenceService.saveUserLate(id);
 
-        return String.format("redirect:/teacher/absence/%s",userService.getById(id).getUserClass().getId());
+        return String.format("redirect:/tables/absence/%s",userService.getById(id).getUserClass().getId());
     }
 
     @GetMapping("/remove/absence/{id}")
@@ -66,6 +66,6 @@ public class TeacherAbsenceController {
 
         absenceService.removeAbsence(id);
 
-        return String.format("redirect:/teacher/absence/%s",schoolId);
+        return String.format("redirect:/tables/absence/%s",schoolId);
     }
 }

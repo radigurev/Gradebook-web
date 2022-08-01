@@ -1,4 +1,4 @@
-package com.example.onlinegradebook.web.admin;
+package com.example.onlinegradebook.web.teacherAndAdmin;
 
 import com.example.onlinegradebook.model.binding.AddTestBindingModel;
 import com.example.onlinegradebook.service.ClassService;
@@ -8,16 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/admin")
+@RequestMapping("/tables")
 @Controller
-public class AdminTestController {
+public class TestController {
 
     private final SubjectService subjectService;
     private final ClassService classService;
 
     private final TestService testService;
 
-    public AdminTestController(SubjectService subjectService, ClassService classService, TestService testService) {
+    public TestController(SubjectService subjectService, ClassService classService, TestService testService) {
         this.subjectService = subjectService;
         this.classService = classService;
         this.testService = testService;
@@ -29,7 +29,7 @@ public class AdminTestController {
                     .addAttribute("classes",classService.getAll())
                         .addAttribute("tests",testService.getAll());
 
-        return "/AdminUI/testsTable";
+        return "/TeacherAndAdmin/testsTable";
     }
 
     @PostMapping("/test/add/{id}")
@@ -37,7 +37,7 @@ public class AdminTestController {
 
         testService.saveTest(model,id);
 
-        return "redirect:/admin/tests";
+        return "redirect:/tables/tests";
     }
 
     @ModelAttribute

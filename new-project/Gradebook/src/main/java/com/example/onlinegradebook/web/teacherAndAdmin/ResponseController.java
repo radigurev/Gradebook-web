@@ -1,4 +1,4 @@
-package com.example.onlinegradebook.web.admin;
+package com.example.onlinegradebook.web.teacherAndAdmin;
 
 import com.example.onlinegradebook.model.binding.StudentResponseBindingModel;
 import com.example.onlinegradebook.service.ClassService;
@@ -10,15 +10,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/admin")
-public class AdminResponseController {
+@RequestMapping("/tables")
+public class ResponseController {
 
     private final ClassService classesService;
     private final UserService userService;
     private final SubjectService subjectService;
     private final ResponseService responseService;
 
-    public AdminResponseController(ClassService classesService, UserService userService, SubjectService subjectService, ResponseService responseService) {
+    public ResponseController(ClassService classesService, UserService userService, SubjectService subjectService, ResponseService responseService) {
         this.classesService = classesService;
         this.userService = userService;
         this.subjectService = subjectService;
@@ -29,7 +29,7 @@ public class AdminResponseController {
     public String getClassesResponsePage(Model model) {
         model.addAttribute("classes", classesService.getAllWithId())
                 .addAttribute("type","response");
-        return "/AdminUI/myClassesTable";
+        return "/TeacherAndAdmin/myClassesTable";
     }
 
     @GetMapping("/responses/{id}")
@@ -41,7 +41,7 @@ public class AdminResponseController {
         //Second table
         model.addAttribute("students",userService.getUsersByClass(id))
                 .addAttribute("classes",subjectService.getAll());
-        return "/AdminUI/responseTable";
+        return "/TeacherAndAdmin/responseTable";
     }
 
     @PostMapping("/responses/add/{id}")
@@ -49,7 +49,7 @@ public class AdminResponseController {
 
         responseService.saveResponseForStudent(id,model);
 
-        return String.format("redirect:/admin/responses/%s",userService.getById(id).getUserClass().getId());
+        return String.format("redirect:/tables/responses/%s",userService.getById(id).getUserClass().getId());
     }
 
     @ModelAttribute

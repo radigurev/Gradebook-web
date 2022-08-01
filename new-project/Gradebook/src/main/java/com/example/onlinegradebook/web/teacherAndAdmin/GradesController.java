@@ -1,8 +1,7 @@
-package com.example.onlinegradebook.web.admin;
+package com.example.onlinegradebook.web.teacherAndAdmin;
 
 import com.example.onlinegradebook.model.binding.GetUserGradesBindingModel;
 import com.example.onlinegradebook.model.binding.LinkBindingModel;
-import com.example.onlinegradebook.model.view.StudentAndGradesViewModel;
 import com.example.onlinegradebook.service.ClassService;
 import com.example.onlinegradebook.service.GradeService;
 import com.example.onlinegradebook.service.SubjectService;
@@ -11,18 +10,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
-@RequestMapping("/admin")
-public class AdminGradesController {
+@RequestMapping("/tables")
+public class GradesController {
 
     private final ClassService classService;
     private final UserService userService;
     private final SubjectService subjectService;
     private final GradeService gradeService;
 
-    public AdminGradesController(ClassService classService, UserService userService, SubjectService subjectService, GradeService gradeService) {
+    public GradesController(ClassService classService, UserService userService, SubjectService subjectService, GradeService gradeService) {
         this.classService = classService;
         this.userService = userService;
         this.subjectService = subjectService;
@@ -36,7 +33,7 @@ public class AdminGradesController {
                 .addAttribute("type","grade")
                 .addAttribute("subjects",subjectService.getAll());
 
-        return "AdminUI/myClassesTable";
+        return "/TeacherAndAdmin/myClassesTable";
     }
 
     @GetMapping("/grade/{id}")
@@ -46,7 +43,7 @@ public class AdminGradesController {
         model.addAttribute("studentsWithId",userService.getUsersByClass(classService.getClassesSchoolById(id).getId()))
                 .addAttribute("subjects",subjectService.getAll());
 
-        return "/AdminUI/gradesTable";
+        return "/TeacherAndAdmin/gradesTable";
     }
 
     @PostMapping("/grade/{id}")
@@ -54,7 +51,7 @@ public class AdminGradesController {
 
         gradeService.saveGrades(model,id);
 
-        return "redirect:/admin/grade/"+id;
+        return "redirect:/tables/grade/"+id;
     }
 
     @ModelAttribute

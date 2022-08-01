@@ -20,13 +20,6 @@
                 </div>
             </div>
 
-          <div onclick="tbChange()" class="wrapper">
-        <span class="fa-stack fa-lg">
-            <i class="fa-solid fa-circle fa-stack-2x"></i>
-            <i id="icon" class="fa-solid fa-eye fa-stack-1x fa-inverse"></i>
-          </span>
-          </div>
-
         <table id="table">
             <thead>
                 <tr>
@@ -34,8 +27,7 @@
                     <th><i class="fa-solid fa-book-open"></i> Предмет</th>
                     <th><i class="fa-solid fa-book"></i> Материал</th>
                     <th>Взет</th>
-                    <th></th>
-                   
+
                 </tr>
             </thead>
             <tbody>
@@ -59,9 +51,6 @@
                         <p th:text="${inx.index}">row</p>
                     </div></a>
                 </td>
-                <td>
-                    <a th:class="remove-button" th:href="@{/admin/material/remove/{id}(id=${t.id})}">Remove</a>
-                </td>
             </tr>
 
 
@@ -76,54 +65,14 @@
                         </div>
                     </td>
                     <td>
-                     <a th:href="@{/admin/material/take/{id}(id=${t.id})}" class="button-a">Не Взет</a>
+                     <a th:href="@{/teacher/material/take/{id}(id=${t.id})}" class="button-a">Не Взет</a>
                     </td>
                     <td>
-                        <a th:class="remove-button" th:href="@{/admin/material/remove/{id}(id=${t.id})}">Remove</a>
+                        <a th:class="remove-button" th:href="@{/teacher/material/remove/{id}(id=${t.id})}">Remove</a>
                     </td>
                 </tr>
             </tbody>
         </table>
-
-
-    <form th:action="@{/admin/material}" th:method="POST" th:object="${adminGetJsonMaterial}">
-        <button onclick="changeTest()"  id="add-button">ready</button>
-    <table id="table2">
-        <thead>
-        <tr>
-            <th>№</th>
-            <th><i class="fa-solid fa-book-open"></i> Предмет</th>
-            <th><i class="fa-solid fa-book"></i> Материал</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="row">
-            <td class="num">1</td>
-
-            <td>
-                <div>
-                    <p>Предмет: Математика</p>
-                </div>
-            </td>
-            <td>
-                <input class="material-input" type="text">
-            </td>
-        </tr>
-        </tbody>
-    </table>
-        <input th:field="*{test}" type="text" id="json-input" style="display: none">
-</form>
-
-         <div id="select-wrapper">
-             <select name="" id="subjects">
-                 <option th:each="s : ${subjects}" th:text="${s.name}" th:value="${s.name}">Math</option>
-
-             </select>
-
-             <select name="" id="classes">
-                 <option th:each="c :${classes}" th:text="${c}" th:value="${c}">11a</option>
-             </select>
-         </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/js/AdminUI/materialTable.js"></script>

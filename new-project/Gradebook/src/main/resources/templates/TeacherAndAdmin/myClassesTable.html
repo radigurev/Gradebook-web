@@ -40,9 +40,9 @@
                         </div>
                     </td>
                     <td>
-                     <a th:if="${type}=='response'" th:href="@{/teacher/responses/{id}(id=${c.id})}" class="row-button">Отвори</a>
-                     <a th:if="${type}=='absence'" th:href="@{/teacher/absence/{id}(id=${c.id})}" class="row-button">Отвори</a>
-                        <form th:if="${type}=='grade'" th:action="@{/teacher/grade/{id}(id=${c.id})}" th:method="GET" th:object="${linkBindingModel}">
+                     <a th:if="${type}=='response'" th:href="@{/tables/responses/{id}(id=${c.id})}" class="row-button">Отвори</a>
+                     <a th:if="${type}=='absence'" th:href="@{/tables/absence/{id}(id=${c.id})}" class="row-button">Отвори</a>
+                        <form th:if="${type}=='grade'" th:action="@{/tables/grade/{id}(id=${c.id})}" th:method="GET" th:object="${linkBindingModel}">
                             <button  style="cursor: pointer"  class="row-button">Отвори</button>
                             <input th:field="*{subject}" style="display: none" class="subject">
                         </form>

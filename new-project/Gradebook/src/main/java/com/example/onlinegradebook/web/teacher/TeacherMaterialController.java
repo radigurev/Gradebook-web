@@ -38,7 +38,6 @@ public class TeacherMaterialController {
 
     @PostMapping("/material")
     public String getMaterials(AdminGetJsonMaterial test) {
-        System.out.println();
         materialService.saveMaterials(test);
         return "redirect:/teacher/material";
     }
@@ -53,14 +52,5 @@ public class TeacherMaterialController {
         materialService.takeMaterial(id,true,userService.getUser());
         return "redirect:/teacher/material";
     }
-    @GetMapping("/material/remove/{id}")
-    public String removeMaterial(@PathVariable String id) {
-        materialService.removeMaterial(id);
-        return "redirect:/teacher/material";
-    }
 
-    @ModelAttribute
-    public AdminGetJsonMaterial adminGetJsonMaterial() {
-        return new AdminGetJsonMaterial();
-    }
 }

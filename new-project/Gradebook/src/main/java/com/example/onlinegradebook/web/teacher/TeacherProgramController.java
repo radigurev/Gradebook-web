@@ -31,25 +31,16 @@ public class TeacherProgramController {
 
     @GetMapping("/program")
     public String getProgramPage(Model model) {
-        //TODO populate program table + make it so admin can see every class program
 
         model.addAttribute("programs",programService.getAllPrograms());
 
-        model.addAttribute("teachers",userService.getAllTeacherNamesAndSubjects());
+//        model.addAttribute("teachers",userService.getAllTeacherNamesAndSubjects());
 
-        model.addAttribute("classes",classService.getAll());
+//        model.addAttribute("classes",classService.getAll());
 
-        model.addAttribute("subjects",subjectService.getAll());
+//        model.addAttribute("subjects",subjectService.getAll());
 
-        return "/AdminUI/programTable";
-    }
-
-    @PostMapping("/program/add/{id}")
-    public String getProgramForTeacher(@PathVariable String id,AdminProgramBindingModel model) {
-
-        programService.saveProgram(id,model);
-
-        return "redirect:/admin/program";
+        return "/TeacherUI/programTable";
     }
 
 }

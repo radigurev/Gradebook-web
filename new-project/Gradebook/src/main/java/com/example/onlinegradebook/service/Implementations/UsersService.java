@@ -93,7 +93,7 @@ public class UsersService implements UserService {
 
             user.setRole(roles);
 
-            user.setPassword(passwordEncoder.encode("dashboard.html"));
+            user.setPassword(passwordEncoder.encode("NewUser1234"));
 
             user.setMiddleName("");
 
@@ -102,7 +102,7 @@ public class UsersService implements UserService {
             assert admin != null;
 
             user.setSchool(schoolservice.findSchool(admin.getSchool().getName()));
-
+            user.setUserClass(classService.getClassesSchool("None"));
             userRepository.saveAndFlush(user);
         }
     }

@@ -85,7 +85,7 @@
                 </tr>
             </thead>
             <tbody>
-            <form th:action="@{/admin/responses/add/{id}(id=${s.id})}" th:each="s,iter : ${students}" th:method="POST" th:object="${studentResponseBindingModel}">
+            <form th:action="@{/tables/responses/add/{id}(id=${s.id})}" th:each="s,iter : ${students}" th:method="POST" th:object="${studentResponseBindingModel}">
                 <tr class="row">
                     <td th:text="${iter.index}+1" class="num">2</td>
                     <td th:text="${s.name}"> </td>
