@@ -4,6 +4,7 @@ import com.example.onlinegradebook.model.binding.GetUserGradesBindingModel;
 import com.example.onlinegradebook.model.binding.submodels.IdAndGrade;
 import com.example.onlinegradebook.model.entity.Grades;
 import com.example.onlinegradebook.model.entity.User;
+import com.example.onlinegradebook.model.view.GradesTableViewModel;
 import com.example.onlinegradebook.repository.GradeRepository;
 import com.example.onlinegradebook.service.GradeService;
 import com.example.onlinegradebook.service.SubjectService;
@@ -56,5 +57,41 @@ public class GradesService implements GradeService {
     @Override
     public List<Grades> getGradesByUser(User user) {
         return gradeRepository.getAllByStudent(user);
+    }
+
+    @Override
+    public List<GradesTableViewModel> getGradesForUser(User user) {
+        List<GradesTableViewModel> grades = new ArrayList<>();
+
+        List<Grades> gradesByUser = getGradesByUser(user);
+
+        List<String> subjects= new ArrayList<>();
+
+        gradesByUser.forEach(g-> {
+            if(!subjects.contains(g.getSubject().getName())) {
+                subjects.add(g.getSubject().getName());
+                GradesTableViewModel gradesTableViewModel=new GradesTableViewModel();
+                gradesTableViewModel.setSubject(g.getSubject().getName());
+                grades.add(gradesTableViewModel);
+            }
+        });
+
+        gradesByUser.forEach(g -> {
+            grades.forEach(gr-> {
+                if (gr.getSubject().equals(g.getSubject().getName())) {
+                    switch (g.getType()){
+                        case "first-semester"->gr.addGradesFirst(g);
+                        case "final-first-semester"->gr.setFirstGradeFinal(g);
+                        case "second-semester"->gr.addGradesSecond(g);
+                        case "final-second-semester"->gr.setSecondGradeFinal(g);
+                        case "final"->gr.setGradeFinal(g);
+                    }
+                }
+            });
+        });
+
+
+
+        return grades;
     }
 }

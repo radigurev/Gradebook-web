@@ -3,6 +3,7 @@ package com.example.onlinegradebook.service.Implementations;
 import com.example.onlinegradebook.model.entity.Absence;
 import com.example.onlinegradebook.model.entity.AbsenceStudent;
 import com.example.onlinegradebook.model.entity.enums.AbsenceType;
+import com.example.onlinegradebook.model.view.AbsenceViewModel;
 import com.example.onlinegradebook.model.view.AdminAndTeachers.StudentsAbsenceViewModel;
 import com.example.onlinegradebook.repository.AbsenceRepository;
 import com.example.onlinegradebook.repository.AbsenceStudentRepository;
@@ -21,6 +22,7 @@ public class AbsencesService implements AbsenceService {
     private final AbsenceRepository absenceRepository;
     private final AbsenceStudentRepository absenceStudentRepository;
     private final UserService userService;
+
     public AbsencesService(AbsenceRepository absenceRepository, AbsenceStudentRepository absenceStudentRepository, UserService userService) {
         this.absenceRepository = absenceRepository;
         this.absenceStudentRepository = absenceStudentRepository;
@@ -29,7 +31,7 @@ public class AbsencesService implements AbsenceService {
 
     @Override
     public void saveUserAbsence(String id) {
-        AbsenceStudent absence=new AbsenceStudent();
+        AbsenceStudent absence = new AbsenceStudent();
         absence.setSchool(userService.getUser().getSchool());
         absence.setStudent(userService.getById(id));
         absence.setDate(LocalDateTime.now());
@@ -41,7 +43,7 @@ public class AbsencesService implements AbsenceService {
     @Override
     public void init() {
         Arrays.stream(AbsenceType.values()).forEach(a -> {
-            Absence absence=new Absence();
+            Absence absence = new Absence();
             absence.setType(a);
             absenceRepository.saveAndFlush(absence);
         });
@@ -49,7 +51,7 @@ public class AbsencesService implements AbsenceService {
 
     @Override
     public void saveUserLate(String id) {
-        AbsenceStudent absence=new AbsenceStudent();
+        AbsenceStudent absence = new AbsenceStudent();
         absence.setSchool(userService.getUser().getSchool());
         absence.setStudent(userService.getById(id));
         absence.setDate(LocalDateTime.now());
@@ -60,12 +62,12 @@ public class AbsencesService implements AbsenceService {
 
     @Override
     public List<StudentsAbsenceViewModel> getUsersWithAbsence(String id) {
-        List<StudentsAbsenceViewModel> absencesView=new ArrayList<>();
+        List<StudentsAbsenceViewModel> absencesView = new ArrayList<>();
         userService.getUsersByClass(id).forEach(u -> {
-            List<AbsenceStudent> late= new ArrayList<>();
-            List<AbsenceStudent> forgiven= new ArrayList<>();
-            List<AbsenceStudent> absences= new ArrayList<>();
-            StudentsAbsenceViewModel model=new StudentsAbsenceViewModel();
+            List<AbsenceStudent> late = new ArrayList<>();
+            List<AbsenceStudent> forgiven = new ArrayList<>();
+            List<AbsenceStudent> absences = new ArrayList<>();
+            StudentsAbsenceViewModel model = new StudentsAbsenceViewModel();
 
             model.setName(u.getName());
             absenceStudentRepository.getAbsenceStudentsByStudent(userService.getById(u.getId())).forEach(a -> {
@@ -95,4 +97,20 @@ public class AbsencesService implements AbsenceService {
 
         return absenceStudentRepository.findById(id).orElse(null);
     }
-}
+
+    @Override
+    public AbsenceViewModel getAbsencesForUser() {
+        AbsenceViewModel absenceViewModel = new AbsenceViewModel();
+        absenceStudentRepository.getAbsenceStudentsByStudent(userService.getUser()).forEach(a -> {
+
+            switch (a.getType().getType()) {
+                case Absence -> absenceViewModel.addAbsence(a);
+                case Late -> absenceViewModel.addLate(a);
+                case Forgiven -> absenceViewModel.addForgiven(a);
+            }
+        });
+
+            return absenceViewModel;
+        }
+    }
+

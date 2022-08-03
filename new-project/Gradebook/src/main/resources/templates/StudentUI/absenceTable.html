@@ -1,4 +1,5 @@
-<html lang="en">
+<html class="mainBody" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,8 +32,6 @@
             <thead>
                 <tr>
                     <th>№</th>
-                    <th>Учител</th>
-                    <th>Предмет</th>
                     <th>Закъснения</th>
                     <th>Отсъствия</th>
                     <th>Извинени</th>
@@ -40,54 +39,43 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="row">
+                <tr class="row" >
                     <td class="num">1</td>
-                    <td><i class="fa-solid fa-person-chalkboard fa-lg"></i> Мариана Василева</td>
-                    <td><i class="fa-solid fa-book-open"></i> Математика</td>
                     <td>
                                                 <div class="grade-semester" style="background-color: rgb(248, 112, 112);">
-                                                    <p>2</p>
+                                                    <p th:text="${absences.late.size()}">2</p>
+                                                    <div class="absences">
+                                                        <div th:each="l : ${absences.late}" class="absence">
+                                                            <p class="info" th:text="${l.date}">2022-12-19 11:55:34</p>
+                                                            <p class="info" th:text="${l.type.type.name()}">Час: 6</p>
+                                                            <p class="info" th:text="|${l.teacher.firstName} ${l.teacher.middleName} ${l.teacher.lastName}|">Въведено от: Анка Ушанова</p>
+                                                            <p class="info">0</p>
+                                                        </div>
+                                                    </div>
                                             </div>
                     </td>
                     <td>
                         <div class="grade-semester gra" style="background-color: rgb(180, 31, 31);">
-                                <p>3</p>
+                                <p th:text="${absences.absence.size()}">3</p>
                                 <div class="absences">
-                                    <div class="absence">
-                                        <p class="info">2022-12-19 11:55:34</p>
-                                        <p class="info">Час: 6</p>
-                                        <p class="info">Въведено от: Анка Ушанова</p>
+                                    <div th:each="l : ${absences.absence}" class="absence">
+                                        <p class="info" th:text="${l.date}">2022-12-19 11:55:34</p>
+                                        <p class="info" th:text="${l.type.type.name()}">Час: 6</p>
+                                        <p class="info" th:text="|${l.teacher.firstName} ${l.teacher.middleName} ${l.teacher.lastName}|">Въведено от: Анка Ушанова</p>
                                         <p class="info">0</p>
                                     </div>
-                                    <div class="absence">
-                                        <p class="info">2022-02-19 11:55:34</p>
-                                        <p class="info">Час: 5</p>
-                                        <p class="info">Въведено от: Анка Ушанова</p>
-                                        <p class="info">0</p>
-                                    </div>
-                                    <div class="absence">
-                                        <p class="info">2022-03-19 11:55:34</p>
-                                        <p class="info">Час: 4</p>
-                                        <p class="info">Въведено от: Анка Ушанова</p>
-                                        <p class="info">0</p>
-                                    </div>
+
                                 </div>
                         </div>
                     </td>
                     <td>
                         <div class="grade-semester gra" style="background-color: rgb(134, 255, 134);">
-                                <p>2</p>
+                                <p th:text="${absences.forgiven.size()}">2</p>
                                 <div class="absences">
-                                    <div class="absence">
-                                        <p class="info">2022-03-19 11:55:34</p>
-                                        <p class="info">Час: 4</p>
-                                        <p class="info">Въведено от: Анка Ушанова</p>
-                                        <p class="info">0</p>
-                                    </div>
-                                    <div class="absence">
-                                        <p class="info">2022-03-19 11:55:34</p>
-                                        <p class="info">Час: 4</p>
-                                        <p class="info">Въведено от: Анка Ушанова</p>
+                                    <div th:each="l : ${absences.forgiven}" class="absence">
+                                        <p class="info" th:text="${l.date}">2022-12-19 11:55:34</p>
+                                        <p class="info" th:text="${l.type.type.name()}">Час: 6</p>
+                                        <p class="info" th:text="|${l.teacher.firstName} ${l.teacher.middleName} ${l.teacher.lastName}|">Въведено от: Анка Ушанова</p>
                                         <p class="info">0</p>
                                     </div>
                                 </div>
@@ -95,12 +83,8 @@
                     </td>
                     <td>
                         <div class="grade-semester gra" style="background-color: rgb(192, 95, 95);">
-                                <p>2</p>
-                                <p class="info">Дата: 28.04.2022</p>
-                                <p class="info">Тип: Изпит</p>
-                                <p class="info">Оценкта: 2.66</p>
-                                <p class="info">Предмет: Математика</p>
-                                <p class="info">0</p>
+                                <p th:text="${absences.late.size()}+${absences.forgiven.size()}+${absences.absence.size()}">2</p>
+
                         </div>
                     </td>
                 </tr>               

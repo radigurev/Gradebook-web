@@ -1,11 +1,12 @@
-<html lang="en">
+<html class="mainBody" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="gradesTable-style.css">
+    <link rel="stylesheet" href="/css/StudentUI/gradesTable-style.css">
     <link rel="stylesheet" href="/main menu/nav.css">
 </head>
 <body>
@@ -32,7 +33,6 @@
                 <tr>
                     <th>№</th>
                     <th>Учител</th>
-                    <th>Предмет</th>
                     <th>Оценки</th>
                     <th>Срочна</th>
                     <th>Оценки</th>
@@ -41,236 +41,48 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="row">
-                    <td class="num">1</td>
-                    <td><i class="fa-solid fa-person-chalkboard fa-lg"></i> Мариана Василева</td>
-                    <td><i class="fa-solid fa-book-open"></i> Математика</td>
-                    <td>
-                                                <div class="grade">
-                                                    <p>2</p>
-                                                    <p class="info">Дата: 28.04.2022</p>
-                                                    <p class="info">Тип: Изпит</p>
-                                                    <p class="info">Оценкта: 2.66</p>
-                                                    <p class="info">Предмет: Математика</p>
-                                                    <p class="info">0</p>
-                                            </div>
-                                            <div class="grade">
-                                                <p>2</p>
-                                                    <p class="info">Дата: 04.01.2022</p>
-                                                    <p class="info">Тип: Контролна Работа</p>
-                                                    <p class="info">Оценка: 3.66</p>
-                                                    <p class="info">Предмет: Математика</p>
-                                                    <p class="info">0</p>
-                                        </div>
-                                        <div class="grade">
-                                            <p>2</p>
-                                    </div>
-                                    <div class="grade">
-                                        <p>2</p>
-                                </div>
-                                <div class="grade">
-                                    <p>2</p>
-                            </div>
-                            <div class="grade">
-                                <p>2</p>
-                        </div>
-                        <div class="grade">
-                            <p>2</p>
-                        </div>
+                <tr class="row" th:each="g,iter : ${grades}">
+                    <td class="num" th:text="${iter.index}+1">1</td>
 
+                    <td th:text="${g.subject}"> Математика</td>
+                    <td>
+                                                <div class="grade" th:each="g : ${g.firstGrade}">
+                                                    <p th:text="${g.grade.charAt(0)}">2</p>
+                                                    <p th:text="${g.date}" class="info">Дата: 28.04.2022</p>
+                                                    <p th:text="${g.reason}" class="info">Тип: Изпит</p>
+                                                    <p th:text="${g.grade}" class="info">Оценкта: 2.66</p>
+                                                    <p th:text="${g.subject}" class="info">Предмет: Математика</p>
+                                                    <p th:text="${iter}" class="info">0</p>
+                                            </div>
                     </td>
                     <td>  
                         <div class="grade-semester">
-                            <p>5</p>
+                            <p th:text="${g.firstGradeFinal}">5</p>
                     </div>
                     </td>
                                         <td>
-                                            <div class="grade">
-                                                <p>2</p>
-                                                <p class="info">Дата: 04.01.2022</p>
-                                                <p class="info">Тип: Контролна Работа</p>
-                                                <p class="info">Оценка: 3.66</p>
-                                                <p class="info">Предмет: Математика</p>
-                                                <p class="info">0</p>
-                                        </div>
-                                        <div class="grade">
-                                            <p>2</p>
-                                    </div>
-                                    <div class="grade">
-                                        <p>2</p>
-                                </div>
-                                <div class="grade">
-                                    <p>2</p>
-                            </div>
-                            <div class="grade">
-                                <p>2</p>
-                        </div>
-                        <div class="grade">
-                            <p>2</p>
-                    </div>
-                    <div class="grade">
-                        <p>2</p>
-                    </div>
-
-                    </td>
-                    <td>
-                        <div class="grade-semester">
-                            <p>5</p>
-                    </div>
-                    </td>
-                    <td>
-                        <div class="grade-semester">
-                            <p>5</p>
-                    </div>
-                    </td>
-                </tr>
-                <tr class="row">
-                    <td class="num"><p>2</p></td>
-                    <td><i class="fa-solid fa-person-chalkboard fa-lg"></i> Вяра Борисова</td>
-                    <td><i class="fa-solid fa-book-open"></i> Немски</td>
-                    <td>
-                                                <div class="grade">
-                                                  <p>2</p>
-                                                  <p class="info">Дата: 04.01.2022</p>
-                                                <p class="info">Тип: Контролна Работа</p>
-                                                <p class="info">Оценка: 3.66</p>
-                                                <p class="info">Предмет: Немски</p>
-                                                <p class="info">1</p>
+                                            <div class="grade" th:each="g : ${g.secondGrade}">
+                                                <p th:text="${g.grade.charAt(0)}">2</p>
+                                                <p th:text="${g.date}" class="info">Дата: 28.04.2022</p>
+                                                <p th:text="${g.reason}" class="info">Тип: Изпит</p>
+                                                <p th:text="${g.grade}" class="info">Оценкта: 2.66</p>
+                                                <p th:text="${g.subject}" class="info">Предмет: Математика</p>
+                                                <p th:text="${iter}" class="info">0</p>
                                             </div>
-                                            <div class="grade">
-                                                <p>2</p>
-                                        </div>
-                                        <div class="grade">
-                                            <p>2</p>
-                                    </div>
-                                    <div class="grade">
-                                        <p>2</p>
-                                </div>
-                                <div class="grade">
-                                    <p>2</p>
-                            </div>
-                            <div class="grade">
-                                <p>2</p>
-                        </div>
-                        <div class="grade">
-                            <p>2</p>
-                        </div>
 
-                    </td>
-                    <td>  
-                        <div class="grade-semester">
-                            <p>5</p>
-                    </div>
-                    </td>
-                                        <td>
-                                            <div class="grade">
-                                                <p>2</p>
-                                                <p class="info">Дата: 04.01.2022</p>
-                                                <p class="info">Тип: Контролна Работа</p>
-                                                <p class="info">Оценка: 3.66</p>
-                                                <p class="info">Предмет: Немски</p>
-                                                <p class="info">1</p>
-                                        </div>
-                                        <div class="grade">
-                                            <p>2</p>
-                                    </div>
-                                    <div class="grade">
-                                        <p>2</p>
-                                </div>
-                                <div class="grade">
-                                    <p>2</p>
-                            </div>
-                            <div class="grade">
-                                <p>2</p>
-                        </div>
-                        <div class="grade">
-                            <p>2</p>
-                    </div>
-                    <div class="grade">
-                        <p>2</p>
-                    </div>
 
                     </td>
                     <td>
                         <div class="grade-semester">
-                            <p>5</p>
+                            <p th:text="${g.secondGradeFinal}">5</p>
                     </div>
                     </td>
                     <td>
                         <div class="grade-semester">
-                            <p>5</p>
+                            <p th:text="${g.gradeFinal}">5</p>
                     </div>
                     </td>
                 </tr>
-                <tr class="row">
-                    <td class="num">3</td>
-                    <td><i class="fa-solid fa-person-chalkboard fa-lg"></i> Анка Ушанова</td>
-                    <td><i class="fa-solid fa-book-open"></i> Обектно Ориентирано програмиране</td>
-                    <td>
-                                                <div class="grade">
-                                                    <p>2</p>
-                                            </div>
-                                            <div class="grade">
-                                                <p>2</p>
-                                        </div>
-                                        <div class="grade">
-                                            <p>2</p>
-                                    </div>
-                                    <div class="grade">
-                                        <p>2</p>
-                                </div>
-                                <div class="grade">
-                                    <p>2</p>
-                            </div>
-                            <div class="grade">
-                                <p>2</p>
-                        </div>
-                        <div class="grade">
-                            <p>2</p>
-                        </div>
-
-                    </td>
-                    <td>  
-                        <div class="grade-semester">
-                            <p>5</p>
-                    </div>
-                    </td>
-                                        <td>
-                                            <div class="grade">
-                                                <p>2</p>
-                                        </div>
-                                        <div class="grade">
-                                            <p>2</p>
-                                    </div>
-                                    <div class="grade">
-                                        <p>2</p>
-                                </div>
-                                <div class="grade">
-                                    <p>2</p>
-                            </div>
-                            <div class="grade">
-                                <p>2</p>
-                        </div>
-                        <div class="grade">
-                            <p>2</p>
-                    </div>
-                    <div class="grade">
-                        <p>2</p>
-                    </div>
-
-                    </td>
-                    <td>
-                        <div class="grade-semester">
-                            <p>5</p>
-                    </div>
-                    </td>
-                    <td>
-                        <div class="grade-semester">
-                            <p>5</p>
-                    </div>
-                    </td>
-                </tr>
-                
             </tbody>
         </table>
 
@@ -283,5 +95,5 @@
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="gradesTable.js"></script>
+<script src="/js/StudentUI/gradesTable.js"></script>
 </html>

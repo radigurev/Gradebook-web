@@ -1,6 +1,7 @@
 package com.example.onlinegradebook.service;
 
 import com.example.onlinegradebook.model.entity.AbsenceStudent;
+import com.example.onlinegradebook.model.view.AbsenceViewModel;
 import com.example.onlinegradebook.model.view.AdminAndTeachers.StudentsAbsenceViewModel;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface AbsenceService {
 
 
     AbsenceStudent findById(String id);
+
+    AbsenceViewModel getAbsencesForUser();
 }
