@@ -86,14 +86,14 @@
             </tbody>
         </table>
 
-
+          <p style="color: #f87373; text-align: center;margin-left: 30%" th:text="${badMessage}"></p>
           <form th:action="@{/tables/grade/{id}(id=${id})}" th:method="POST" th:object="${getUserGradesBindingModel}">
 
                  <div id="subject-select">
 
-                     <button id="submit-button" class="display">Enter</button>
+                     <button id="submit-button" class="row-button  display">Enter</button>
 
-                     <select th:field="*{subject}" id="subjects">
+                     <select th:field="*{subject}" class="display" id="subjects">
                          <option th:each="s : ${subjects}" th:value="${s.id}" th:text="${s.name}"></option>
                      </select>
                  </div>

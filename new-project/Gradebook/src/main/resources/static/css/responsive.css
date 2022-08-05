@@ -1,0 +1,37 @@
+@media (max-width:1200px) {
+    .nav-buttons {
+        left: auto;
+        right: -50px;
+    }
+
+    #select-wrapper {
+        top: 110px;
+    }
+
+    #table {
+        width: 100vw !important;
+    }
+
+    .user {
+        width: 63px !important;
+    }
+
+    .user p {
+        opacity: 0;
+    }
+
+    .above-table-buttons {
+        top: 105px;
+    }
+
+    #table2 {
+        width: 100vw !important;
+    }
+
+
+
+    table td i {
+        opacity: 0;
+    }
+}
+

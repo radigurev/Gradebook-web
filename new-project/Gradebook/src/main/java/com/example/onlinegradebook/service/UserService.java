@@ -54,4 +54,6 @@ public interface UserService {
     Boolean hasMiddleName();
 
     void changeMiddleName(ChangeMiddleName middleName);
+
+    boolean emailIsAlreadyTaken(String email);
 }

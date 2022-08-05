@@ -1,5 +1,7 @@
 package com.example.onlinegradebook.model.binding;
 
+import javax.validation.constraints.Size;
+
 public class StudentResponseBindingModel {
     private String type;
     private String subject;
@@ -21,6 +23,7 @@ public class StudentResponseBindingModel {
         this.subject = subject;
     }
 
+    @Size(min = 3)
     public String getDescription() {
         return description;
     }

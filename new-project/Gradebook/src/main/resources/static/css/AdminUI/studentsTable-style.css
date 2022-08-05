@@ -499,15 +499,4 @@ tbody td {
     }
 }
 
-@media (max-width: 1000px) {
-    body {
-        overflow: auto;
-    }
-}
-
-@media (max-width: 800px) {
-    table {
-        width: 800px;
-    }
-}
 

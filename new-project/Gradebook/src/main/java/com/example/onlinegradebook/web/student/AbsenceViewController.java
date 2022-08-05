@@ -1,4 +1,4 @@
-package com.example.onlinegradebook.web.studentAndParent;
+package com.example.onlinegradebook.web.student;
 
 import com.example.onlinegradebook.service.AbsenceService;
 import org.springframework.stereotype.Controller;

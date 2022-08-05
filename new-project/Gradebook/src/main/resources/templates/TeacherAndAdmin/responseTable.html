@@ -73,6 +73,7 @@
                     </tr>               
                 </tbody>
             </table>
+          <p style="color: #f87373; text-align: center;margin-left: 30%" th:text="${badMessage}"></p>
         <table id="table2">
             <thead>
                 <tr>
@@ -97,7 +98,7 @@
                         <select th:field="*{subject}" name="">
                             <option th:each="c : ${classes}" th:text="${c.name}" th:value="${c.name}">Mat</option>
                         </select></td>
-                    <td><input th:field="*{description}" type="text"></td>
+                    <td><input th:field="*{description}" th:errorclass="red-border" type="text"></td>
                     <td><button class="row-button">Добави</button></td>
                 </tr>
             </form>

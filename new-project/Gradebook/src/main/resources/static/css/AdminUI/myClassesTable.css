@@ -90,3 +90,20 @@ tbody td {
     background-position: right bottom;
     color: #000;
 }
+
+#subject-select {
+
+    width: 200px;
+    color: white;
+    text-align: center;
+    height: 35px;
+    border-radius: 15px;
+    background-color: #078282FF;
+}
+
+
+
+#subject-select {
+    border: none;
+    outline: none;
+}

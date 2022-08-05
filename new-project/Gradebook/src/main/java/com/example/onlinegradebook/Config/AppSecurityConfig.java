@@ -36,6 +36,8 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/","/login","/register").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("admin")
+                .antMatchers("/tables/**").hasAnyRole("admin","teacher")
+                .antMatchers("/view/**").hasAnyRole("student")
                 .antMatchers("/**").authenticated().and().formLogin().loginPage("/login")
                 .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
                 .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)

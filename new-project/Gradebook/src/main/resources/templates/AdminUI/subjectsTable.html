@@ -59,6 +59,7 @@
 
           <form th:method="POST" th:action="@{/admin/subjects}" th:object="${adminSubjectBindingModel}">
               <div id="table2" class="add-teachers">
+                  <p th:text="${badCredentials}" style="font-size: 45px; font-weight: bolder; color: red; text-align: center"></p>
                   <input th:field="*{subject}" type="text" placeholder="Предмет">
                   <button>Готово</button>
               </div>

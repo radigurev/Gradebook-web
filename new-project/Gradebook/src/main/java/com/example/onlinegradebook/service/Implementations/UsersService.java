@@ -360,6 +360,12 @@ public class UsersService implements UserService {
 
     }
 
+    @Override
+    public boolean emailIsAlreadyTaken(String email) {
+        User user = userRepository.findByEmail(email).orElse(null);
+        return user != null;
+    }
+
     //Getting current user email
     @Override
     public User getUser() {

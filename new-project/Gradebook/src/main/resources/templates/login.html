@@ -28,10 +28,11 @@
 			<div class="login">
 				<form th:action="@{/register}" th:method="POST" th:object="${userRegisterBindingModel}">
 					<label for="chk" aria-hidden="true">Sign up</label>
-					<input th:field="*{firstName}" type="text" name="txt" placeholder="Име" required="">
-                    <input th:field="*{lastName}" type="text" name="txt" placeholder="Фамилия" required="">
-					<input th:field="*{email}" type="email" name="email" placeholder="Email" required="">
-					<input th:field="*{password}" type="password" name="pswd" placeholder="Парола" required="">
+					<p style="text-align: center;margin-top: -30px; color: #5e6e8d; size: 10px">Length must be 3 to 20 characters</p>
+					<input th:field="*{firstName}" th:errorclass="red-border" type="text" name="txt" placeholder="Име" required="">
+                    <input th:field="*{lastName}" th:errorclass="red-border" type="text" name="txt" placeholder="Фамилия" required="">
+					<input th:field="*{email}" th:errorclass="red-border" type="email" name="email" placeholder="Email" required="">
+					<input th:field="*{password}" th:errorclass="red-border" type="password" name="pswd" placeholder="Парола" required="">
 					<button type="submit">Sign up</button>
 				</form>
 			</div>

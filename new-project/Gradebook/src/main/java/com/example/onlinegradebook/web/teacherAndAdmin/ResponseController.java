@@ -7,7 +7,11 @@ import com.example.onlinegradebook.service.SubjectService;
 import com.example.onlinegradebook.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/tables")
@@ -45,7 +49,14 @@ public class ResponseController {
     }
 
     @PostMapping("/responses/add/{id}")
-    public String addResponseToStudent(@PathVariable String id,StudentResponseBindingModel model) {
+    public String addResponseToStudent(@PathVariable String id, @Valid StudentResponseBindingModel model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        if(bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("studentResponseBindingModel", model)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.studentResponseBindingModel", bindingResult)
+                    .addFlashAttribute("badMessage","Length should be at least 3 characters long!");
+            return String.format("redirect:/tables/responses/%s",userService.getById(id).getUserClass().getId());
+        }
 
         responseService.saveResponseForStudent(id,model);
 

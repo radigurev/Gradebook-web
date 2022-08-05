@@ -1,23 +1,15 @@
-<html lang="en">
+<html class="mainBody" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="responseTable-style.css">
-    <link rel="stylesheet" href="/main menu/nav.css">
+    <link rel="stylesheet" href="/css/AdminUI/responseTable-style.css">
 </head>
 <body>
-    <input class="menu-icon" type="checkbox" id="menu-icon" name="menu-icon"/>
-    <label for="menu-icon"></label>
-  	<nav class="nav"> 		
-  		<ul class="pt-5">
-  			<li><a href="#"><i class="fa-solid fa-graduation-cap"></i> Оценки</a></li>
-        <li><a href="#"><i class="fa-solid fa-circle-exclamation"></i> Отсъствия</a></li>
-              <li><a href="#"><i class="fa-solid fa-medal"></i> Отзиви</a></li>
-  		</ul>
-  	</nav>
+        <nav th:replace="/fragments/nav::nav"></nav>
       <div class="container">
 
             <div class="user">
@@ -31,64 +23,40 @@
             <thead>
                 <tr>
                     <th>№</th>
-                    <th>Учител</th>
                     <th>Предмет</th>
                     <th>Забележки</th>
                     <th>Похвали</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="row">
-                    <td class="num">1</td>
-                    <td><i class="fa-solid fa-person-chalkboard fa-lg"></i> Мариана Василева</td>
-                    <td><i class="fa-solid fa-book-open"></i> Математика</td>
+                <tr class="row" th:each="r,iter : ${responses}">
+                    <td class="num" th:text="${iter.index}+1" >1</td>
+                    <td th:text="${r.subject}"> Математика</td>
                     <td>
                         <div class="grade-semester gra" style="background-color: rgb(180, 31, 31);">
-                                <p>3</p>
+                                <p th:text="${r.goodResponse.size()}">3</p>
                                 <div class="absences">
-                                    <div class="absence">
-                                        <p class="info">2022-12-19 11:55:34</p>
-                                        <p class="info">Час: 6</p>
-                                        <p class="info">Въведено от: Анка Ушанова</p>
-                                        <p class="info">Плебей</p>
-                                        <p class="info">0</p>
-                                    </div>
-                                    <div class="absence">
-                                        <p class="info">2022-02-19 11:55:34</p>
-                                        <p class="info">Час: 5</p>
-                                        <p class="info">Въведено от: Анка Ушанова</p>
-                                        <p class="info">Лоша дисциплина</p>
-                                        <p class="info">0</p>
-                                    </div>
-                                    <div class="absence">
-                                        <p class="info">2022-03-19 11:55:34</p>
-                                        <p class="info">Час: 4</p>
-                                        <p class="info">Въведено от: Анка Ушанова</p>
-                                        <p class="info">Без униформа</p>
-                                        <p class="info">0</p>
+                                    <div class="absence" th:each="g : ${r.goodResponse}">
+                                        <p class="info" th:text="${g.dateTime}">2022-12-19 11:55:34</p>
+                                        <p class="info" th:text="${g.type.type.name()}">2022-12-19 11:55:34</p>
+                                        <p class="info" th:text="|${g.teacher.firstName} ${g.teacher.middleName} ${g.teacher.lastName}|">Въведено от: Анка Ушанова</p>
+                                        <p class="info" th:text="${g.description}">Плебей</p>
+                                        <p class="info" th:text="${iter.index}">0</p>
                                     </div>
                                 </div>
                         </div>
                     </td>
                     <td>
                         <div class="grade-semester gra" style="background-color: rgb(134, 255, 134);">
-                            <p>2</p>
+                            <p th:text="${r.badResponse.size()}">2</p>
                            <div class="absences">
-                            <div class="absence">
-                                <p class="info">2022-03-19 11:55:34</p>
-                                <p class="info">Час: 4</p>
-                                <p class="info">Въведено от: Анка Ушанова</p>
-                                <p class="info">Изпълнена задача</p>
-                                <p class="info">0</p>
-                            </div>
-
-                            <div class="absence">
-                                <p class="info">2022-03-19 11:55:34</p>
-                                <p class="info">Час: 4</p>
-                                <p class="info">Въведено от: Анка Ушанова</p>
-                                <p class="info">Изпълнена задача</p>
-                                <p class="info">0</p>
-                            </div>
+                               <div class="absence" th:each="g : ${r.badResponse}">
+                                   <p class="info" th:text="${g.dateTime}">2022-12-19 11:55:34</p>
+                                   <p class="info" th:text="${g.type.type.name()}">2022-12-19 11:55:34</p>
+                                   <p class="info" th:text="|${g.teacher.firstName} ${g.teacher.middleName} ${g.teacher.lastName}|">Въведено от: Анка Ушанова</p>
+                                   <p class="info" th:text="${g.description}">Плебей</p>
+                                   <p class="info" th:text="${iter.index}">0</p>
+                               </div>
                            </div>
                         </div>
                     </td>
@@ -106,5 +74,5 @@
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="responseTable.js"></script>
+<script src="/js/StudentUI/responseTable.js"></script>
 </html>

@@ -8,7 +8,11 @@ import com.example.onlinegradebook.service.SubjectService;
 import com.example.onlinegradebook.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/tables")
@@ -47,7 +51,15 @@ public class GradesController {
     }
 
     @PostMapping("/grade/{id}")
-    public String getClassGrades(@PathVariable String id,GetUserGradesBindingModel model) {
+    public String getClassGrades(@PathVariable String id, @Valid GetUserGradesBindingModel model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        if(bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("userGradesBindingModel", model)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.userGradesBindingModel", bindingResult)
+                    .addFlashAttribute("badMessage","Length must be at least 3 characters long!");
+
+            return "redirect:/tables/grade/"+id;
+        }
 
         gradeService.saveGrades(model,id);
 

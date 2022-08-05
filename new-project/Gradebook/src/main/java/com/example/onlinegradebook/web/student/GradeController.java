@@ -1,14 +1,11 @@
-package com.example.onlinegradebook.web.studentAndParent;
+package com.example.onlinegradebook.web.student;
 
-import com.example.onlinegradebook.model.view.GradesTableViewModel;
 import com.example.onlinegradebook.service.GradeService;
 import com.example.onlinegradebook.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/view")

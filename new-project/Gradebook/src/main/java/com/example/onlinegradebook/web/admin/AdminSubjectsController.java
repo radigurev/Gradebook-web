@@ -5,7 +5,11 @@ import com.example.onlinegradebook.service.ClassService;
 import com.example.onlinegradebook.service.SubjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
@@ -34,10 +38,16 @@ public class AdminSubjectsController {
     }
 
     @PostMapping("/subjects")
-    public String getNewSubject(AdminSubjectBindingModel adminSubjectBindingModel) {
-        System.out.println();
-        subjectService.saveSubject(adminSubjectBindingModel.getSubject());
+    public String getNewSubject(@Valid AdminSubjectBindingModel adminSubjectBindingModel, BindingResult bindingResult, RedirectAttributes redirectAttributes)  {
 
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("adminSubjectBindingModel", adminSubjectBindingModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.adminSubjectBindingModel", bindingResult)
+                    .addFlashAttribute("badCredentials","Length must be at least 3 characters");
+            return "redirect:/admin/subjects";
+        }
+
+        subjectService.saveSubject(adminSubjectBindingModel.getSubject());
         return "redirect:/admin/subjects";
     }
 

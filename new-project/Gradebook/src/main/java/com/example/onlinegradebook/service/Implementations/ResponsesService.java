@@ -6,6 +6,7 @@ import com.example.onlinegradebook.model.entity.ResponseStudents;
 import com.example.onlinegradebook.model.entity.User;
 import com.example.onlinegradebook.model.entity.enums.ResponseType;
 import com.example.onlinegradebook.model.view.AdminAndTeachers.StudentsResponsesViewModel;
+import com.example.onlinegradebook.model.view.ResponseViewModel;
 import com.example.onlinegradebook.repository.ResponseRepository;
 import com.example.onlinegradebook.repository.ResponseStudentsRepository;
 import com.example.onlinegradebook.service.ResponseService;
@@ -76,6 +77,37 @@ public class ResponsesService implements ResponseService {
         });
         System.out.println();
         return view;
+    }
+
+    @Override
+    public List<ResponseViewModel> getResponsesForStudent() {
+        List<ResponseViewModel> model = new ArrayList<>();
+
+        List<String> subjects= new ArrayList<>();
+
+        List<ResponseStudents> allByStudent = responseStudentsRepository.findAllByStudent(userService.getUser());
+
+        allByStudent.forEach(s -> {
+            if(!subjects.contains(s.getSubject().getSubject().getName())) {
+                subjects.add(s.getSubject().getSubject().getName());
+                ResponseViewModel responseViewModel = new ResponseViewModel();
+                responseViewModel.setSubject(s.getSubject().getSubject().getName());
+                model.add(responseViewModel);
+            }
+        });
+
+        allByStudent.forEach(s -> {
+            model.forEach(m -> {
+                if (m.getSubject().equals(s.getSubject().getSubject().getName())) {
+                    if(s.getType().getType().equals(ResponseType.Good))
+                        m.addGoodResponse(s);
+                    else
+                        m.addBadResponse(s);
+                }
+            });
+        });
+
+        return model;
     }
 
     private ResponseType getEnumType(String type) {

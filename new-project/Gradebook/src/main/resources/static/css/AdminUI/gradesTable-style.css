@@ -107,6 +107,25 @@ tbody td {
     background-color: #adcea6;
 }
 
+.row-button {
+    border: none;
+    padding: 8px;
+    border-radius: 15px;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+    background: linear-gradient(to right, #6c8d65 50%, #078282FF 50%);
+    background-size: 200% 100%;
+    background-position: left bottom;
+    transition: all .5s ease-out;
+}
+
+.row-button:hover {
+    background-position: right bottom;
+    color: #fff;
+}
+
 .row {
     opacity: 0;
 }

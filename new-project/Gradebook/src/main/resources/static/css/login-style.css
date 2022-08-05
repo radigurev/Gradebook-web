@@ -32,6 +32,10 @@ body{
 	text-align: center;
 }
 
+.red-border {
+	border: 1px solid #f35b5b;
+}
+
 label{
 	color: #fff;
 	font-size: 2.3em;

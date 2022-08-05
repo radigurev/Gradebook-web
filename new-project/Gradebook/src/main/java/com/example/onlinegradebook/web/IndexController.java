@@ -12,11 +12,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -45,7 +47,16 @@ public class IndexController {
     }
 
     @PostMapping("/register")
-    public String register(UserRegisterBindingModel userRegisterBindingModel) {
+    public String register(@Valid UserRegisterBindingModel userRegisterBindingModel, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        if(bindingResult.hasErrors() || userService.emailIsAlreadyTaken(userRegisterBindingModel.getEmail())) {
+            redirectAttributes.addFlashAttribute("userRegisterBindingModel",bindingResult)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult)
+                    .addFlashAttribute("isThereAnError","Length must be between 3 and 20 characters!");
+
+            return "redirect:/login";
+        }
+
         userService.saveUser(modelMapper.map(userRegisterBindingModel, User.class));
         return "login";
     }

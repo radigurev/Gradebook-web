@@ -61,12 +61,14 @@ function tbChange() {
         icon.classList.remove("fa-eye");
         icon.classList.add('fa-pen');
         sumbitButton.classList.remove('display');
+        subjectSelect.classList.remove('display');
     } else {
         icon.classList.add("fa-eye");
         icon.classList.remove('fa-pen');
         table2.style.left="150%";
         table.style.left="50%";
         sumbitButton.classList.add('display');
+        subjectSelect.classList.add('display');
     }
     document.getElementById('table').style.top = 150;
 }

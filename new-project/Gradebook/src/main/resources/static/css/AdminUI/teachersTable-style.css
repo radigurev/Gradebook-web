@@ -465,23 +465,4 @@ tbody td {
         color: #fff;
     }
 
-@media (max-width:1200px) {
-    .container {
-        position: relative;
-    }
-    table {
-        width: 100%;
-        left: 0;
-    transform: translateX(0);
-    }
-    table td i {
-        opacity: 0;
-    }
-}
-
-@media (max-width: 800px) {
-    table {
-        width: 800px;
-    }
-}
 
