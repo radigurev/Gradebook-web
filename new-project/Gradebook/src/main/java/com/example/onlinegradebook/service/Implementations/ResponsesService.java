@@ -110,6 +110,16 @@ public class ResponsesService implements ResponseService {
         return model;
     }
 
+    @Override
+    public List<ResponseStudents> getAllResponses() {
+        return responseStudentsRepository.getAllBySchool(userService.getUser().getSchool());
+    }
+
+    @Override
+    public List<ResponseStudents> getUserResponses() {
+        return responseStudentsRepository.findAllByStudent(userService.getUser());
+    }
+
     private ResponseType getEnumType(String type) {
         return ResponseType.Bad.name().equals(type) ? ResponseType.Bad : ResponseType.Good;
     }

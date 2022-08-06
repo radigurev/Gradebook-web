@@ -43,6 +43,8 @@ public class IndexController {
 
     @GetMapping("/")
     public String getIndex() {
+        if (userService.getUser()!=null)
+            return "redirect:/dashboard";
         return "login";
     }
 
@@ -54,7 +56,7 @@ public class IndexController {
                     .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult)
                     .addFlashAttribute("isThereAnError","Length must be between 3 and 20 characters!");
 
-            return "redirect:/login";
+            return "login";
         }
 
         userService.saveUser(modelMapper.map(userRegisterBindingModel, User.class));

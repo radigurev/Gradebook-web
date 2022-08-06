@@ -56,4 +56,7 @@ public interface UserService {
     void changeMiddleName(ChangeMiddleName middleName);
 
     boolean emailIsAlreadyTaken(String email);
-}
+
+    public User loadUserByEmail(String email);
+
+    }

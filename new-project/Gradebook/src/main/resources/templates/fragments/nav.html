@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,32 +8,50 @@
 
 
 <div th:fragment="nav" class="nav-buttons">
-    <div class="nav-wrapper">
+  <th:block sec:authorize="hasAnyRole('admin','teacher')">
+      <div class="nav-wrapper" onclick="window.location='/tables/grades'">
                    <span title="grades" class="fa-stack fa-lg">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i  class="fa-solid fa-graduation-cap fa-stack-1x fa-inverse"></i>
           </span>
-    </div>
+      </div>
 
-    <div class="nav-wrapper">
+      <div class="nav-wrapper" onclick="window.location='/tables/absences'">
                   <span class="fa-stack fa-lg" title="absences">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i  class="fa-solid fa-exclamation fa-stack-1x fa-inverse"></i>
           </span>
-    </div>
-    </span>
-    <div class="nav-wrapper">
+      </div>
+      </span>
+      <div class="nav-wrapper" onclick="window.location='/tables/response'">
                   <span class="fa-stack fa-lg" title="responses">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i  class="fa-solid fa-medal fa-stack-1x fa-inverse"></i>
           </span>
-    </div>
-    <div class="nav-wrapper">
-                  <span class="fa-stack fa-lg" title="teachers">
+      </div>
+  </th:block>
+    <th:block sec:authorize="hasAnyRole('student')">
+        <div class="nav-wrapper" onclick="window.location='/view/grades'">
+                   <span title="grades" class="fa-stack fa-lg">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
-            <i  class="fa-solid fa-person-chalkboard fa-stack-1x fa-inverse"></i>
-         </span>
-    </div>
+            <i  class="fa-solid fa-graduation-cap fa-stack-1x fa-inverse"></i>
+          </span>
+        </div>
+
+        <div class="nav-wrapper" onclick="window.location='/view/absence'">
+                  <span class="fa-stack fa-lg" title="absences">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-exclamation fa-stack-1x fa-inverse"></i>
+          </span>
+        </div>
+        </span>
+        <div class="nav-wrapper" onclick="window.location='/view/response'">
+                  <span class="fa-stack fa-lg" title="responses">
+            <i class="fa-solid fa-circle fa-stack-2x"></i>
+            <i  class="fa-solid fa-medal fa-stack-1x fa-inverse"></i>
+          </span>
+        </div>
+    </th:block>
     <div class="nav-wrapper">
                   <span onclick="window.location='/dashboard'"  class="fa-stack fa-lg" title="dashboard">
             <i class="fa-solid fa-circle fa-stack-2x"></i>

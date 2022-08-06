@@ -21,42 +21,40 @@
     <label for="menu-icon"></label>
   	<nav class="nav"> 		
   		<ul class="pt-5">
-  			<li><a href="/tables/grades"><i class="fa-solid fa-graduation-cap"></i>Оценки</a></li>
-            <li><a href="/tables/absences"><i class="fa-solid fa-circle-exclamation"></i> Отсъствия</a></li>
-              <li><a href="/tables/response"><i class="fa-solid fa-medal"></i> Отзиви</a></li>
               <li><a href="/admin/teachers"><i class="fa-solid fa-person-chalkboard"></i> Учители</a></li>
               <li><a href="/admin/program"><i class="fa-solid fa-person-chalkboard"></i> Програма</a></li>
               <li><a href="/admin/classes"><i class="fa-solid fa-people-group"></i> Класове</a></li>
             <li><a href="/admin/material"><i class="fa-solid fa-people-group"></i> Материал</a></li>
             <li><a href="/admin/students"><i class="fa-solid fa-people-group"></i> Ученици</a></li>
             <li><a href="/admin/subjects"><i class="fa-solid fa-people-group"></i> Предмети</a></li>
+            <li><a href="/logout"><i class="fa-solid fa-people-group"></i> Излез</a></li>
         </ul>
   	</nav>
 
       <div id="info-container">
         <div class="cards">
-            <div class="card1 card"> <i class="fa-solid fa-graduation-cap fa-2xl"></i>
+            <div onclick="window.location='/tables/grades'" class="card1 card"> <i class="fa-solid fa-graduation-cap fa-2xl"></i>
                 <div class="grades">
-                    <span id="grade">5.13</span>
+                    <span th:text="${dashboardInfo.avrGrade}" id="grade">5.13</span>
                     <br>
                     <span id="grade2">Успех</span>
                     <br>
-                    <span id="grade3">Оценки: 123477</span>
+                    <span th:text="|Оценки: ${dashboardInfo.allGrades}|" id="grade3">Оценки: 123477</span>
                 </div>
 
             </div>
-            <div class="card2 card"><i class="fa-solid fa-circle-exclamation fa-2xl"></i>
+            <div onclick="window.location='/tables/absences'" class="card2 card"><i class="fa-solid fa-circle-exclamation fa-2xl"></i>
                     <div class="absence">
-                            <span id="absence1">24.50</span>
+                            <span th:text="${dashboardInfo.allAbsences}" id="absence1">24.50</span>
                             <br>
                             <span id="absence2">Отсъствия</span>
                     </div>
                      
             </div>
 
-            <div class="card3 card"><i class="fa-solid fa-medal fa-2xl"></i>
+            <div onclick="window.location='/tables/response'" class="card3 card"><i class="fa-solid fa-medal fa-2xl"></i>
                     <div class="responses">
-                        <span id="response1">4</span>
+                        <span th:text="${dashboardInfo.allResponses}" id="response1">4</span>
                         <br>
                         <span id="response2">Отзиви</span>
                     </div>
@@ -64,7 +62,7 @@
             </div>
             <div onclick="window.location='/tables/tests'" class="card4 card"> <i class="fa-solid fa-calendar fa-2xl"></i>
                     <div class="tests">
-                        <span id="test1">1224</span>
+                        <span th:text="${dashboardInfo.tests}" id="test1">1224</span>
                         <br>
                         <span id="test2">Контролни</span>
                         </div>

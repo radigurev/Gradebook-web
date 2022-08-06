@@ -1,5 +1,6 @@
 package com.example.onlinegradebook.repository;
 
+import com.example.onlinegradebook.model.entity.ClassesSchool;
 import com.example.onlinegradebook.model.entity.School;
 import com.example.onlinegradebook.model.entity.Test;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +12,6 @@ import java.util.List;
 public interface TestRepository extends JpaRepository<Test,String> {
 
     List<Test> getAllBySchoolOrderByDateDesc(School school);
+
+    List<Test> getAllBySchoolClass(ClassesSchool clas);
 }

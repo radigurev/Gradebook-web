@@ -13,4 +13,6 @@ public interface GradeService {
     List<Grades> getGradesByUser(User user);
 
     List<GradesTableViewModel> getGradesForUser(User user);
+
+    List<Grades> getAllSchoolGrades();
 }

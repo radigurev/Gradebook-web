@@ -2,6 +2,7 @@ package com.example.onlinegradebook.service.Implementations;
 
 import com.example.onlinegradebook.model.entity.Absence;
 import com.example.onlinegradebook.model.entity.AbsenceStudent;
+import com.example.onlinegradebook.model.entity.User;
 import com.example.onlinegradebook.model.entity.enums.AbsenceType;
 import com.example.onlinegradebook.model.view.AbsenceViewModel;
 import com.example.onlinegradebook.model.view.AdminAndTeachers.StudentsAbsenceViewModel;
@@ -9,6 +10,7 @@ import com.example.onlinegradebook.repository.AbsenceRepository;
 import com.example.onlinegradebook.repository.AbsenceStudentRepository;
 import com.example.onlinegradebook.service.AbsenceService;
 import com.example.onlinegradebook.service.UserService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,7 +25,7 @@ public class AbsencesService implements AbsenceService {
     private final AbsenceStudentRepository absenceStudentRepository;
     private final UserService userService;
 
-    public AbsencesService(AbsenceRepository absenceRepository, AbsenceStudentRepository absenceStudentRepository, UserService userService) {
+    public AbsencesService(AbsenceRepository absenceRepository, AbsenceStudentRepository absenceStudentRepository, @Lazy UserService userService) {
         this.absenceRepository = absenceRepository;
         this.absenceStudentRepository = absenceStudentRepository;
         this.userService = userService;
@@ -112,5 +114,16 @@ public class AbsencesService implements AbsenceService {
 
             return absenceViewModel;
         }
+
+    @Override
+    public List<AbsenceStudent> getAllAbsences() {
+
+        return absenceStudentRepository.getAllBySchool(userService.getUser().getSchool());
     }
+
+    @Override
+    public List<AbsenceStudent> getUserAbsences() {
+        return absenceStudentRepository.getAbsenceStudentsByStudent(userService.getUser());
+    }
+}
 

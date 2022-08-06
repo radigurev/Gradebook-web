@@ -94,4 +94,9 @@ public class GradesService implements GradeService {
 
         return grades;
     }
+
+    @Override
+    public List<Grades> getAllSchoolGrades() {
+        return this.gradeRepository.getAllBySchool(userService.getUser().getSchool().getName());
+    }
 }

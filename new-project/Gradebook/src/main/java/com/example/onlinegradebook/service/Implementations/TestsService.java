@@ -68,4 +68,14 @@ public class TestsService implements TestService {
 
         return tests;
     }
+
+    @Override
+    public List<Test> getAllTests() {
+        return testRepository.getAllBySchoolOrderByDateDesc(userService.getUser().getSchool());
+    }
+
+    @Override
+    public List<Test> getUserTests() {
+        return testRepository.getAllBySchoolClass(userService.getUser().getUserClass());
+    }
 }

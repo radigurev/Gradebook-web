@@ -21,4 +21,8 @@ public interface AbsenceService {
     AbsenceStudent findById(String id);
 
     AbsenceViewModel getAbsencesForUser();
+
+    List<AbsenceStudent> getAllAbsences();
+
+    List<AbsenceStudent> getUserAbsences();
 }

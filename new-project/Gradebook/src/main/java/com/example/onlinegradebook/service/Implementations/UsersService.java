@@ -18,7 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,12 +31,15 @@ public class UsersService implements UserService {
     private final ClassService classService;
     private final ModelMapper modelMapper;
     private final SubjectService subjectService;
+    private final AbsenceService absenceService;
+    private final ResponseService responseService;
     private final UsersSubjectsService usersSubjectsService;
 
     private final Gson gson;
     private final GradeService gradeService;
+    private final TestService testService;
 
-    public UsersService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleService roleService, SchoolService schoolservice, ClassService classService, ModelMapper modelMapper, SubjectService subjectService, UsersSubjectsService usersSubjectsService, Gson gson, @Lazy GradeService gradeService) {
+    public UsersService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleService roleService, SchoolService schoolservice, ClassService classService, ModelMapper modelMapper, SubjectService subjectService, AbsenceService absenceService,@Lazy ResponseService responseService, UsersSubjectsService usersSubjectsService, Gson gson, @Lazy GradeService gradeService,@Lazy TestService testService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleService = roleService;
@@ -45,9 +47,12 @@ public class UsersService implements UserService {
         this.classService = classService;
         this.modelMapper = modelMapper;
         this.subjectService = subjectService;
+        this.absenceService = absenceService;
+        this.responseService = responseService;
         this.usersSubjectsService = usersSubjectsService;
         this.gson = gson;
         this.gradeService = gradeService;
+        this.testService = testService;
     }
 
     //Saving new users
@@ -70,7 +75,35 @@ public class UsersService implements UserService {
         User user = userRepository.findByEmail(email).orElse(null);
 
         assert user != null;
-        return new DashboardInfoText(String.format("%s %s", user.getFirstName(), user.getLastName()), user.getSchool().getName(), user.getEmail(), user.getUserClass().getClasses().getClassNumber());
+        double sum = 0;
+        List<Grades> grades;
+        List<AbsenceStudent> absences;
+        List<ResponseStudents> responses;
+        List<Test> tests;
+        if (!user.getRole().contains(roleService.getStudentRole())) {
+            grades = gradeService.getAllSchoolGrades();
+            absences = absenceService.getAllAbsences();
+            responses = responseService.getAllResponses();
+            tests = testService.getAllTests();
+        }else {
+           grades = gradeService.getGradesByUser(user);
+           absences = absenceService.getUserAbsences();
+           responses = responseService.getUserResponses();
+           tests = testService.getUserTests();
+        }
+
+        for (Grades grade : grades) {
+            sum+=Double.parseDouble(grade.getGrade());
+        }
+        sum/=grades.size();
+        assert user != null;
+        return new DashboardInfoText(String.format("%s %s", user.getFirstName(), user.getLastName()),
+                user.getSchool().getName(), user.getEmail(),
+                user.getUserClass().getClasses().getClassNumber(),
+                String.format("%.2f",sum),Integer.toString(grades.size()),
+                Integer.toString(responses.size()),Integer.toString(absences.size()),
+                Integer.toString(tests.size()));
+//        return new DashboardInfoText();
     }
 
     //Saving new Teachers
@@ -379,5 +412,8 @@ public class UsersService implements UserService {
             username = principal.toString();
         }
         return userRepository.findByEmail(username).orElse(null);
+    }
+    public User loadUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElse(null);
     }
 }
