@@ -1,0 +1,112 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main menu</title>
+    <link rel="stylesheet" href="/css/AdminUI/menu-style.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+
+
+</head>
+<script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
+<body>
+
+
+    <input class="menu-icon" type="checkbox" id="menu-icon" name="menu-icon"/>
+    <label for="menu-icon"></label>
+
+
+      <div id="info-container">
+        <div class="cards">
+            <div onclick="window.location='/tables/grades'" class="card1 card"> <i class="fa-solid fa-graduation-cap fa-2xl"></i>
+                <div class="grades">
+                    <span th:text="${dashboardInfo.avrGrade}" id="grade">5.13</span>
+                    <br>
+                    <span id="grade2">Училица</span>
+                    <br>
+                    <span th:text="|Оценки: ${dashboardInfo.allGrades}|" id="grade3">Оценки: 123477</span>
+                </div>
+
+            </div>
+            <div onclick="window.location='/tables/absences'" class="card2 card"><i class="fa-solid fa-circle-exclamation fa-2xl"></i>
+                    <div class="absence">
+                            <span th:text="${dashboardInfo.allAbsences}" id="absence1">24.50</span>
+                            <br>
+                            <span id="absence2">Специалности</span>
+                    </div>
+                     
+            </div>
+
+            <div onclick="window.location='/tables/response'" class="card3 card"><i class="fa-solid fa-medal fa-2xl"></i>
+                    <div class="responses">
+                        <span th:text="${dashboardInfo.allResponses}" id="response1">4</span>
+                        <br>
+                        <span id="response2">Предмети</span>
+                    </div>
+
+            </div>
+            <div onclick="window.location='/tables/tests'" class="card4 card"> <i class="fa-solid fa-calendar fa-2xl"></i>
+                    <div class="tests">
+                        <span th:text="${dashboardInfo.tests}" id="test1">1224</span>
+                        <br>
+                        <span id="test2">Директори</span>
+                        </div>
+                    </div>
+          </div>
+
+      </div>
+
+      <div class="cd-popup1 cd-popup" role="alert">
+        <div id="cd-popup-cont" class="cd-popup-container">
+            <canvas id="myChart" width="50%" height="35%"></canvas>
+            
+                <a id="expand" href="">
+                    <i class="fa-solid fa-expand"></i>
+                </a>
+            
+            <a href="#0" class="cd-popup-close1 cd-popup-close img-replace">Close</a>
+        </div>
+    </div>
+
+    <section class="tablee" th:if="${hasMiddleName}==false">
+        <form th:action="@{/change/middlename}" th:method="POST" th:object="${changeMiddleName}">
+            <input th:field="*{middleName}" type="text" placeholder="Бащино име">
+            <button>Добави</button>
+        </form>
+      </section>
+
+      <div id="info">
+            <div class="info-info">
+               <div id="info-name">
+                <spanc th:text="|Име: ${dashboardInfo.getName()}|">Име: Радослав Гурев</spanc>
+               </div>
+
+                <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
+                <div class="stats">
+                    
+                    <span th:text="|Училище: ${dashboardInfo.getSchool()}|">
+                        Училище: СПГЕ "Джон Атанасов"
+                    </span>
+                    <br><br>
+                    <span th:text="|Email: ${dashboardInfo.getPhoneNumber()}|">
+                        Телефон: 088 8888 888
+                    </span>
+                    <br><br>
+                    <span th:text="|Клас: ${dashboardInfo.getUserClass()}|">
+                        Клас: 11б
+                    </span>
+                </div>
+            </div>
+            <i class="fa-solid fa-user-gear fa-2xl info-icon"></i>
+      </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script src="/js/AdminUI/menu.js"></script>
+<script src="charts.js"></script>
+</html>

@@ -5,6 +5,7 @@ import com.example.onlinegradebook.model.binding.TeacherBindingModel;
 import com.example.onlinegradebook.model.entity.*;
 import com.example.onlinegradebook.model.view.GradeViewModel;
 import com.example.onlinegradebook.model.view.StudentAndGradesViewModel;
+import com.example.onlinegradebook.model.view.SuperAdmin.DashboardViewModel;
 import com.example.onlinegradebook.model.view.admin.*;
 import com.example.onlinegradebook.model.view.DashboardInfoText;
 import com.example.onlinegradebook.repository.UserRepository;
@@ -415,5 +416,10 @@ public class UsersService implements UserService {
     }
     public User loadUserByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
+    }
+
+    @Override
+    public List<DashboardViewModel> getUserInformationForDashboardAdmin() {
+        return null;
     }
 }

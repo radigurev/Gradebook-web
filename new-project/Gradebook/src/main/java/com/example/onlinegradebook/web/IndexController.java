@@ -79,8 +79,12 @@ public class IndexController {
             return "TeacherUI/dashboard";
         else if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_parent")))
             return "ParentUI/dashboard";
-        else
+        else if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_student")))
             return "StudentUI/dashboard";
+        else {
+            model.addAttribute("dashboardInfoAdmin",userService.getUserInformationForDashboardAdmin());
+            return "SuperAdminUI/dashboard";
+        }
     }
 
     @PostMapping("change/middlename")
