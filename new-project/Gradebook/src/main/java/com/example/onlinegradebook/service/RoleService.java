@@ -10,6 +10,8 @@ public interface RoleService {
 
     Role getStudentRole();
 
+    Role getSuperAdminRole();
+
     Role getTeacherRole();
 
     List<Role> returnRoles();

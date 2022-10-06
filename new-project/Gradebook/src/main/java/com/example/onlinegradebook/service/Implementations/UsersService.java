@@ -2,9 +2,11 @@ package com.example.onlinegradebook.service.Implementations;
 
 import com.example.onlinegradebook.model.binding.ChangeMiddleName;
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
+import com.example.onlinegradebook.model.binding.superAdmin.AdminAndSchoolBindingModel;
 import com.example.onlinegradebook.model.entity.*;
 import com.example.onlinegradebook.model.view.GradeViewModel;
 import com.example.onlinegradebook.model.view.StudentAndGradesViewModel;
+import com.example.onlinegradebook.model.view.SuperAdmin.AdminAndSchoolViewModel;
 import com.example.onlinegradebook.model.view.SuperAdmin.DashboardViewModel;
 import com.example.onlinegradebook.model.view.admin.*;
 import com.example.onlinegradebook.model.view.DashboardInfoText;
@@ -419,7 +421,58 @@ public class UsersService implements UserService {
     }
 
     @Override
-    public List<DashboardViewModel> getUserInformationForDashboardAdmin() {
-        return null;
+    public DashboardViewModel getUserInformationForDashboardAdmin() {
+        int schoolCount = schoolservice.getSchoolCount();
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getAdminRole());
+        int adminCount = (int) userRepository.getAllByRoleIn(roles).stream().count();
+
+        int subjectCount = subjectService.getSubjectCount();
+
+        int specialitiesCount = (int) userRepository.count();
+        return new DashboardViewModel(Integer.toString(schoolCount),Integer.toString(adminCount),Integer.toString(subjectCount),Integer.toString(subjectCount));
+    }
+
+    @Override
+    public List<AdminAndSchoolViewModel> getSchoolWithTeachers() {
+
+        List<AdminAndSchoolViewModel> schools = new ArrayList<>();
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getAdminRole());
+
+        userRepository.getAllByRoleIn(roles).forEach(u -> {
+           AdminAndSchoolViewModel school = new AdminAndSchoolViewModel();
+
+           school.setUser(u);
+           school.setSchool(u.getSchool());
+
+           schools.add(school);
+        });
+
+        return schools;
+    }
+
+    @Override
+    public void saveUserAndSchool(AdminAndSchoolBindingModel model) {
+        User user = new User();
+        user.setFirstName(model.getFirstName());
+        user.setLastName(model.getLastName());
+        user.setEmail(model.getEmail());
+        user.setPassword(passwordEncoder.encode("password"));
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getAdminRole());
+        user.setRole(roles);
+        user.setMiddleName("");
+        user.setUserClass(classService.getClassesSchool("None"));
+
+        School school = new School();
+        school.setName(model.getSchool());
+        schoolservice.saveSchool(school);
+        school = schoolservice.findSchool(model.getSchool());
+        user.setSchool(school);
+
+        userRepository.saveAndFlush(user);
     }
 }

@@ -2,9 +2,11 @@ package com.example.onlinegradebook.service;
 
 import com.example.onlinegradebook.model.binding.ChangeMiddleName;
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
+import com.example.onlinegradebook.model.binding.superAdmin.AdminAndSchoolBindingModel;
 import com.example.onlinegradebook.model.entity.School;
 import com.example.onlinegradebook.model.entity.User;
 import com.example.onlinegradebook.model.view.StudentAndGradesViewModel;
+import com.example.onlinegradebook.model.view.SuperAdmin.AdminAndSchoolViewModel;
 import com.example.onlinegradebook.model.view.SuperAdmin.DashboardViewModel;
 import com.example.onlinegradebook.model.view.admin.*;
 import com.example.onlinegradebook.model.view.DashboardInfoText;
@@ -60,5 +62,9 @@ public interface UserService {
 
     public User loadUserByEmail(String email);
 
-    List<DashboardViewModel> getUserInformationForDashboardAdmin();
+    DashboardViewModel getUserInformationForDashboardAdmin();
+
+    List<AdminAndSchoolViewModel> getSchoolWithTeachers();
+
+    void saveUserAndSchool(AdminAndSchoolBindingModel adminAndSchoolBindingModel);
 }

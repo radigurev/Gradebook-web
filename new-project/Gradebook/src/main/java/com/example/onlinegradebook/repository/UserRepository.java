@@ -20,6 +20,8 @@ public interface UserRepository extends JpaRepository<User, String> {
     List<User> getAllBySchoolAndRoleIn(School school, Set<Role> roles);
     List<User> getAllBySchoolAndUserClassAndRoleInOrderByFirstName(School school, ClassesSchool classes, Set<Role> roles);
 
+    List<User> getAllByRoleIn(Set<Role> roles);
+
     @Transactional
     @Modifying
     @Query("update User u set u.role=:role where u.id=:id")

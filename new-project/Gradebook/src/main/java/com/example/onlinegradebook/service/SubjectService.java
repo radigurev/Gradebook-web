@@ -16,4 +16,6 @@ public interface SubjectService {
     SubjectSchool getSubjectByNameAndSchool(School school, String subjectByName);
 
     Subjects getSubjectById(String id);
+
+    int getSubjectCount();
 }

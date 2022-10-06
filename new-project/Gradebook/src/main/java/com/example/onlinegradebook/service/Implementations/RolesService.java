@@ -34,6 +34,12 @@ public class RolesService implements RoleService {
     }
 
     @Override
+    public Role getSuperAdminRole() {
+        return roleRepository.findByRole(Roles.superAdmin);
+    }
+
+
+    @Override
     public Role getTeacherRole() {
         return roleRepository.findByRole(Roles.teacher);
     }

@@ -72,6 +72,11 @@ public class SubjectsService implements SubjectService {
         return subjectRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public int getSubjectCount() {
+        return (int) subjectRepository.count();
+    }
+
 }
 
 

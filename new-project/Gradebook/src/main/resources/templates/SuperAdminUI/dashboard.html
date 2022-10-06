@@ -15,44 +15,37 @@
 </head>
 <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
 <body>
-
-
-    <input class="menu-icon" type="checkbox" id="menu-icon" name="menu-icon"/>
-    <label for="menu-icon"></label>
-
-
       <div id="info-container">
         <div class="cards">
-            <div onclick="window.location='/tables/grades'" class="card1 card"> <i class="fa-solid fa-graduation-cap fa-2xl"></i>
+            <div onclick="window.location='/super/schools'" class="card1 card"> <i class="fa-solid fa-school fa-2xl"></i>
                 <div class="grades">
-                    <span th:text="${dashboardInfo.avrGrade}" id="grade">5.13</span>
+                    <span th:text="${dashboardInfoAdmin.schools}" id="grade">5.13</span>
                     <br>
-                    <span id="grade2">Училица</span>
+                    <span id="grade2">Училища</span>
                     <br>
-                    <span th:text="|Оценки: ${dashboardInfo.allGrades}|" id="grade3">Оценки: 123477</span>
                 </div>
 
             </div>
-            <div onclick="window.location='/tables/absences'" class="card2 card"><i class="fa-solid fa-circle-exclamation fa-2xl"></i>
+            <div onclick="window.location='/tables/absences'" class="card2 card"><i class="fa-solid fa-user fa-2xl"></i>
                     <div class="absence">
-                            <span th:text="${dashboardInfo.allAbsences}" id="absence1">24.50</span>
+                            <span th:text="${dashboardInfoAdmin.profiles}" id="absence1">24.50</span>
                             <br>
-                            <span id="absence2">Специалности</span>
+                            <span id="absence2">Профили</span>
                     </div>
                      
             </div>
 
-            <div onclick="window.location='/tables/response'" class="card3 card"><i class="fa-solid fa-medal fa-2xl"></i>
+            <div onclick="window.location='/tables/response'" class="card3 card"><i class="fa-solid fa-book fa-2xl"></i>
                     <div class="responses">
-                        <span th:text="${dashboardInfo.allResponses}" id="response1">4</span>
+                        <span th:text="${dashboardInfoAdmin.subjects}" id="response1">4</span>
                         <br>
                         <span id="response2">Предмети</span>
                     </div>
 
             </div>
-            <div onclick="window.location='/tables/tests'" class="card4 card"> <i class="fa-solid fa-calendar fa-2xl"></i>
+            <div onclick="window.location='/tables/tests'" class="card4 card"> <i class="fa-solid fa-user-gear fa-2xl"></i>
                     <div class="tests">
-                        <span th:text="${dashboardInfo.tests}" id="test1">1224</span>
+                        <span th:text="${dashboardInfoAdmin.admins}" id="test1">1224</span>
                         <br>
                         <span id="test2">Директори</span>
                         </div>
@@ -80,30 +73,7 @@
         </form>
       </section>
 
-      <div id="info">
-            <div class="info-info">
-               <div id="info-name">
-                <spanc th:text="|Име: ${dashboardInfo.getName()}|">Име: Радослав Гурев</spanc>
-               </div>
 
-                <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
-                <div class="stats">
-                    
-                    <span th:text="|Училище: ${dashboardInfo.getSchool()}|">
-                        Училище: СПГЕ "Джон Атанасов"
-                    </span>
-                    <br><br>
-                    <span th:text="|Email: ${dashboardInfo.getPhoneNumber()}|">
-                        Телефон: 088 8888 888
-                    </span>
-                    <br><br>
-                    <span th:text="|Клас: ${dashboardInfo.getUserClass()}|">
-                        Клас: 11б
-                    </span>
-                </div>
-            </div>
-            <i class="fa-solid fa-user-gear fa-2xl info-icon"></i>
-      </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>

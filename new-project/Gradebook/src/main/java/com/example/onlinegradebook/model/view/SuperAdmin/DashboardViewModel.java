@@ -5,13 +5,13 @@ public class DashboardViewModel {
     private String schools;
     private String admins;
     private String subjects;
-    private String specialities;
+    private String profiles;
 
-    public DashboardViewModel(String schools, String admins, String subjects, String specialities) {
+    public DashboardViewModel(String schools, String admins, String subjects, String profiles) {
         this.schools = schools;
         this.admins = admins;
         this.subjects = subjects;
-        this.specialities = specialities;
+        this.profiles = profiles;
     }
 
     public String getSchools() {
@@ -38,11 +38,11 @@ public class DashboardViewModel {
         this.subjects = subjects;
     }
 
-    public String getSpecialities() {
-        return specialities;
+    public String getProfiles() {
+        return profiles;
     }
 
-    public void setSpecialities(String specialities) {
-        this.specialities = specialities;
+    public void setProfiles(String profiles) {
+        this.profiles = profiles;
     }
 }

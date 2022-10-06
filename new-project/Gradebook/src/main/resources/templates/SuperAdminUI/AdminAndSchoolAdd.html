@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/SuperAdminUI/AdminAndSchoolAdd.css">
+</head>
+<body>
+<form th:action="@{/super/add/schoolAndAdmin}" th:method="POST" th:object="${adminAndSchoolBindingModel}">
+    <div id="form">
+        <input th:field="*{firstName}" type="text" placeholder="Име">
+        <input th:field="*{lastName}" type="text" placeholder="Фамилия">
+        <input th:field="*{email}" type="text" placeholder="Email">
+        <input th:field="*{school}" type="text" placeholder="Име на училище">
+        <button>Запиши</button>
+    </div>
+</form>
+</body>
+</html>

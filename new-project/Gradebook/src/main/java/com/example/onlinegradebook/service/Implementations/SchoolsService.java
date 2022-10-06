@@ -1,9 +1,13 @@
 package com.example.onlinegradebook.service.Implementations;
 
 import com.example.onlinegradebook.model.entity.School;
+import com.example.onlinegradebook.model.view.SuperAdmin.AdminAndSchoolViewModel;
 import com.example.onlinegradebook.repository.SchoolRepository;
 import com.example.onlinegradebook.service.SchoolService;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class SchoolsService implements SchoolService {
@@ -16,5 +20,15 @@ public class SchoolsService implements SchoolService {
     @Override
     public School findSchool(String school) {
         return schoolRepository.findByName(school);
+    }
+
+    @Override
+    public int getSchoolCount() {
+        return (int) schoolRepository.count()-1;
+    }
+
+    @Override
+    public void saveSchool(School school) {
+        schoolRepository.save(school);
     }
 }
