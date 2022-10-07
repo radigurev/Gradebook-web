@@ -475,4 +475,11 @@ public class UsersService implements UserService {
 
         userRepository.saveAndFlush(user);
     }
+
+    @Override
+    public void deleteAdminsAndSchool(String id) {
+        userRepository.deleteAdminsBySchool(id);
+
+        schoolservice.deleteSchoolById(id);
+    }
 }

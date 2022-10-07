@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/css/AdminUI/absenceTable-style.css">
+    <link rel="stylesheet" href="/css/AdminUI/classTable-style.css">
     <link rel="stylesheet" href="/css/responsive.css">
 </head>
 <body>
@@ -26,7 +26,7 @@
           </span>
           </div>
 
-          <table id="table2" style="left: 50%">
+          <table id="table" style="width: 90%">
               <thead>
               <tr>
                   <th>№</th>
@@ -37,7 +37,8 @@
               </tr>
               </thead>
               <tbody>
-              <tr th:each="s,iter : ${Schools}">
+              <tr class="row" th:each="s,iter : ${Schools}">
+                  <form th:action="@{/super/school/create}" th:method="POST" th:object="${adminUpdateStudentClass}">
                      <td>
                          <div>
                              <p th:text="${iter.index+1}">Name name</p>
@@ -54,11 +55,16 @@
                           </div>
                       </td>
                       <td>
-                          <a th:href="@{/super/remove/school/{id}/(id=${s.school.id})}" class="remove-button">Премахни</a>
+                          <div>
+                              <a th:href="@{/super/remove/school/{id}/(id=${s.user.id})}" class="remove-button">Премахни</a>
+                          </div>
                       </td>
                       <td>
-                          <a th:href="@{/super/add/admin/school/{id}/(id=${s.school.id})}" class="button">Добави админ</a>
+                          <div>
+                              <a th:href="@{/super/add/admin/school/{id}/(id=${s.user.id})}" class="button">Добави админ</a>
+                          </div>
                       </td>
+                  </form>
               </tr>
               </tbody>
           </table>
@@ -67,14 +73,12 @@
       </div>
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     var test = '[]';
 
-    function redirectDelete(id)
-    {
-        console.log(id);
-    }
+    document.getElementById()
 </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/js/AdminUI/classTable.js"></script>
 </html>

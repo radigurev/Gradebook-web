@@ -67,4 +67,6 @@ public interface UserService {
     List<AdminAndSchoolViewModel> getSchoolWithTeachers();
 
     void saveUserAndSchool(AdminAndSchoolBindingModel adminAndSchoolBindingModel);
+
+    void deleteAdminsAndSchool(String id);
 }

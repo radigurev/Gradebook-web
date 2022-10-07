@@ -22,6 +22,11 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     List<User> getAllByRoleIn(Set<Role> roles);
 
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM User u WHERE u.school.id = :id")
+    void deleteAdminsBySchool(@Param(value = "id") String id);
     @Transactional
     @Modifying
     @Query("update User u set u.role=:role where u.id=:id")

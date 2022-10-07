@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="/css/SuperAdminUI/AdminAndSchoolAdd.css">
 </head>
 <body>
+
+<div th:replace="/fragments/nav::nav"></div>
+
 <form th:action="@{/super/add/schoolAndAdmin}" th:method="POST" th:object="${adminAndSchoolBindingModel}">
     <div id="form">
         <input th:field="*{firstName}" type="text" placeholder="Име">

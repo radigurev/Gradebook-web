@@ -1,16 +1,15 @@
 package com.example.onlinegradebook.web.superAdmin;
 
+import com.example.onlinegradebook.model.binding.admin.AdminNewClassBindingModel;
+import com.example.onlinegradebook.model.binding.admin.AdminUpdateStudentClass;
 import com.example.onlinegradebook.model.binding.superAdmin.AdminAndSchoolBindingModel;
-import com.example.onlinegradebook.model.view.SuperAdmin.AdminAndSchoolViewModel;
-import com.example.onlinegradebook.service.SchoolService;
+import com.example.onlinegradebook.service.ClassService;
+import com.example.onlinegradebook.service.SpecialityService;
 import com.example.onlinegradebook.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -19,17 +18,21 @@ import javax.validation.Valid;
 @RequestMapping("/super")
 public class SuperAdminHomeControllerPage {
 
-    private final SchoolService schoolService;
     private  final UserService userService;
-    public SuperAdminHomeControllerPage(SchoolService schoolService, UserService userService) {
-        this.schoolService = schoolService;
+    private final ClassService classService;
+
+    private final SpecialityService specialityService;
+    public SuperAdminHomeControllerPage(UserService userService, ClassService classService, SpecialityService specialityService) {
         this.userService = userService;
+        this.classService = classService;
+        this.specialityService = specialityService;
     }
 
     @GetMapping("/schools")
     public String getSchools(Model model)
     {
         model.addAttribute("Schools",userService.getSchoolWithTeachers());
+
         return "/SuperAdminUI/schoolTable";
     }
 
@@ -55,6 +58,13 @@ public class SuperAdminHomeControllerPage {
         return "/SuperAdminUI/AdminAndSchoolAdd";
     }
 
+    @GetMapping("/remove/school/{id}")
+    public String removeSchoolWithAdmins(@PathVariable String id)
+    {
+        userService.deleteAdminsAndSchool(id);
+
+        return "redirect:/super/schools";
+    }
     @ModelAttribute
     public AdminAndSchoolBindingModel adminAndSchoolBindingModel()
     {

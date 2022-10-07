@@ -31,4 +31,9 @@ public class SchoolsService implements SchoolService {
     public void saveSchool(School school) {
         schoolRepository.save(school);
     }
+
+    @Override
+    public void deleteSchoolById(String id) {
+        schoolRepository.deleteById(id);
+    }
 }

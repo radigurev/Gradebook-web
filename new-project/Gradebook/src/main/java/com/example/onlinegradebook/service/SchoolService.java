@@ -11,4 +11,6 @@ public interface SchoolService {
     int getSchoolCount();
 
     void saveSchool(School school);
+
+    void deleteSchoolById(String id);
 }
