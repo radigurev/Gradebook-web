@@ -438,16 +438,15 @@ public class UsersService implements UserService {
 
         List<AdminAndSchoolViewModel> schools = new ArrayList<>();
 
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleService.getAdminRole());
+        schoolservice.getAllSchools().forEach(s -> {
+        if(!s.getName().equals("None")) {
+            AdminAndSchoolViewModel school = new AdminAndSchoolViewModel();
 
-        userRepository.getAllByRoleIn(roles).forEach(u -> {
-           AdminAndSchoolViewModel school = new AdminAndSchoolViewModel();
+            school.setSchool(s);
+            school.setUser(userRepository.getUserBySchoolAndMainAdmin(s,true));
 
-           school.setUser(u);
-           school.setSchool(u.getSchool());
-
-           schools.add(school);
+            schools.add(school);
+        }
         });
 
         return schools;
@@ -465,6 +464,7 @@ public class UsersService implements UserService {
         roles.add(roleService.getAdminRole());
         user.setRole(roles);
         user.setMiddleName("");
+        user.setMainAdmin(true);
         user.setUserClass(classService.getClassesSchool("None"));
 
         School school = new School();
@@ -482,4 +482,32 @@ public class UsersService implements UserService {
 
         schoolservice.deleteSchoolById(id);
     }
+
+    @Override
+    public void addAdminToSchool(String id) {
+
+
+    }
+
+    @Override
+    public List<AdminAndSchoolViewModel> getAllAdmins() {
+        List<AdminAndSchoolViewModel> schools = new ArrayList<>();
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getAdminRole());
+
+        userRepository.getAllByRoleIn(roles).forEach(u -> {
+            AdminAndSchoolViewModel school = new AdminAndSchoolViewModel();
+
+            school.setUser(u);
+            school.setSchool(u.getSchool());
+
+            schools.add(school);
+        });
+
+        return schools;
+
+    }
+
+
 }

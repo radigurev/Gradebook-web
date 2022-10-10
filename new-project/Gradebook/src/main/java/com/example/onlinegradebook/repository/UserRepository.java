@@ -22,6 +22,7 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     List<User> getAllByRoleIn(Set<Role> roles);
 
+    User getUserBySchoolAndMainAdmin(School school,boolean mainAdmin);
 
     @Transactional
     @Modifying

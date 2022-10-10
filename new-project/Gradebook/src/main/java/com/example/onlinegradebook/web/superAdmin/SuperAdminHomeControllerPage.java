@@ -6,6 +6,7 @@ import com.example.onlinegradebook.model.binding.superAdmin.AdminAndSchoolBindin
 import com.example.onlinegradebook.service.ClassService;
 import com.example.onlinegradebook.service.SpecialityService;
 import com.example.onlinegradebook.service.UserService;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,12 +60,20 @@ public class SuperAdminHomeControllerPage {
     }
 
     @GetMapping("/remove/school/{id}")
-    public String removeSchoolWithAdmins(@PathVariable String id)
-    {
+    public String removeSchoolWithAdmins(@PathVariable String id) {
         userService.deleteAdminsAndSchool(id);
 
         return "redirect:/super/schools";
     }
+
+    @GetMapping("/admin")
+    public String getAdminTable(Model model) {
+
+        model.addAttribute("Admins",userService.getAllAdmins());
+
+        return "/SuperAdminUI/adminTable";
+    }
+
     @ModelAttribute
     public AdminAndSchoolBindingModel adminAndSchoolBindingModel()
     {

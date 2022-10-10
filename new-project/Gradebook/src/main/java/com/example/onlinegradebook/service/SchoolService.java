@@ -13,4 +13,6 @@ public interface SchoolService {
     void saveSchool(School school);
 
     void deleteSchoolById(String id);
+
+    List<School> getAllSchools();
 }

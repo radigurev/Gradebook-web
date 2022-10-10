@@ -69,4 +69,8 @@ public interface UserService {
     void saveUserAndSchool(AdminAndSchoolBindingModel adminAndSchoolBindingModel);
 
     void deleteAdminsAndSchool(String id);
+
+    void addAdminToSchool(String id);
+
+    List<AdminAndSchoolViewModel> getAllAdmins();
 }

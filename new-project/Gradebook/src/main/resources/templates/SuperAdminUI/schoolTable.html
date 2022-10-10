@@ -33,7 +33,6 @@
                   <th>Директор</th>
                   <th>Училище</th>
                   <th></th>
-                  <th></th>
               </tr>
               </thead>
               <tbody>
@@ -56,9 +55,7 @@
                       <td>
                           <a th:href="@{/super/remove/school/{id}/(id=${s.school.id})}" class="remove-button">Премахни</a>
                       </td>
-                      <td>
-                          <a th:href="@{/super/add/admin/school/{id}/(id=${s.school.id})}" class="button">Добави админ</a>
-                      </td>
+
               </tr>
               </tbody>
           </table>
@@ -70,11 +67,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     var test = '[]';
-
-    function redirectDelete(id)
-    {
-        console.log(id);
-    }
 </script>
 <script src="/js/AdminUI/classTable.js"></script>
 </html>

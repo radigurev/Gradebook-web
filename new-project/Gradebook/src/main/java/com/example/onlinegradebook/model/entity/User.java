@@ -17,6 +17,8 @@ public class User extends BaseEntity {
     private School school;
     private String phoneNumber;
     private ClassesSchool userClass;
+
+    private boolean mainAdmin;
     private Set<Role> role;
 
     @Column(name = "email")
@@ -90,6 +92,14 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
+    @Column(columnDefinition = "boolean default false")
+    public boolean isMainAdmin() {
+        return mainAdmin;
+    }
+
+    public void setMainAdmin(boolean mainAdmin) {
+        this.mainAdmin = mainAdmin;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER)
     public Set<Role> getRole() {

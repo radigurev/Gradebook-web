@@ -36,4 +36,9 @@ public class SchoolsService implements SchoolService {
     public void deleteSchoolById(String id) {
         schoolRepository.deleteById(id);
     }
+
+    @Override
+    public List<School> getAllSchools() {
+        return schoolRepository.findAll();
+    }
 }
