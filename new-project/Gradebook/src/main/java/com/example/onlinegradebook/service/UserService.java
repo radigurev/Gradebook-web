@@ -2,6 +2,7 @@ package com.example.onlinegradebook.service;
 
 import com.example.onlinegradebook.model.binding.ChangeMiddleName;
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
+import com.example.onlinegradebook.model.binding.UserRegisterBindingModel;
 import com.example.onlinegradebook.model.binding.superAdmin.AdminAndSchoolBindingModel;
 import com.example.onlinegradebook.model.entity.School;
 import com.example.onlinegradebook.model.entity.User;
@@ -73,4 +74,10 @@ public interface UserService {
     void addAdminToSchool(String id);
 
     List<AdminAndSchoolViewModel> getAllAdmins();
+
+    void deleteUser(String id);
+
+    String generatePassword();
+
+    void saveAdminToSchool(String id, UserRegisterBindingModel userRegisterBindingModel);
 }

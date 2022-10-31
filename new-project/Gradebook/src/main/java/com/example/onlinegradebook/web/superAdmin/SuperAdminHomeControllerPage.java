@@ -1,12 +1,11 @@
 package com.example.onlinegradebook.web.superAdmin;
 
-import com.example.onlinegradebook.model.binding.admin.AdminNewClassBindingModel;
-import com.example.onlinegradebook.model.binding.admin.AdminUpdateStudentClass;
+import com.example.onlinegradebook.model.binding.UserRegisterBindingModel;
 import com.example.onlinegradebook.model.binding.superAdmin.AdminAndSchoolBindingModel;
 import com.example.onlinegradebook.service.ClassService;
+import com.example.onlinegradebook.service.SchoolService;
 import com.example.onlinegradebook.service.SpecialityService;
 import com.example.onlinegradebook.service.UserService;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,10 +21,13 @@ public class SuperAdminHomeControllerPage {
     private  final UserService userService;
     private final ClassService classService;
 
+    private final SchoolService schoolService;
+
     private final SpecialityService specialityService;
-    public SuperAdminHomeControllerPage(UserService userService, ClassService classService, SpecialityService specialityService) {
+    public SuperAdminHomeControllerPage(UserService userService, ClassService classService, SchoolService schoolService, SpecialityService specialityService) {
         this.userService = userService;
         this.classService = classService;
+        this.schoolService = schoolService;
         this.specialityService = specialityService;
     }
 
@@ -74,9 +76,40 @@ public class SuperAdminHomeControllerPage {
         return "/SuperAdminUI/adminTable";
     }
 
+    @GetMapping("/remove/admin/{id}")
+    public String deleteAdmin(@PathVariable String id) {
+
+        userService.deleteUser(id);
+
+        return "redirect:/super/admin";
+    }
+
+    @GetMapping("/add/admin/school/{id}")
+    public String addNewAdminToSchool(@PathVariable String id,Model model) {
+
+       model.addAttribute("SchoolName", schoolService.findSchoolById(id));
+
+        return "SuperAdminUI/AddAdminToSchool";
+    }
+
+    @PostMapping("/add/admin/school/{id}")
+    public String newAdminToSchool(@PathVariable String id, Model model, UserRegisterBindingModel userRegisterBindingModel) {
+
+        userService.saveAdminToSchool(id,userRegisterBindingModel);
+
+        model.addAttribute("SchoolName", schoolService.findSchoolById(id));
+
+        return "SuperAdminUI/AddAdminToSchool";
+
+    }
+
     @ModelAttribute
     public AdminAndSchoolBindingModel adminAndSchoolBindingModel()
     {
         return  new AdminAndSchoolBindingModel();
+    }
+    @ModelAttribute
+    public UserRegisterBindingModel userRegisterBindingModel() {
+        return new UserRegisterBindingModel();
     }
 }

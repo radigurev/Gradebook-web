@@ -33,6 +33,7 @@
                   <th>Директор</th>
                   <th>Училище</th>
                   <th></th>
+                  <th></th>
               </tr>
               </thead>
               <tbody>
@@ -55,7 +56,9 @@
                       <td>
                           <a th:href="@{/super/remove/school/{id}/(id=${s.school.id})}" class="remove-button">Премахни</a>
                       </td>
-
+                  <td>
+                      <a th:href="@{/super/add/admin/school/{id}/(id=${s.school.id})}" class="row-button">Добави админ</a>
+                  </td>
               </tr>
               </tbody>
           </table>

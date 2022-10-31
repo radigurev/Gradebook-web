@@ -17,7 +17,6 @@ public class User extends BaseEntity {
     private School school;
     private String phoneNumber;
     private ClassesSchool userClass;
-
     private boolean mainAdmin;
     private Set<Role> role;
 

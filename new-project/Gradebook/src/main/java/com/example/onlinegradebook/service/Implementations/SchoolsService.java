@@ -41,4 +41,9 @@ public class SchoolsService implements SchoolService {
     public List<School> getAllSchools() {
         return schoolRepository.findAll();
     }
+
+    @Override
+    public School findSchoolById(String id) {
+        return schoolRepository.findById(id).orElse(null);
+    }
 }

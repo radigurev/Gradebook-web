@@ -2,6 +2,7 @@ package com.example.onlinegradebook.service.Implementations;
 
 import com.example.onlinegradebook.model.binding.ChangeMiddleName;
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
+import com.example.onlinegradebook.model.binding.UserRegisterBindingModel;
 import com.example.onlinegradebook.model.binding.superAdmin.AdminAndSchoolBindingModel;
 import com.example.onlinegradebook.model.entity.*;
 import com.example.onlinegradebook.model.view.GradeViewModel;
@@ -15,6 +16,7 @@ import com.example.onlinegradebook.service.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -507,6 +509,42 @@ public class UsersService implements UserService {
 
         return schools;
 
+    }
+
+    @Override
+    public void deleteUser(String id) {
+        User user = userRepository.findById(id).orElse(null);
+        assert user != null;
+        if(user.isMainAdmin())
+            deleteAdminsAndSchool(user.getSchool().getId());
+        else
+            userRepository.delete(user);
+    }
+
+    @Override
+    public String generatePassword() {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:\'\",<.>/?";
+        return RandomStringUtils.random( 15, characters );
+    }
+
+    @Override
+    public void saveAdminToSchool(String id, UserRegisterBindingModel model) {
+        User user = new User();
+        user.setFirstName(model.getFirstName());
+        user.setLastName(model.getLastName());
+        user.setEmail(model.getEmail());
+        String password = generatePassword();
+        user.setPassword(passwordEncoder.encode(password));
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getAdminRole());
+        user.setRole(roles);
+        user.setMiddleName("");
+        user.setUserClass(classService.getClassesSchool("None"));
+
+        user.setSchool(schoolservice.findSchoolById(id));
+
+        userRepository.saveAndFlush(user);
     }
 
 

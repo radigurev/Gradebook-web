@@ -15,4 +15,6 @@ public interface SchoolService {
     void deleteSchoolById(String id);
 
     List<School> getAllSchools();
+
+    School findSchoolById(String id);
 }

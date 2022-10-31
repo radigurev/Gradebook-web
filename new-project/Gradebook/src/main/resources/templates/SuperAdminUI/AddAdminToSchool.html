@@ -10,12 +10,12 @@
 
 <div class="container">
     <div th:replace="/fragments/nav::nav"></div>
-<form th:action="@{/super/add/schoolAndAdmin}" th:method="POST" th:object="${adminAndSchoolBindingModel}">
+<form th:action="@{/super/add/admin/school/{id}(id=${SchoolName.id})}" th:method="POST" th:object="${userRegisterBindingModel}">
     <div id="form">
+        <h3 style="text-align: center; color: #fff; margin-top: 10px" th:text="${SchoolName.name}"></h3>
         <input th:field="*{firstName}" type="text" placeholder="Име">
         <input th:field="*{lastName}" type="text" placeholder="Фамилия">
         <input th:field="*{email}" type="text" placeholder="Email">
-        <input th:field="*{school}" type="text" placeholder="Име на училище">
         <button>Запиши</button>
     </div>
 </form>
