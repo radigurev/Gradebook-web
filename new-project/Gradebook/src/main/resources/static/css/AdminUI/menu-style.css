@@ -72,7 +72,7 @@
   }
    
   @media (max-width: 1750px) {
-    .cards { grid-template-columns: repeat(2, 1fr); 
+    .cards { grid-template-columns: repeat(2, 1fr);
         top: 300px;
     }
 
@@ -94,18 +94,23 @@
         float: right;
         font: bold;
   }
-  .grades #grade, .absence #absence1, .responses #response1, .tests #test1 {
+
+ .grades #logout {
+   font-size: 30px;
+ }
+
+  .grades #grade, .absence #absence1, .responses #response1, .tests #test1, .grades #specialities {
       font-size: 45px;
   }
 
-  .grades #grade2, .absence #absence2, .responses #response2, .tests #test2 {
+  .grades #grade2, .absence #absence2, .responses #response2, .tests #test2, .grades #specialities2 {
       font-size: 20px;
   }
 
   .grades #grade3 {
       font-size: 18px;
   }
-  
+
    /* POP UP */
 
    .img-replace {

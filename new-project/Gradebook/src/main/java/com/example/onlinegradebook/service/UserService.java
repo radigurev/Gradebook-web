@@ -80,4 +80,6 @@ public interface UserService {
     String generatePassword();
 
     void saveAdminToSchool(String id, UserRegisterBindingModel userRegisterBindingModel);
+
+    List<AdminAndSchoolViewModel> getAllUsers();
 }

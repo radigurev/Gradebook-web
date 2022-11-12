@@ -2,6 +2,8 @@ package com.example.onlinegradebook.web.superAdmin;
 
 import com.example.onlinegradebook.model.binding.UserRegisterBindingModel;
 import com.example.onlinegradebook.model.binding.superAdmin.AdminAndSchoolBindingModel;
+import com.example.onlinegradebook.model.entity.User;
+import com.example.onlinegradebook.model.view.SuperAdmin.SpecialitiesViewModel;
 import com.example.onlinegradebook.service.ClassService;
 import com.example.onlinegradebook.service.SchoolService;
 import com.example.onlinegradebook.service.SpecialityService;
@@ -51,7 +53,7 @@ public class SuperAdminHomeControllerPage {
         if(bindingResult.hasErrors() || userService.emailIsAlreadyTaken(adminAndSchoolBindingModel.getEmail())) {
             redirectAttributes.addFlashAttribute("userRegisterBindingModel",bindingResult)
                     .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult)
-                    .addFlashAttribute("isThereAnError","Length must be between 3 and 20 characters!");
+                    .addFlashAttribute("isThereAnError","Email already taken!");
 
             return "/SuperAdminUI/AdminAndSchoolAdd";
         }
@@ -63,6 +65,7 @@ public class SuperAdminHomeControllerPage {
 
     @GetMapping("/remove/school/{id}")
     public String removeSchoolWithAdmins(@PathVariable String id) {
+
         userService.deleteAdminsAndSchool(id);
 
         return "redirect:/super/schools";
@@ -100,8 +103,40 @@ public class SuperAdminHomeControllerPage {
         model.addAttribute("SchoolName", schoolService.findSchoolById(id));
 
         return "SuperAdminUI/AddAdminToSchool";
-
     }
+
+    @GetMapping("/users")
+    public String getUserTable(Model model) {
+
+        model.addAttribute("Users",userService.getAllUsers());
+
+        return "/SuperAdminUI/usersTable";
+    }
+
+    @GetMapping("/specialities")
+    public String getSpecialityTable(Model model) {
+
+        model.addAttribute("specialities",specialityService.getSpecialities());
+
+        return "/SuperAdminUI/specialityTable";
+    }
+
+    @PostMapping("/specialities")
+    public  String saveSpeciality(SpecialitiesViewModel specialitiesViewModel) {
+
+        specialityService.saveSpeciality(specialitiesViewModel);
+
+        return "redirect:/super/specialities";
+    }
+
+    @GetMapping("/remove/speciality/{id}")
+    public String removeSpeciality(@PathVariable String id) {
+
+        specialityService.removeSpeciality(id);
+
+        return "redirect:/super/specialities";
+    }
+
 
     @ModelAttribute
     public AdminAndSchoolBindingModel adminAndSchoolBindingModel()
@@ -111,5 +146,9 @@ public class SuperAdminHomeControllerPage {
     @ModelAttribute
     public UserRegisterBindingModel userRegisterBindingModel() {
         return new UserRegisterBindingModel();
+    }
+    @ModelAttribute
+    public SpecialitiesViewModel specialitiesViewModel() {
+        return  new SpecialitiesViewModel();
     }
 }

@@ -15,8 +15,9 @@
 </head>
 <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
 <body>
+<br><br>
       <div id="info-container">
-        <div class="cards">
+        <div class="cards" style="grid-template-columns: repeat(3, 1fr);">
             <div onclick="window.location='/super/schools'" class="card1 card"> <i class="fa-solid fa-school fa-2xl"></i>
                 <div class="grades">
                     <span th:text="${dashboardInfoAdmin.schools}" id="grade">5.13</span>
@@ -24,18 +25,17 @@
                     <span id="grade2">Училища</span>
                     <br>
                 </div>
-
             </div>
-            <div onclick="window.location='/tables/absences'" class="card2 card"><i class="fa-solid fa-user fa-2xl"></i>
+            <div onclick="window.location='/super/users'" class="card2 card"><i class="fa-solid fa-user fa-2xl"></i>
                     <div class="absence">
-                            <span th:text="${dashboardInfoAdmin.profiles}" id="absence1">24.50</span>
+                            <span th:text="${dashboardInfoAdmin.users}" id="absence1">24.50</span>
                             <br>
                             <span id="absence2">Профили</span>
                     </div>
                      
             </div>
 
-            <div onclick="window.location='/tables/response'" class="card3 card"><i class="fa-solid fa-book fa-2xl"></i>
+            <div onclick="window.location='/super/users'" class="card3 card"><i class="fa-solid fa-book fa-2xl"></i>
                     <div class="responses">
                         <span th:text="${dashboardInfoAdmin.subjects}" id="response1">4</span>
                         <br>
@@ -43,6 +43,7 @@
                     </div>
 
             </div>
+
             <div onclick="window.location='/super/admin'" class="card4 card"> <i class="fa-solid fa-user-gear fa-2xl"></i>
                     <div class="tests">
                         <span th:text="${dashboardInfoAdmin.admins}" id="test1">1224</span>
@@ -50,6 +51,19 @@
                         <span id="test2">Директори</span>
                         </div>
                     </div>
+            <div onclick="window.location='/super/specialities'" class="card1 card"> <i class="fa-solid fa-school fa-2xl"></i>
+                <div class="grades">
+                    <span th:text="${dashboardInfoAdmin.specialities}" id="specialities" >0</span>
+                    <br>
+                    <span id="specialities2">Специалности</span>
+                    <br>
+                </div>
+            </div>
+            <div onclick="window.location='/logout'" class="card1 card"> <i class="fa-solid fa-arrow-right-from-bracket fa-2xl"></i>
+                <div class="grades">
+                    <span  id="logout" >Logout</span>
+                </div>
+            </div>
           </div>
 
       </div>

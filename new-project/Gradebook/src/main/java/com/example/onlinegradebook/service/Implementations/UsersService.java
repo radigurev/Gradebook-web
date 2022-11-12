@@ -39,12 +39,13 @@ public class UsersService implements UserService {
     private final AbsenceService absenceService;
     private final ResponseService responseService;
     private final UsersSubjectsService usersSubjectsService;
+    private final SpecialityService specialityService;
 
     private final Gson gson;
     private final GradeService gradeService;
     private final TestService testService;
 
-    public UsersService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleService roleService, SchoolService schoolservice, ClassService classService, ModelMapper modelMapper, SubjectService subjectService, AbsenceService absenceService,@Lazy ResponseService responseService, UsersSubjectsService usersSubjectsService, Gson gson, @Lazy GradeService gradeService,@Lazy TestService testService) {
+    public UsersService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleService roleService, SchoolService schoolservice, ClassService classService, ModelMapper modelMapper, SubjectService subjectService, AbsenceService absenceService, @Lazy ResponseService responseService, UsersSubjectsService usersSubjectsService, SpecialityService specialityService, Gson gson, @Lazy GradeService gradeService, @Lazy TestService testService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleService = roleService;
@@ -55,6 +56,7 @@ public class UsersService implements UserService {
         this.absenceService = absenceService;
         this.responseService = responseService;
         this.usersSubjectsService = usersSubjectsService;
+        this.specialityService = specialityService;
         this.gson = gson;
         this.gradeService = gradeService;
         this.testService = testService;
@@ -431,8 +433,13 @@ public class UsersService implements UserService {
 
         int subjectCount = subjectService.getSubjectCount();
 
-        int specialitiesCount = (int) userRepository.count();
-        return new DashboardViewModel(Integer.toString(schoolCount),Integer.toString(adminCount),Integer.toString(subjectCount),Integer.toString(subjectCount));
+        int specialitiesCount = specialityService.getCount();
+
+        int usersCount =(int) userRepository.count()-1;
+
+        return new DashboardViewModel(Integer.toString(schoolCount),Integer.toString(adminCount)
+                ,Integer.toString(subjectCount),Integer.toString(subjectCount)
+                ,Integer.toString(specialitiesCount),Integer.toString(usersCount));
     }
 
     @Override
@@ -545,6 +552,27 @@ public class UsersService implements UserService {
         user.setSchool(schoolservice.findSchoolById(id));
 
         userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public List<AdminAndSchoolViewModel> getAllUsers() {
+        List<AdminAndSchoolViewModel> schools = new ArrayList<>();
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getStudentRole());
+        roles.add(roleService.getTeacherRole());
+        roles.add(roleService.getAdminRole());
+
+        userRepository.getAllByRoleIn(roles).forEach(u -> {
+            AdminAndSchoolViewModel school = new AdminAndSchoolViewModel();
+
+            school.setUser(u);
+            school.setSchool(u.getSchool());
+
+            schools.add(school);
+        });
+
+        return schools;
     }
 
 
