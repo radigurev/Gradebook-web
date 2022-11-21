@@ -540,8 +540,8 @@ public class UsersService implements UserService {
         user.setFirstName(model.getFirstName());
         user.setLastName(model.getLastName());
         user.setEmail(model.getEmail());
-        String password = generatePassword();
-        user.setPassword(passwordEncoder.encode(password));
+//        String password = generatePassword();
+        user.setPassword(passwordEncoder.encode("password"));
 
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.getAdminRole());

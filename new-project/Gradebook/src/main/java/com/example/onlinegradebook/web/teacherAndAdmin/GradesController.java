@@ -58,7 +58,6 @@ public class GradesController {
                     .addFlashAttribute("org.springframework.validation.BindingResult.userGradesBindingModel", bindingResult)
                     .addFlashAttribute("badMessage","Length must be at least 3 characters long!");
 
-            return "redirect:/tables/grade/"+id;
         }
 
         gradeService.saveGrades(model,id);

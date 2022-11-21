@@ -1,0 +1,66 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/AdminUI/absenceTable-style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+<div class="container">
+    <div th:replace="/fragments/nav::nav"></div>
+    <div class="user">
+        <div>
+            <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
+            <p><i class="fa-solid fa-user-gear"></i> Radoslav Gurev</p>
+        </div>
+    </div>
+    <div>
+
+        <form th:action="@{/super/subjects}" th:method="POST" th:object="${specialitiesViewModel}">
+            <div id="form">
+                <input th:field="*{name}" type="text" placeholder="Специалност">
+                <button>Запиши</button>
+            </div>
+        </form>
+
+    <table id="table2" style="left: 50%; width: 700px;">
+        <thead>
+        <tr>
+            <th>№</th>
+            <th>Предмет</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="s,iter : ${subjects}">
+            <td>
+                <div>
+                    <p th:text="${iter.index+1}">Name name</p>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <p th:text="|${s.name}|">Name name</p>
+                </div>
+            </td>
+            <td>
+                <a th:href="@{/super/remove/subject/{id}/(id=${s.id})}" class="remove-button">Премахни</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    var test = '[]';
+</script>
+<script src="/js/AdminUI/classTable.js"></script>
+</html>

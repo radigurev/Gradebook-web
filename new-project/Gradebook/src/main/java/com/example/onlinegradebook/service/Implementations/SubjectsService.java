@@ -34,9 +34,11 @@ public class SubjectsService implements SubjectService {
     @Override
     public List<Subjects> getAll() {
 
-        return subjectSchoolRepository.getAllBySchool(userService.getUser().getSchool()).stream().map(SubjectSchool::getSubject).collect(Collectors.toList());
-//        return subjectRepository.findAll();
+//        return subjectSchoolRepository.getAllBySchool(userService.getUser().getSchool()).stream().map(SubjectSchool::getSubject).collect(Collectors.toList());
+        return subjectRepository.findAll();
     }
+
+
 
     @Override
     public Subjects getSubjectByName(String name) {
@@ -75,6 +77,11 @@ public class SubjectsService implements SubjectService {
     @Override
     public int getSubjectCount() {
         return (int) subjectRepository.count();
+    }
+
+    @Override
+    public void deleteSubject(String id) {
+        this.subjectRepository.deleteById(id);
     }
 
 }

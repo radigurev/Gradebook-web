@@ -18,4 +18,6 @@ public interface SubjectService {
     Subjects getSubjectById(String id);
 
     int getSubjectCount();
+
+    void deleteSubject(String id);
 }

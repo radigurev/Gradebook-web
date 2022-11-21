@@ -2,12 +2,8 @@ package com.example.onlinegradebook.web.superAdmin;
 
 import com.example.onlinegradebook.model.binding.UserRegisterBindingModel;
 import com.example.onlinegradebook.model.binding.superAdmin.AdminAndSchoolBindingModel;
-import com.example.onlinegradebook.model.entity.User;
 import com.example.onlinegradebook.model.view.SuperAdmin.SpecialitiesViewModel;
-import com.example.onlinegradebook.service.ClassService;
-import com.example.onlinegradebook.service.SchoolService;
-import com.example.onlinegradebook.service.SpecialityService;
-import com.example.onlinegradebook.service.UserService;
+import com.example.onlinegradebook.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,15 +18,16 @@ public class SuperAdminHomeControllerPage {
 
     private  final UserService userService;
     private final ClassService classService;
-
     private final SchoolService schoolService;
-
     private final SpecialityService specialityService;
-    public SuperAdminHomeControllerPage(UserService userService, ClassService classService, SchoolService schoolService, SpecialityService specialityService) {
+
+    private final SubjectService subjectService;
+    public SuperAdminHomeControllerPage(UserService userService, ClassService classService, SchoolService schoolService, SpecialityService specialityService, SubjectService subjectService) {
         this.userService = userService;
         this.classService = classService;
         this.schoolService = schoolService;
         this.specialityService = specialityService;
+        this.subjectService = subjectService;
     }
 
     @GetMapping("/schools")
@@ -129,10 +126,33 @@ public class SuperAdminHomeControllerPage {
         return "redirect:/super/specialities";
     }
 
+    @GetMapping("/subjects")
+    public String getSubjectTable(Model model) {
+
+        model.addAttribute("subjects",subjectService.getAll());
+
+        return "/SuperAdminUI/subjectTable";
+    }
+
+    @PostMapping("/subjects")
+    public  String saveSubject(SpecialitiesViewModel specialitiesViewModel) {
+
+        subjectService.saveSubject(specialitiesViewModel.getName());
+
+        return "redirect:/super/subjects";
+    }
+
     @GetMapping("/remove/speciality/{id}")
     public String removeSpeciality(@PathVariable String id) {
 
         specialityService.removeSpeciality(id);
+
+        return "redirect:/super/specialities";
+    }
+    @GetMapping("/remove/subject/{id}")
+    public String removeSubject(@PathVariable String id) {
+
+        subjectService.deleteSubject(id);
 
         return "redirect:/super/specialities";
     }
