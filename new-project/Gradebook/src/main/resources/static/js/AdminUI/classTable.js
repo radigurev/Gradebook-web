@@ -35,7 +35,7 @@ for (let i=0; i<tableOneRows.length;i++) {
                                 '                                  <td>'+numberInTable+'</td>\n' +
                                 '                                  <td>'+studentsByClass.names[j]+'</td>\n' +
                                 '                                  <td>'+studentsByClass.classes[j]+'</td>\n' +
-                                '                                  <td><a href="/admin/students/remove/class/'+studentsByClass.ids[j]+'" class="remove-button">Remove</a></td>\n' +
+                                '                                  <td><a href="/admin/students/remove/class/'+studentsByClass.ids[j]+'" class="remove-button">Премахни</a></td>\n' +
                                 '                              </tr>';
                             numberInTable++;
                     $('#table3 tbody>').eq(-1).after(html);

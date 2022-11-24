@@ -1,5 +1,6 @@
 package com.example.onlinegradebook.service;
 
+import com.example.onlinegradebook.model.binding.AddAbsencesBindingModel;
 import com.example.onlinegradebook.model.entity.AbsenceStudent;
 import com.example.onlinegradebook.model.view.AbsenceViewModel;
 import com.example.onlinegradebook.model.view.AdminAndTeachers.StudentsAbsenceViewModel;
@@ -7,11 +8,8 @@ import com.example.onlinegradebook.model.view.AdminAndTeachers.StudentsAbsenceVi
 import java.util.List;
 
 public interface AbsenceService {
-    void saveUserAbsence(String id);
 
     void init();
-
-    void saveUserLate(String id);
 
     List<StudentsAbsenceViewModel> getUsersWithAbsence(String id);
 
@@ -25,4 +23,8 @@ public interface AbsenceService {
     List<AbsenceStudent> getAllAbsences();
 
     List<AbsenceStudent> getUserAbsences();
+
+    void saveAbsences(String id, AddAbsencesBindingModel addAbsencesBindingModel);
+
+    void changeToLate(String id);
 }

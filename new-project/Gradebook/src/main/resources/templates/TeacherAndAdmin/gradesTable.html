@@ -15,12 +15,8 @@
 
           <div th:replace="/fragments/nav::nav"></div>
 
-          <div class="user">
-              <div>
-                  <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
-                  <p> <i class="fa-solid fa-person-chalkboard"></i> Radoslav Gurev</p>
-              </div>
-          </div>
+          <div th:replace="/fragments/nav::userCard"></div>
+
           <div onclick="tbChange()" class="wrapper">
         <span class="fa-stack fa-lg">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
@@ -48,7 +44,7 @@
                     <td>
                                                 <div th:each="g : ${s.gradesFirst}" class="grade">
                                                     <p th:text="${g.grade.charAt(0)}">2</p>
-                                                    <p class="info">Дата: 28.04.2022</p>
+                                                    <p th:text="${g.date}" class="info">Дата: 28.04.2022</p>
                                                     <p th:text="${g.type}" class="info">Тип: Изпит</p>
                                                     <p th:text="${g.grade}" class="info">Оценкта: 2.66</p>
                                                     <p th:text="${g.subject}" class="info">Предмет: Математика</p>
@@ -57,13 +53,13 @@
                                 </td>
                             <td>
                                 <div class="grade-semester">
-                                    <p th:text="${s.gradesFirstFinal}">5</p>
+                                    <p th:text="${s.gradesFirstFinal.grade}">5</p>
                             </div>
                             </td>
                                         <td>
                                             <div th:each="g : ${s.gradesSecond}" class="grade">
                                                 <p th:text="${g.grade.charAt(0)}">2</p>
-                                                <p class="info">Дата: 28.04.2022</p>
+                                                <p th:text="${g.date}" class="info">Дата: 28.04.2022</p>
                                                 <p th:text="${g.type}" class="info">Тип: Изпит</p>
                                                 <p th:text="${g.grade}" class="info">Оценкта: 2.66</p>
                                                 <p th:text="${g.subject}" class="info">Предмет: Математика</p>
@@ -73,12 +69,12 @@
                     </td>
                     <td>
                         <div class="grade-semester">
-                            <p th:text="${s.gradesSecondFinal}">5</p>
+                            <p th:text="${s.gradesSecondFinal.grade}">5</p>
                     </div>
                     </td>
                     <td>
                         <div class="grade-semester">
-                            <p th:text="${s.finalGrades}">5</p>
+                            <p th:text="${s.finalGrades.grade}">5</p>
                     </div>
                     </td>
                 </tr>

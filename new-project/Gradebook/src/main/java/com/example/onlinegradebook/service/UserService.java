@@ -1,6 +1,7 @@
 package com.example.onlinegradebook.service;
 
 import com.example.onlinegradebook.model.binding.ChangeMiddleName;
+import com.example.onlinegradebook.model.binding.ChangePasswordModel;
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
 import com.example.onlinegradebook.model.binding.UserRegisterBindingModel;
 import com.example.onlinegradebook.model.binding.superAdmin.AdminAndSchoolBindingModel;
@@ -11,7 +12,9 @@ import com.example.onlinegradebook.model.view.SuperAdmin.AdminAndSchoolViewModel
 import com.example.onlinegradebook.model.view.SuperAdmin.DashboardViewModel;
 import com.example.onlinegradebook.model.view.admin.*;
 import com.example.onlinegradebook.model.view.DashboardInfoText;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface UserService {
@@ -82,4 +85,10 @@ public interface UserService {
     void saveAdminToSchool(String id, UserRegisterBindingModel userRegisterBindingModel);
 
     List<AdminAndSchoolViewModel> getAllUsers();
+
+    void updateUserPassword(ChangePasswordModel changePasswordModel);
+
+    void updateUser(User user);
+
+    void saveImage(MultipartFile multipartFile) throws IOException;
 }

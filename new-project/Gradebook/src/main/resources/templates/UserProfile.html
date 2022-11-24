@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html class="mainBody" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/4aa5357101.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/UserProfile.css">
+</head>
+<body>
+        <div th:replace="/fragments/nav::nav"></div>
+        <div class="container">
+            <form enctype="multipart/form-data" th:action="@{/UserProfile/update/{id}(id = *{id})}" th:method="POST" th:object="${user}">
+                <div class="column connector">
+                    <div>
+                        <span style="color: red;" th:each="e : ${Errors}" th:text="${e}"></span>
+                    </div>
+                    <div class="column">
+                        <div class="entry">
+                            <label for="firstName">Име: </label>
+                            <br>
+                            <input id="firstName" th:field="*{firstName}" th:value="*{firstName}">
+                        </div>
+                        <div class="entry">
+                            <label for="middleName">Презиме: </label>
+                            <br>
+                            <input id="middleName" th:field="*{middleName}" th:value="*{middleName}">
+                        </div>
+                        <div class="entry">
+                            <label for="lastName">Фамилия: </label>
+                            <br>
+                            <input id="lastName" th:field="*{lastName}" th:value="*{lastName}">
+                        </div>
+                        <div class="entry">
+                            <label for="num" >Номер: </label>
+                            <br>
+                            <input id="num" th:field="*{phoneNumber}" th:value="*{phoneNumber}">
+                        </div>
+                        <div class="entry">
+                            <label for="email">Email: </label>
+                            <br>
+                            <input id="email" th:field="*{email}" th:value="*{email}">
+                        </div>
+                    </div>
+                    <div class="column">
+                      <th:block th:if="*{!school.name.equals('None')}">
+                          <div class="entry">
+                              <label for="school">Училище: </label>
+                              <br>
+                              <input id="school" disabled style="text-align: center"  th:value="*{school.name}">
+                          </div>
+                      </th:block>
+                        <th:block th:if="*{!userClass.classes.classNumber.equals('None')}">
+                            <div class="entry">
+                                <label for="userClass">Клас: </label>
+                                <br>
+                                <input id="userClass" disabled style="text-align: center" th:value="|*{userClass.classes.classNumber}*{userClass.letter}|" >
+                            </div>
+                        </th:block>
+                        <th:block th:if="*{userClass.speciality != null}">
+                        <div class="entry">
+                            <label for="speciality">Специалност: </label>
+                            <br>
+                            <input id="speciality" disabled style="text-align: center"  th:value="*{userClass.speciality.name}">
+                        </div>
+                        </th:block>
+                        <th:block th:unless="${subjects.isEmpty()}">
+                            <div class="entry" th:each="s : ${subjects}">
+                                <label >Предмет: </label>
+                                <br>
+                                <input  disabled style="text-align: center"  th:value="${s.subject.name}">
+                            </div>
+                        </th:block>
+
+                        <div class="entry" style="text-align: center">
+                            <br>
+                            <input type="file" name="uploadfile" id="img" style="display:none;"/>
+                            <label style="cursor: pointer; justify-content: center;display: block;" for="img">Натисни за да качиш снимка</label>
+                        </div>
+
+                        <button type="submit" class="btn">Запази</button>
+                    </div>
+                </div>
+            </form>
+            <div class="column">
+                <div>
+                    <span style="color: red" th:each="e : ${passErrors}" th:text="*{e}"></span>
+                </div>
+                <form th:action="@{/UserProfile/changePassword}" th:method="POST" th:object="${changePasswordModel}">
+                    <div class="entry">
+                        <label for="oldPassword">Стара парола: </label>
+                        <br>
+                        <input th:field="*{oldPassword}" type="password" id="oldPassword">
+                    </div>
+                    <div class="entry">
+                        <label for="newPassword">Нова парола: </label>
+                        <br>
+                        <input th:field="*{newPassword}" type="password" id="newPassword">
+                    </div>
+                    <div class="entry">
+                        <label for="ConfirmNewPassword">Потвърди нова парола: </label>
+                        <br>
+                        <input th:field="*{confirmPassword}" type="password" id="ConfirmNewPassword">
+                    </div>
+                    <button type="submit" class="btn">Смени парола</button>
+                </form>
+            </div>
+        </div>
+</body>
+</html>

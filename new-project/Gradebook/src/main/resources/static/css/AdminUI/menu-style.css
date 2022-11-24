@@ -328,7 +328,7 @@
  
 
   #info {
-    width: 400px;
+    width: 600px;
     height: 400px;
     background-color: #078282FF;
     position: absolute;
@@ -341,7 +341,7 @@
   }
 
   #info div {
-    width: 380px;
+    width: 580px;
     height: 380px;
     color: #fff;
     border-radius: 25px;
@@ -358,7 +358,7 @@
   }
 
  .stats {
-   text-align: left;
+   text-align: center;
  }
 
  .imgStudent {
@@ -398,7 +398,7 @@
 .info-icon {
   position: absolute;
   top: 370px;
-  left: 350px;
+  left: 550px;
 }
 
   @media only screen and (max-width: 1170px) {

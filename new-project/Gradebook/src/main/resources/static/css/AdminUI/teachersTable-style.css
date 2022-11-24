@@ -70,13 +70,13 @@ body {
     top: 150px;
     transform: translateX(-50%);
     transition: all 1s ease;
-    background-color: #6c8d65;
+    background-color: #00203FFF;
 }
 
 .add-teachers {
-    width: 1000px;
+    width: 500px;
     height: 400px;
-    background-color: #078282FF;
+    background-color: #00203FFF;
     align-items: center;
     border-radius: 15px;
 }
@@ -101,21 +101,12 @@ body {
     justify-content: center;
     display: block;
     color: #fff;
-    background: #078282FF;
-    font-size: 1em;
-    font-weight: bold;
-    margin-top: 20px;
     outline: none;
     border: none;
-    border-radius: 5px;
-    transition: .2s ease-in;
     cursor: pointer;
 }
 
-.add-teachers > button:hover {
-    background: #00203FFF;
 
-}
 
 tr {
     transition: all 3s ease;

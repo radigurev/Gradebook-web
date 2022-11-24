@@ -9,17 +9,12 @@
     <link rel="stylesheet" href="/css/AdminUI/responseTable-style.css">
 </head>
 <body>
-        <nav th:replace="/fragments/nav::nav"></nav>
       <div class="container">
+          <div th:replace="/fragments/nav::nav"></div>
+          <div th:replace="/fragments/nav::userCard"></div>
 
-            <div class="user">
-                <div>
-                    <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
-                    <p><i class="fa-solid fa-graduation-cap"></i> Radoslav Gurev</p>
-                </div>
-            </div>
 
-        <table id="table">
+          <table id="table">
             <thead>
                 <tr>
                     <th>№</th>

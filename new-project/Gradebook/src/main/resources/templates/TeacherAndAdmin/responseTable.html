@@ -14,12 +14,8 @@
 
           <div th:replace="/fragments/nav::nav"></div>
 
-          <div class="user">
-                <div>
-                    <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
-                    <p> <i class="fa-solid fa-person-chalkboard"></i> Radoslav Gurev</p>
-                </div>
-            </div>
+          <div th:replace="/fragments/nav::userCard"></div>
+
           <div onclick="tbChange()" class="wrapper">
         <span class="fa-stack fa-lg">
             <i class="fa-solid fa-circle fa-stack-2x"></i>

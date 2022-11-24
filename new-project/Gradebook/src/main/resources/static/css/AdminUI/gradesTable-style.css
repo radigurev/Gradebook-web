@@ -93,7 +93,7 @@ th, td {
     font-family: sans-serif,Arial, Helvetica;
     text-align: center;
     align-items: center;
-    align-content: ce;
+    align-content: center;
 }
 
 thead th {
@@ -176,7 +176,9 @@ input::placeholder {
 .display {
     display: none;
 }
-
+p {
+   text-decoration: none;
+}
 .additional-info {
     position: absolute;
     /* right: -100%; */

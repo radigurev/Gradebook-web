@@ -60,5 +60,13 @@
     </div>
 </div>
 
+<div class="user" th:fragment="userCard">
+    <div>
+        <img class="imgStudent" th:if="${CurrentUser.image == null}" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
+        <img class="imgStudent" th:unless="${CurrentUser.image == null}" th:src="${CurrentUser.image}" alt="">
+        <p><i class="fa-solid fa-user-gear"></i> <span th:text="|${CurrentUser.firstName} ${CurrentUser.lastName}|"></span> </p>
+    </div>
+</div>
+
 </body>
 </html>

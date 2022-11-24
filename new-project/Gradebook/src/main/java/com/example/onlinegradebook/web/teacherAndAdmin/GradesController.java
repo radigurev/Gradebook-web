@@ -42,6 +42,9 @@ public class GradesController {
 
     @GetMapping("/grade/{id}")
     public String getClassGradesTable(@PathVariable String id, LinkBindingModel linkModel,Model model) {
+
+
+
         model.addAttribute("studentsWithGrades",userService.getStudentsWithGrades(id,linkModel.getSubject()));
 
         model.addAttribute("studentsWithId",userService.getUsersByClass(classService.getClassesSchoolById(id).getId()))
@@ -62,7 +65,7 @@ public class GradesController {
 
         gradeService.saveGrades(model,id);
 
-        return "redirect:/tables/grade/"+id;
+        return "redirect:/tables/grade/"+id+"?subject="+model.getSubject();
     }
 
     @ModelAttribute

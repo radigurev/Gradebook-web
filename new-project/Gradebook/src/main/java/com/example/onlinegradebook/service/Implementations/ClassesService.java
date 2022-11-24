@@ -145,4 +145,9 @@ public class ClassesService implements ClassService {
     public ClassesSchool getClassesSchoolById(String id) {
         return classesSchoolRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public void deleteClassesBySchool(String id) {
+            classesSchoolRepository.deleteBySchoolId(id);
+    }
 }

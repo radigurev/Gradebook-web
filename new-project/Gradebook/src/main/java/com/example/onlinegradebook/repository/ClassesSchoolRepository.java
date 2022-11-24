@@ -5,9 +5,11 @@ import com.example.onlinegradebook.model.entity.ClassesSchool;
 import com.example.onlinegradebook.model.entity.MaterialSchool;
 import com.example.onlinegradebook.model.entity.School;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,4 +26,8 @@ public interface ClassesSchoolRepository extends JpaRepository<ClassesSchool, St
 
     @Query("select c from ClassesSchool c WHERE c.speciality.name=:speciality and c.classes.classNumber=:classes and c.school=:school")
     List<ClassesSchool> findByClassesAndSubjectAndSchool(@Param(value = "speciality") String speciality, @Param(value = "classes") String classes,@Param(value = "school") School school);
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM ClassesSchool c WHERE c.school.id =:id")
+    void deleteBySchoolId(@Param(value = "id") String id);
 }

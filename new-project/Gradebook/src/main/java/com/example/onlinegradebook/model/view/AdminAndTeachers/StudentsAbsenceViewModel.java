@@ -30,7 +30,9 @@ public class StudentsAbsenceViewModel {
     public List<AbsenceStudent> getLate() {
         return late;
     }
-
+    public double getLateSize() {
+        return (double) late.size()/2;
+    }
     public void setLate(List<AbsenceStudent> late) {
         this.late = late;
     }

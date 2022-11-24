@@ -15,6 +15,8 @@ public class AbsenceStudent extends BaseEntity {
     private LocalDateTime date;
     private School school;
 
+    private Subjects subject;
+
     @ManyToOne
     public User getTeacher() {
         return teacher;
@@ -23,6 +25,7 @@ public class AbsenceStudent extends BaseEntity {
     public void setTeacher(User teacher) {
         this.teacher = teacher;
     }
+
     @ManyToOne
     public User getStudent() {
         return student;
@@ -31,6 +34,7 @@ public class AbsenceStudent extends BaseEntity {
     public void setStudent(User student) {
         this.student = student;
     }
+
     @ManyToOne
     public Absence getType() {
         return type;
@@ -47,6 +51,7 @@ public class AbsenceStudent extends BaseEntity {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
+
     @ManyToOne
     public School getSchool() {
         return school;
@@ -54,5 +59,14 @@ public class AbsenceStudent extends BaseEntity {
 
     public void setSchool(School school) {
         this.school = school;
+    }
+
+    @ManyToOne
+    public Subjects getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subjects subject) {
+        this.subject = subject;
     }
 }

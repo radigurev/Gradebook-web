@@ -20,6 +20,9 @@ public class User extends BaseEntity {
     private boolean mainAdmin;
     private Set<Role> role;
 
+    private String image;
+
+
     @Column(name = "email")
     public String getEmail() {
         return email;
@@ -107,5 +110,13 @@ public class User extends BaseEntity {
 
     public void setRole(Set<Role> role) {
         this.role = role;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.onlinegradebook.service.Implementations;
 
+import com.example.onlinegradebook.model.binding.AddAbsencesBindingModel;
+import com.example.onlinegradebook.model.binding.submodels.Absences;
 import com.example.onlinegradebook.model.entity.Absence;
 import com.example.onlinegradebook.model.entity.AbsenceStudent;
 import com.example.onlinegradebook.model.entity.User;
@@ -9,6 +11,7 @@ import com.example.onlinegradebook.model.view.AdminAndTeachers.StudentsAbsenceVi
 import com.example.onlinegradebook.repository.AbsenceRepository;
 import com.example.onlinegradebook.repository.AbsenceStudentRepository;
 import com.example.onlinegradebook.service.AbsenceService;
+import com.example.onlinegradebook.service.SubjectService;
 import com.example.onlinegradebook.service.UserService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -24,21 +27,24 @@ public class AbsencesService implements AbsenceService {
     private final AbsenceRepository absenceRepository;
     private final AbsenceStudentRepository absenceStudentRepository;
     private final UserService userService;
+    private final SubjectService subjectService;
 
-    public AbsencesService(AbsenceRepository absenceRepository, AbsenceStudentRepository absenceStudentRepository, @Lazy UserService userService) {
+    public AbsencesService(AbsenceRepository absenceRepository, AbsenceStudentRepository absenceStudentRepository, @Lazy UserService userService, SubjectService subjectService) {
         this.absenceRepository = absenceRepository;
         this.absenceStudentRepository = absenceStudentRepository;
         this.userService = userService;
+        this.subjectService = subjectService;
     }
 
-    @Override
-    public void saveUserAbsence(String id) {
+
+    public void saveUserAbsence(String id, String idSubject) {
         AbsenceStudent absence = new AbsenceStudent();
         absence.setSchool(userService.getUser().getSchool());
         absence.setStudent(userService.getById(id));
         absence.setDate(LocalDateTime.now());
         absence.setTeacher(userService.getUser());
         absence.setType(absenceRepository.findByType(AbsenceType.Absence));
+        absence.setSubject(subjectService.getSubjectById(idSubject));
         absenceStudentRepository.saveAndFlush(absence);
     }
 
@@ -51,14 +57,14 @@ public class AbsencesService implements AbsenceService {
         });
     }
 
-    @Override
-    public void saveUserLate(String id) {
+    public void saveUserLate(String id, String idSubject) {
         AbsenceStudent absence = new AbsenceStudent();
         absence.setSchool(userService.getUser().getSchool());
         absence.setStudent(userService.getById(id));
         absence.setDate(LocalDateTime.now());
         absence.setTeacher(userService.getUser());
         absence.setType(absenceRepository.findByType(AbsenceType.Late));
+        absence.setSubject(subjectService.getSubjectById(idSubject));
         absenceStudentRepository.saveAndFlush(absence);
     }
 
@@ -124,6 +130,29 @@ public class AbsencesService implements AbsenceService {
     @Override
     public List<AbsenceStudent> getUserAbsences() {
         return absenceStudentRepository.getAbsenceStudentsByStudent(userService.getUser());
+    }
+
+    @Override
+    public void saveAbsences(String id, AddAbsencesBindingModel addAbsencesBindingModel) {
+        List<User> students = userService.getStudentsBySchoolAndClassAndRole(id);
+
+        for (int i = 0; i < addAbsencesBindingModel.getAbsences().size(); i++) {
+            Absences absence = addAbsencesBindingModel.getAbsences().get(i);
+            if(absence.getType().equals("absence")) {
+                saveUserAbsence(students.get(i).getId(),addAbsencesBindingModel.getSubject());
+            }else if(absence.getType().equals("late")) {
+                saveUserLate(students.get(i).getId(),addAbsencesBindingModel.getSubject());
+            }
+        }
+    }
+
+    @Override
+    public void changeToLate(String id) {
+        AbsenceStudent absence = absenceStudentRepository.findById(id).orElse(null);
+
+        absence.setType(absenceRepository.findByType(AbsenceType.Late));
+
+        absenceStudentRepository.save(absence);
     }
 }
 

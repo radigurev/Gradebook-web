@@ -442,6 +442,9 @@ tbody td {
     position: absolute;
     left: 150%;
     transition: all 0.9s ease;
+    outline: none;
+    border: none;
+    cursor: pointer;
 }
 
 @media (max-width:1200px) {

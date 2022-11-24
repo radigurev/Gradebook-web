@@ -58,26 +58,7 @@ input{
 	outline: none;
 	border-radius: 10px;
 }
-button{
-	width: 60%;
-	height: 40px;
-	margin: 10px auto;
-	justify-content: center;
-	display: block;
-	color: #fff;
-	background: #078282FF;
-	font-size: 1em;
-	font-weight: bold;
-	margin-top: 20px;
-	outline: none;
-	border: none;
-	border-radius: 5px;
-	transition: .2s ease-in;
-	cursor: pointer;
-}
-button:hover{
-	background: #00203FFF;
-}
+
 .login{
 	height: 460px;
 	background: #eee;
@@ -88,6 +69,29 @@ button:hover{
 	color: #000;
 	transform: scale(.6);
 }
+
+
+button {
+	padding: 8px;
+	border-radius: 15px;
+	border: none;
+	background: linear-gradient(to right, #00203FFF 50%, #078282FF 50%);
+	background-size: 200% 100%;
+	background-position: right bottom;
+	transition: all .7s ease-out;
+	text-decoration: none;
+	color: #fff;
+	width: 60%;
+	height: 40px;
+	margin: 10px auto;
+	justify-content: center;
+	display: block;
+	cursor: pointer;
+}
+button:hover {
+	background-position: left bottom;
+}
+
 
 #chk:checked ~ .login{
 	transform: translateY(-500px);

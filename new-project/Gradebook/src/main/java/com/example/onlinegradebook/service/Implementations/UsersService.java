@@ -1,6 +1,8 @@
 package com.example.onlinegradebook.service.Implementations;
 
+import com.example.onlinegradebook.globals.GlobalConstraints;
 import com.example.onlinegradebook.model.binding.ChangeMiddleName;
+import com.example.onlinegradebook.model.binding.ChangePasswordModel;
 import com.example.onlinegradebook.model.binding.TeacherBindingModel;
 import com.example.onlinegradebook.model.binding.UserRegisterBindingModel;
 import com.example.onlinegradebook.model.binding.superAdmin.AdminAndSchoolBindingModel;
@@ -23,7 +25,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,12 +51,12 @@ public class UsersService implements UserService {
     private final ResponseService responseService;
     private final UsersSubjectsService usersSubjectsService;
     private final SpecialityService specialityService;
-
     private final Gson gson;
     private final GradeService gradeService;
     private final TestService testService;
+    private final MailService mailService;
 
-    public UsersService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleService roleService, SchoolService schoolservice, ClassService classService, ModelMapper modelMapper, SubjectService subjectService, AbsenceService absenceService, @Lazy ResponseService responseService, UsersSubjectsService usersSubjectsService, SpecialityService specialityService, Gson gson, @Lazy GradeService gradeService, @Lazy TestService testService) {
+    public UsersService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleService roleService, SchoolService schoolservice, ClassService classService, ModelMapper modelMapper, SubjectService subjectService, AbsenceService absenceService, @Lazy ResponseService responseService, UsersSubjectsService usersSubjectsService, SpecialityService specialityService, Gson gson, @Lazy GradeService gradeService, @Lazy TestService testService, MailService mailService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleService = roleService;
@@ -60,20 +71,29 @@ public class UsersService implements UserService {
         this.gson = gson;
         this.gradeService = gradeService;
         this.testService = testService;
+        this.mailService = mailService;
     }
 
     //Saving new users
     //TODO -> profile pictures
     @Override
     public void saveUser(User user) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleService.getStudentRole());
-        user.setRole(roles);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setSchool(schoolservice.findSchool("None"));
-        user.setMiddleName("");
-        user.setUserClass(classService.getClassesSchool("None"));
-        userRepository.saveAndFlush(user);
+        try {
+            Set<Role> roles = new HashSet<>();
+            roles.add(roleService.getStudentRole());
+            user.setRole(roles);
+            String password = user.getPassword();
+            user.setPassword(passwordEncoder.encode(password));
+            user.setSchool(schoolservice.findSchool("None"));
+            user.setMiddleName("");
+            user.setUserClass(classService.getClassesSchool("None"));
+            userRepository.saveAndFlush(user);
+
+            String body = String.format("Беше ви създаден ученически акаунт в нашата система! \n Username: %s \n Password: %s", user.getEmail(), password);
+
+            mailService.sendMail(user.getEmail(), GlobalConstraints.newUserAccount, body);
+        } catch (Exception e) {
+        }
     }
 
     //Information for users dashboard
@@ -92,23 +112,23 @@ public class UsersService implements UserService {
             absences = absenceService.getAllAbsences();
             responses = responseService.getAllResponses();
             tests = testService.getAllTests();
-        }else {
-           grades = gradeService.getGradesByUser(user);
-           absences = absenceService.getUserAbsences();
-           responses = responseService.getUserResponses();
-           tests = testService.getUserTests();
+        } else {
+            grades = gradeService.getGradesByUser(user);
+            absences = absenceService.getUserAbsences();
+            responses = responseService.getUserResponses();
+            tests = testService.getUserTests();
         }
 
         for (Grades grade : grades) {
-            sum+=Double.parseDouble(grade.getGrade());
+            sum += Double.parseDouble(grade.getGrade());
         }
-        sum/=grades.size();
+        sum /= grades.size();
         assert user != null;
         return new DashboardInfoText(String.format("%s %s", user.getFirstName(), user.getLastName()),
                 user.getSchool().getName(), user.getEmail(),
                 user.getUserClass().getClasses().getClassNumber(),
-                String.format("%.2f",sum),Integer.toString(grades.size()),
-                Integer.toString(responses.size()),Integer.toString(absences.size()),
+                String.format("%.2f", sum), Integer.toString(grades.size()),
+                Integer.toString(responses.size()), Integer.toString(absences.size()),
                 Integer.toString(tests.size()));
 //        return new DashboardInfoText();
     }
@@ -133,7 +153,9 @@ public class UsersService implements UserService {
 
             user.setRole(roles);
 
-            user.setPassword(passwordEncoder.encode("NewUser1234"));
+            String password = generatePassword();
+
+            user.setPassword(passwordEncoder.encode(password));
 
             user.setMiddleName("");
 
@@ -144,6 +166,10 @@ public class UsersService implements UserService {
             user.setSchool(schoolservice.findSchool(admin.getSchool().getName()));
             user.setUserClass(classService.getClassesSchool("None"));
             userRepository.saveAndFlush(user);
+
+            String body = String.format("Беше ви създаден учителски акаунт в нашата система! \n Училище: %s \n Username: %s \n Password: %s", user.getSchool().getName(), user.getEmail(), user.getPassword());
+
+            mailService.sendMail(user.getEmail(), GlobalConstraints.newTeacherAccount, body);
         }
     }
 
@@ -184,8 +210,6 @@ public class UsersService implements UserService {
     }
 
 
-
-
     @Override
     public void removeTeacher(String id) {
         //removing user subjects
@@ -222,11 +246,16 @@ public class UsersService implements UserService {
     @Override
     public void updateUserSchool(String id) {
         userRepository.updateSchool(getUser().getSchool(), id);
+        User user = getById(id);
+        mailService.sendMail(user.getEmail(), "Добавени към ново училище", String.format("Вие бяхте добавени към %s!", user.getSchool().getName()));
     }
 
     @Override
     public void removeUserFromSchool(String id) {
         userRepository.updateSchool(schoolservice.findSchool("None"), id);
+
+        User user = getById(id);
+        mailService.sendMail(user.getEmail(), "Премахнат от училище", String.format("Вие бяхте премахнати от %s!", user.getSchool().getName()));
     }
 
     @Override
@@ -293,20 +322,20 @@ public class UsersService implements UserService {
     public List<AdminTeacherProgramTableViewModel> getAllTeacherNamesAndSubjects() {
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.getTeacherRole());
-        List<AdminTeacherProgramTableViewModel> teachersList=new ArrayList<>();
+        List<AdminTeacherProgramTableViewModel> teachersList = new ArrayList<>();
         userRepository.getAllBySchoolAndRoleIn(getUser().getSchool(), roles).forEach(t -> {
-            AdminTeacherProgramTableViewModel tableView=new AdminTeacherProgramTableViewModel();
-            if(t.getMiddleName().equals(""))
-                tableView.setName(String.format("%s %s",t.getFirstName(),t.getLastName()));
+            AdminTeacherProgramTableViewModel tableView = new AdminTeacherProgramTableViewModel();
+            if (t.getMiddleName().equals(""))
+                tableView.setName(String.format("%s %s", t.getFirstName(), t.getLastName()));
             else
-                tableView.setName(String.format("%s %s. %s",t.getFirstName(),t.getMiddleName().charAt(0),t.getLastName()));
-            List<Subjects> subjects=new ArrayList<>();
+                tableView.setName(String.format("%s %s. %s", t.getFirstName(), t.getMiddleName().charAt(0), t.getLastName()));
+            List<Subjects> subjects = new ArrayList<>();
             usersSubjectsService.getUserSubjects(t).forEach(s -> {
-             subjects.add(s.getSubject());
-         });
-                tableView.setSubjects(subjects);
-                tableView.setId(t.getId());
-                teachersList.add(tableView);
+                subjects.add(s.getSubject());
+            });
+            tableView.setSubjects(subjects);
+            tableView.setId(t.getId());
+            teachersList.add(tableView);
         });
         return teachersList;
     }
@@ -320,68 +349,85 @@ public class UsersService implements UserService {
     public List<AdminGetStudentsWithIdModelView> getUsersByClass(String id) {
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.getStudentRole());
-        List<AdminGetStudentsWithIdModelView> students=new ArrayList<>();
+        List<AdminGetStudentsWithIdModelView> students = new ArrayList<>();
         userRepository
-                .getAllBySchoolAndUserClassAndRoleInOrderByFirstName(getUser().getSchool(), classService.getClassesSchoolById(id),roles)
-                .forEach(u ->{
-                AdminGetStudentsWithIdModelView user = new AdminGetStudentsWithIdModelView();
-                user.setId(u.getId());
-                if(u.getMiddleName().isBlank())
-                        user.setName(String.format("%s %s",u.getFirstName(),u.getLastName()));
+                .getAllBySchoolAndUserClassAndRoleInOrderByFirstName(getUser().getSchool(), classService.getClassesSchoolById(id), roles)
+                .forEach(u -> {
+                    AdminGetStudentsWithIdModelView user = new AdminGetStudentsWithIdModelView();
+                    user.setId(u.getId());
+                    if (u.getMiddleName().isBlank())
+                        user.setName(String.format("%s %s", u.getFirstName(), u.getLastName()));
                     else
-                        user.setName(String.format("%s %s. %s",u.getFirstName(),u.getMiddleName().charAt(0),u.getLastName()));
+                        user.setName(String.format("%s %s. %s", u.getFirstName(), u.getMiddleName().charAt(0), u.getLastName()));
 
                     students.add(user);
-        });
+                });
         return students;
     }
 
     @Override
     public List<User> getStudentsBySchoolAndClassAndRole(String id) {
-        ClassesSchool classesSchool=classService.getClassesSchoolById(id);
+        ClassesSchool classesSchool = classService.getClassesSchoolById(id);
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.getStudentRole());
-        return userRepository.getAllBySchoolAndUserClassAndRoleInOrderByFirstName(getUser().getSchool(), classesSchool,roles);
+        return userRepository.getAllBySchoolAndUserClassAndRoleInOrderByFirstName(getUser().getSchool(), classesSchool, roles);
     }
 
     @Override
     public List<StudentAndGradesViewModel> getStudentsWithGrades(String id, String subject) {
-        List<StudentAndGradesViewModel> model=new ArrayList<>();
+        List<StudentAndGradesViewModel> model = new ArrayList<>();
 
-       getStudentsBySchoolAndClassAndRole(id).forEach(s -> {
-           StudentAndGradesViewModel entry=new StudentAndGradesViewModel();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-          List<GradeViewModel> gradesFirst=new ArrayList<>();
-          List<GradeViewModel> gradesSecond=new ArrayList<>();
+        getStudentsBySchoolAndClassAndRole(id).forEach(s -> {
+            StudentAndGradesViewModel entry = new StudentAndGradesViewModel();
+
+            List<GradeViewModel> gradesFirst = new ArrayList<>();
+            List<GradeViewModel> gradesSecond = new ArrayList<>();
 
 
-          gradeService.getGradesByUser(s).forEach(g -> {
+            gradeService.getGradesByUser(s).forEach(g -> {
 
-              if(g.getSubject().getId().equals(subject)) {
+                if (g.getSubject().getId().equals(subject)) {
 
-                  GradeViewModel map = modelMapper.map(g, GradeViewModel.class);
+                    GradeViewModel map = modelMapper.map(g, GradeViewModel.class);
 
-                  map.setTeacher(String.format("%s %s",g.getTeacher().getFirstName(),g.getTeacher().getLastName()));
+                    map.setTeacher(String.format("%s %s", g.getTeacher().getFirstName(), g.getTeacher().getLastName()));
 
-                  map.setSubject(g.getSubject().getName());
+                    map.setSubject(g.getSubject().getName());
 
-                  switch (map.getType()){
-                      case "first-semester"->gradesFirst.add(map);
-                      case "final-first-semester"->entry.setGradesFirstFinal(map);
-                      case "second-semester"->gradesSecond.add(map);
-                      case "final-second-semester"->entry.setGradesSecondFinal(map);
-                      case "final"->entry.setFinalGrades(map);
-                  }
-              }
-          });
-        if(!s.getMiddleName().isEmpty())
-            entry.setStudent(String.format("%s %s. %s",s.getFirstName(),s.getMiddleName().charAt(0),s.getLastName()));
-        else
-            entry.setStudent(String.format("%s %s",s.getFirstName(),s.getLastName()));
-        entry.setGradesFirst(gradesFirst);
-        entry.setGradesSecond(gradesSecond);
-        model.add(entry);
-       });
+                    map.setDate(formatter.format(g.getDate()));
+
+                    switch (map.getType()) {
+                        case "first-semester" -> gradesFirst.add(map);
+                        case "final-first-semester" -> entry.setGradesFirstFinal(map);
+                        case "second-semester" -> gradesSecond.add(map);
+                        case "final-second-semester" -> entry.setGradesSecondFinal(map);
+                        case "final" -> entry.setFinalGrades(map);
+                    }
+                }
+            });
+            if (!s.getMiddleName().isEmpty())
+                entry.setStudent(String.format("%s %s. %s", s.getFirstName(), s.getMiddleName().charAt(0), s.getLastName()));
+            else
+                entry.setStudent(String.format("%s %s", s.getFirstName(), s.getLastName()));
+
+            if (entry.getGradesFirstFinal() == null) {
+                entry.setGradesFirstFinal(new GradeViewModel());
+                entry.getGradesFirstFinal().setGrade("");
+            }
+            if (entry.getGradesSecondFinal() == null) {
+                entry.setGradesSecondFinal(new GradeViewModel());
+                entry.getGradesSecondFinal().setGrade("");
+            }
+            if (entry.getFinalGrades() == null) {
+                entry.setFinalGrades(new GradeViewModel());
+                entry.getFinalGrades().setGrade("");
+            }
+            entry.setGradesFirst(gradesFirst);
+            entry.setGradesSecond(gradesSecond);
+            model.add(entry);
+        });
 
         return model;
     }
@@ -420,6 +466,7 @@ public class UsersService implements UserService {
         }
         return userRepository.findByEmail(username).orElse(null);
     }
+
     public User loadUserByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
     }
@@ -435,11 +482,11 @@ public class UsersService implements UserService {
 
         int specialitiesCount = specialityService.getCount();
 
-        int usersCount =(int) userRepository.count()-1;
+        int usersCount = (int) userRepository.count() - 1;
 
-        return new DashboardViewModel(Integer.toString(schoolCount),Integer.toString(adminCount)
-                ,Integer.toString(subjectCount),Integer.toString(subjectCount)
-                ,Integer.toString(specialitiesCount),Integer.toString(usersCount));
+        return new DashboardViewModel(Integer.toString(schoolCount), Integer.toString(adminCount)
+                , Integer.toString(subjectCount), Integer.toString(subjectCount)
+                , Integer.toString(specialitiesCount), Integer.toString(usersCount));
     }
 
     @Override
@@ -448,14 +495,14 @@ public class UsersService implements UserService {
         List<AdminAndSchoolViewModel> schools = new ArrayList<>();
 
         schoolservice.getAllSchools().forEach(s -> {
-        if(!s.getName().equals("None")) {
-            AdminAndSchoolViewModel school = new AdminAndSchoolViewModel();
+            if (!s.getName().equals("None")) {
+                AdminAndSchoolViewModel school = new AdminAndSchoolViewModel();
 
-            school.setSchool(s);
-            school.setUser(userRepository.getUserBySchoolAndMainAdmin(s,true));
+                school.setSchool(s);
+                school.setUser(userRepository.getUserBySchoolAndMainAdmin(s, true));
 
-            schools.add(school);
-        }
+                schools.add(school);
+            }
         });
 
         return schools;
@@ -467,7 +514,8 @@ public class UsersService implements UserService {
         user.setFirstName(model.getFirstName());
         user.setLastName(model.getLastName());
         user.setEmail(model.getEmail());
-        user.setPassword(passwordEncoder.encode("password"));
+        String password = generatePassword();
+        user.setPassword(passwordEncoder.encode(password));
 
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.getAdminRole());
@@ -483,6 +531,10 @@ public class UsersService implements UserService {
         user.setSchool(school);
 
         userRepository.saveAndFlush(user);
+
+        String body = String.format("Беше ви създаден директорски акаунт в нашата система! \n Училище: %s \n Username: %s \n Password: %s", user.getSchool().getName(), user.getEmail(), password);
+
+        mailService.sendMail(user.getEmail(), GlobalConstraints.newAdminAccount, body);
     }
 
     @Override
@@ -490,6 +542,10 @@ public class UsersService implements UserService {
         userRepository.deleteAdminsBySchool(id);
 
         schoolservice.deleteSchoolById(id);
+
+        classService.deleteClassesBySchool(id);
+
+        subjectService.removeSubjectSchoolsBySchoolId(id);
     }
 
     @Override
@@ -522,7 +578,7 @@ public class UsersService implements UserService {
     public void deleteUser(String id) {
         User user = userRepository.findById(id).orElse(null);
         assert user != null;
-        if(user.isMainAdmin())
+        if (user.isMainAdmin())
             deleteAdminsAndSchool(user.getSchool().getId());
         else
             userRepository.delete(user);
@@ -531,7 +587,7 @@ public class UsersService implements UserService {
     @Override
     public String generatePassword() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:\'\",<.>/?";
-        return RandomStringUtils.random( 15, characters );
+        return RandomStringUtils.random(15, characters);
     }
 
     @Override
@@ -540,8 +596,8 @@ public class UsersService implements UserService {
         user.setFirstName(model.getFirstName());
         user.setLastName(model.getLastName());
         user.setEmail(model.getEmail());
-//        String password = generatePassword();
-        user.setPassword(passwordEncoder.encode("password"));
+        String password = generatePassword();
+        user.setPassword(passwordEncoder.encode(password));
 
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.getAdminRole());
@@ -552,6 +608,10 @@ public class UsersService implements UserService {
         user.setSchool(schoolservice.findSchoolById(id));
 
         userRepository.saveAndFlush(user);
+
+        String body = String.format("Беше ви създаден директорски акаунт в нашата система! \n Училище: %s \n Username: %s \n Password: %s", user.getSchool().getName(), user.getEmail(), user.getPassword());
+
+        mailService.sendMail(user.getEmail(), GlobalConstraints.newAdminAccount, body);
     }
 
     @Override
@@ -573,6 +633,34 @@ public class UsersService implements UserService {
         });
 
         return schools;
+    }
+
+    @Override
+    public void updateUserPassword(ChangePasswordModel changePasswordModel) {
+        User user = getUser();
+
+        user.setPassword(passwordEncoder.encode(changePasswordModel.getNewPassword()));
+
+        userRepository.save(user);
+
+        mailService.sendMail(user.getEmail(), "Сменена парола", "Вашата парола беше сменена. Ако не сте я сменили вие моля свържете с нашия съпорт.");
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userRepository.updateUser(user.getFirstName(), user.getMiddleName(), user.getLastName(),
+                user.getEmail(), user.getPhoneNumber(), user.getId());
+    }
+
+    @Override
+    public void saveImage(MultipartFile multipartFile) throws IOException {
+        byte[] bytes = multipartFile.getBytes();
+        User user = getUser();
+        String fileLocation = new File("src\\main\\resources\\static\\images\\").getAbsolutePath();
+        Path path = Paths.get(fileLocation + "\\" + user.getId() + multipartFile.getOriginalFilename());
+        Files.write(path, bytes);
+
+        userRepository.updateUserImage("/images/" + user.getId() + multipartFile.getOriginalFilename(), user.getId());
     }
 
 

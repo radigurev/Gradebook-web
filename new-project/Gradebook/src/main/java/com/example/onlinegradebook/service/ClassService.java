@@ -28,4 +28,6 @@ public interface ClassService {
     void addSubjectToClass(String id, String subject);
 
     ClassesSchool getClassesSchoolById(String id);
+
+    void deleteClassesBySchool(String id);
 }

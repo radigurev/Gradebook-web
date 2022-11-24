@@ -1,13 +1,13 @@
 package com.example.onlinegradebook.web.teacherAndAdmin;
 
+import com.example.onlinegradebook.model.binding.AddAbsencesBindingModel;
 import com.example.onlinegradebook.service.AbsenceService;
 import com.example.onlinegradebook.service.ClassService;
+import com.example.onlinegradebook.service.Implementations.SubjectsService;
 import com.example.onlinegradebook.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/tables")
@@ -16,12 +16,14 @@ public class AbsenceController {
     private final ClassService classService;
     private final UserService userService;
     private final AbsenceService absenceService;
+    private final SubjectsService subjectsService;
 
 
-    public AbsenceController(ClassService classService, UserService userService, AbsenceService absenceService) {
+    public AbsenceController(ClassService classService, UserService userService, AbsenceService absenceService, SubjectsService subjectsService) {
         this.classService = classService;
         this.userService = userService;
         this.absenceService = absenceService;
+        this.subjectsService = subjectsService;
     }
 
     @GetMapping("/absences")
@@ -40,23 +42,16 @@ public class AbsenceController {
 
         model.addAttribute("studentsWithId",userService.getUsersByClass(classService.getClassesSchoolById(id).getId()));
 
+        model.addAttribute("subjects",subjectsService.getAll());
+
         return "/TeacherAndAdmin/absenceTable";
     }
 
-    @GetMapping("/add/absence/{id}")
-    public String addAbsenceToStudent(@PathVariable String id) {
+    @PostMapping("/absence/{id}")
+    public String getAbsences(@PathVariable String id, AddAbsencesBindingModel addAbsencesBindingModel) {
 
-        absenceService.saveUserAbsence(id);
-
-        return String.format("redirect:/tables/absence/%s",userService.getById(id).getUserClass().getId());
-    }
-
-    @GetMapping("/add/late/{id}")
-    public String addLateToStudent(@PathVariable String id) {
-
-        absenceService.saveUserLate(id);
-
-        return String.format("redirect:/tables/absence/%s",userService.getById(id).getUserClass().getId());
+        absenceService.saveAbsences(id,addAbsencesBindingModel);
+        return "redirect:/tables/absence/"+id;
     }
 
     @GetMapping("/remove/absence/{id}")
@@ -67,5 +62,19 @@ public class AbsenceController {
         absenceService.removeAbsence(id);
 
         return String.format("redirect:/tables/absence/%s",schoolId);
+    }
+
+    @GetMapping("/remove/to/late/{id}")
+    public String changeToLate(@PathVariable String id) {
+        String schoolId = absenceService.findById(id).getStudent().getUserClass().getId();
+
+        absenceService.changeToLate(id);
+
+        return String.format("redirect:/tables/absence/%s",schoolId);
+    }
+
+    @ModelAttribute
+    public AddAbsencesBindingModel addAbsencesBindingModel() {
+        return new AddAbsencesBindingModel();
     }
 }

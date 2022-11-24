@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 public class GradeViewModel {
     private String grade;
     private String teacher;
-//    private LocalDateTime date;
+
+    private String date;
     private String reason;
     private String type;
     private String subject;
@@ -22,6 +23,14 @@ public class GradeViewModel {
 //    public void setDate(LocalDateTime date) {
 //        this.date = date;
 //    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getReason() {
         return reason;

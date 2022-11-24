@@ -13,19 +13,15 @@
 <body>
 
       <div class="container">
-
-            <div class="user">
-                <div>
-                    <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
-                    <p><i class="fa-solid fa-graduation-cap"></i> Radoslav Gurev</p>
-                </div>
-            </div>
+          <div th:replace="/fragments/nav::nav"></div>
+          <div th:replace="/fragments/nav::userCard"></div>
 
 
 
-        <table id="table">
+
+          <table id="table">
             <select id="subject-select" th:if="${type}=='grade'">
-                <option th:each="s : ${subjects}" th:value="${s.id}" th:text="${s.name}"></option>
+                <option th:each="s : ${subjects}" th:value="${s.id}" th:text="${s.name}" th:field="${linkBindingModel.subject}"></option>
             </select>
             <thead>
                 <tr>
@@ -44,7 +40,7 @@
                     <td>
                      <a th:if="${type}=='response'" th:href="@{/tables/responses/{id}(id=${c.id})}" class="row-button">Отвори</a>
                      <a th:if="${type}=='absence'" th:href="@{/tables/absence/{id}(id=${c.id})}" class="row-button">Отвори</a>
-                        <form th:if="${type}=='grade'" th:action="@{/tables/grade/{id}(id=${c.id})}" th:method="GET" th:object="${linkBindingModel}">
+                        <form th:if="${type}=='grade'" th:action="@{'/tables/grade/'+${c.id}}" th:method="GET" th:object="${linkBindingModel}">
                             <button  style="cursor: pointer"  class="row-button">Отвори</button>
                             <input th:field="*{subject}" style="display: none" class="subject">
                         </form>

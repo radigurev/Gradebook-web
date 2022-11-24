@@ -3,6 +3,7 @@ package com.example.onlinegradebook.service.Implementations;
 import com.example.onlinegradebook.model.entity.School;
 import com.example.onlinegradebook.model.entity.SubjectSchool;
 import com.example.onlinegradebook.model.entity.Subjects;
+import com.example.onlinegradebook.model.entity.UsersSubjects;
 import com.example.onlinegradebook.repository.ClassesSubjectsRepository;
 import com.example.onlinegradebook.repository.SubjectRepository;
 import com.example.onlinegradebook.repository.SubjectSchoolRepository;
@@ -83,6 +84,12 @@ public class SubjectsService implements SubjectService {
     public void deleteSubject(String id) {
         this.subjectRepository.deleteById(id);
     }
+
+    @Override
+    public void removeSubjectSchoolsBySchoolId(String id) {
+        subjectSchoolRepository.deleteBySchoolId(id);
+    }
+
 
 }
 

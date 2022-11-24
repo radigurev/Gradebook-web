@@ -11,18 +11,12 @@
     <link rel="stylesheet" href="/css/AdminUI/materialTable-style.css">
 </head>
 <body>
-<div class="nav-buttons">
     <div th:replace="/fragments/nav::nav"></div>
 
-</div>
-            <div class="user">
-                <div>
-                    <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
-                    <p><i class="fa-solid fa-graduation-cap"></i> Radoslav Gurev</p>
-                </div>
-            </div>
 
-          <div onclick="tbChange()" class="wrapper">
+<div th:replace="/fragments/nav::userCard"></div>
+
+<div onclick="tbChange()" class="wrapper">
         <span class="fa-stack fa-lg">
             <i class="fa-solid fa-circle fa-stack-2x"></i>
             <i id="icon" class="fa-solid fa-eye fa-stack-1x fa-inverse"></i>
@@ -100,7 +94,7 @@
 
 
     <form th:action="@{/admin/material}" th:method="POST" th:object="${adminGetJsonMaterial}">
-        <button onclick="changeTest()"  id="add-button">ready</button>
+        <button onclick="changeTest()"  id="add-button" class="button-a">ready</button>
     <table id="table2">
         <thead>
         <tr>

@@ -148,3 +148,27 @@ tbody td {
 .button:hover {
     background-position: right bottom;
 }
+
+input {
+    background-color: #078282FF;
+    border: 0;
+    padding: 5px;
+    border-radius: 15px;
+    width: 200px;
+    color: #fff;
+    height: 35px;
+}
+
+select, input, .button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+select {
+    width: 200px;
+    color: white;
+    text-align: center;
+    height: 35px;
+    border-radius: 15px;
+    background-color: #078282FF;
+}

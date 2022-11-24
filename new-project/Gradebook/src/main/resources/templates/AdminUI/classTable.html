@@ -16,12 +16,7 @@
           <div th:replace="/fragments/nav::nav"></div>
 
 
-          <div class="user">
-                <div>
-                    <img class="imgStudent" src="https://style.anu.edu.au/_anu/4/images/placeholders/person.png" alt="">
-                    <p><i class="fa-solid fa-user-gear"></i> Radoslav Gurev</p>
-                </div>
-            </div>
+            <div th:replace="/fragments/nav::userCard"></div>
 
 
           <div id="buttons-div" class="above-table-buttons">
@@ -113,7 +108,7 @@
                           <select th:field="*{userClass}">
                               <option  th:each="c : ${classes}" th:text="${c.classNumber}" th:value="${c.classNumber}">11а</option>
                           </select>
-                          <button th:href="@{/admin/students/add/class{id}(id=${s.id})}" class="button">Отвори</button>
+                          <button th:href="@{/admin/students/add/class{id}(id=${s.id})}" class="button">Добави</button>
                       </td>
                   </form>
               </tr>
@@ -140,7 +135,7 @@
                   <select th:field="*{speciality}" name="">
                       <option th:each="s :${speciality}" th:value="${s.name}" th:text="${s.name}">speciality</option>
                   </select>
-                  <button class="add-button">Confirm</button>
+                  <button class="add-button">Добави</button>
               </form>
           </div>
 

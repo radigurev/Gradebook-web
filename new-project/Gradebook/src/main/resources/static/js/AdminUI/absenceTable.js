@@ -3,6 +3,7 @@ const grades= [...document.getElementsByClassName('gra')];
 var buttons=[...document.getElementsByClassName('abs-button')];
 var infoBar=document.getElementById('add-info');
 var table=document.getElementById('table');
+var absenceSelect=document.getElementById('subject-select');
 var checkbox=document.getElementById('change-box');
 var table2=document.getElementById('table2');
 var icon=document.getElementById("icon");
@@ -25,9 +26,10 @@ grades.forEach((g) => {
         // console.log(g.childNodes[3].childNodes[1].childNodes[1]);
         var row=1;
         for(var i=1;i<=g.childNodes[3].childNodes.length/2;i++) {
-            var html = 
-                "<tr class='row>'<td id='info-row' class='no-border'></td><td class='no-border'></td><td class='no-border'><p><i class='fa-solid fa-calendar'></i> "+g.childNodes[3].childNodes[row].childNodes[1].textContent+"</p></td><td class='no-border'><p>"+g.childNodes[3].childNodes[row].childNodes[3].textContent+"</p></td><td class='no-border'><a class='remove-button' href="+g.childNodes[3].childNodes[row].childNodes[5]+">Remove</a></td><td class='no-border'></td><td class='no-border'></td></tr>";
-                $('table > tbody> tr').eq(place).after(html);
+            var html =
+                g.classList.contains('abc') ? "<tr class='row>'<td id='info-row' class='no-border'></td><td class='no-border'></td><td class='no-border'><p><i class='fa-solid fa-calendar'></i> "+g.childNodes[3].childNodes[row].childNodes[1].textContent+"</p></td><td class='no-border'><p>"+g.childNodes[3].childNodes[row].childNodes[3].textContent+"</p></td><td class='no-border'><a class='remove-button' href="+g.childNodes[3].childNodes[row].childNodes[5]+">Изтрии</a></td><td class='no-border'><a class='remove-button' href="+g.childNodes[3].childNodes[row].childNodes[9]+">Промени на закъснение</a></td><td class='no-border'></td></tr>"
+                :   "<tr class='row>'<td id='info-row' class='no-border'></td><td class='no-border'></td><td class='no-border'><p><i class='fa-solid fa-calendar'></i> "+g.childNodes[3].childNodes[row].childNodes[1].textContent+"</p></td><td class='no-border'><p>"+g.childNodes[3].childNodes[row].childNodes[3].textContent+"</p></td><td class='no-border'><a class='remove-button' href="+g.childNodes[3].childNodes[row].childNodes[5]+">Изтрии</a></td><td class='no-border'></td><td class='no-border'></td></tr>";
+            $('table > tbody> tr').eq(place).after(html);
                 place= parseInt(place)+1;
                 row+=2;
         }
@@ -61,10 +63,12 @@ function tbChange() {
         table2.style.left="50%";
         icon.classList.remove("fa-eye");
         icon.classList.add('fa-pen');
+        absenceSelect.style.display = 'block';
     } else {
         icon.classList.add("fa-eye");
         icon.classList.remove('fa-pen');
         table2.style.left="150%";
         table.style.left="50%";
+        absenceSelect.style.display = 'none';
     }
 }
