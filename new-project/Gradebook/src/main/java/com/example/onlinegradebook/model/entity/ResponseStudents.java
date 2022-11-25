@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table
-public class ResponseStudents extends BaseEntity {
+  public class ResponseStudents extends BaseEntity {
 
     private Response type;
     private User student;
     private User teacher;
     private School school;
-    private SubjectSchool subject;
+    private Subjects subject;
     private String description;
     private LocalDateTime dateTime;
 
@@ -59,12 +59,13 @@ public class ResponseStudents extends BaseEntity {
     public void setSchool(School school) {
         this.school = school;
     }
+
     @ManyToOne
-    public SubjectSchool getSubject() {
+    public Subjects getSubject() {
         return subject;
     }
 
-    public void setSubject(SubjectSchool subject) {
+    public void setSubject(Subjects subject) {
         this.subject = subject;
     }
 

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 public class ClassesSubjects extends BaseEntity{
 
     private ClassesSchool classes;
-    private SubjectSchool subject;
+    private Subjects subject;
     private User teacher;
 
     @ManyToOne
@@ -20,14 +20,16 @@ public class ClassesSubjects extends BaseEntity{
     public void setClasses(ClassesSchool classes) {
         this.classes = classes;
     }
+
     @ManyToOne
-    public SubjectSchool getSubject() {
+    public Subjects getSubject() {
         return subject;
     }
 
-    public void setSubject(SubjectSchool subject) {
+    public void setSubject(Subjects subject) {
         this.subject = subject;
     }
+
     @ManyToOne
     public User getTeacher() {
         return teacher;

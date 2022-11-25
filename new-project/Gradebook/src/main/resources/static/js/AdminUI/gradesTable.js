@@ -29,7 +29,7 @@ grades.forEach((g) => {
         $('.no-border').remove();
         var html = 
                 "<td id='info-row' class='no-border'> <p>" + g.childNodes[7].textContent+"</p></td><td class='no-border'><p>"+g.childNodes[5].textContent+
-                "</p></td><td class='no-border'><p>"+g.childNodes[3].textContent+"</p></td><td class='no-border'><p>"+g.childNodes[9].textContent+"</p></td><td class='no-border'></td><td class='no-border'></td><td class='no-border'></td><td class='no-border'></td>";
+                "</p></td><td class='no-border'><p>"+g.childNodes[3].textContent+"</p></td><td class='no-border'><p>"+g.childNodes[9].textContent+"</p></td><td class='no-border'><a class='remove-button' href='/tables/grade/remove/"+g.childNodes[13].textContent+"'>Изтрии</a></td><td class='no-border'></td><td class='no-border'></td><td class='no-border'></td>";
 
         $('table > tbody> tr').eq(g.childNodes[11].textContent).after(html);
         

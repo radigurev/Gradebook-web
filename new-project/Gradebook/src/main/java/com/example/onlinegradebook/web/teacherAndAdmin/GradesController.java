@@ -68,6 +68,16 @@ public class GradesController {
         return "redirect:/tables/grade/"+id+"?subject="+model.getSubject();
     }
 
+    @GetMapping("/grade/remove/{id}")
+    public String removeGrade(@PathVariable String id) {
+
+        var classId = gradeService.getGradeById(id).getStudent().getUserClass().getId();
+
+        gradeService.removeGrade(id);
+
+        return "redirect:/tables/grade/"+classId;
+    }
+
     @ModelAttribute
     public GetUserGradesBindingModel userGradesBindingModel() {
         return new GetUserGradesBindingModel();

@@ -1,5 +1,6 @@
 package com.example.onlinegradebook.service.Implementations;
 
+import com.example.onlinegradebook.model.binding.AddStudentResponses;
 import com.example.onlinegradebook.model.binding.StudentResponseBindingModel;
 import com.example.onlinegradebook.model.entity.Response;
 import com.example.onlinegradebook.model.entity.ResponseStudents;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ResponsesService implements ResponseService {
@@ -44,13 +46,28 @@ public class ResponsesService implements ResponseService {
     }
 
     @Override
-    public void saveResponseForStudent(String id, StudentResponseBindingModel model) {
+    public void saveResponsesForStudent(String id, AddStudentResponses model) {
+        var students = userService.getStudentsBySchoolAndClassAndRole(id);
+
+        for (int i = 0; i < model.getResponses().size(); i++) {
+            var response = model.getResponses().get(i);
+
+            if(response.getType().equals(ResponseType.Good.toString()) || response.getType().equals(ResponseType.Bad.toString())) {
+                    var user = students.get(i);
+
+                    saveResponseForStudent(user.getId(),response,model.getSubject());
+            }
+        }
+
+    }
+
+    private void saveResponseForStudent(String id, StudentResponseBindingModel model,String idSubject) {
         ResponseStudents response=new ResponseStudents();
         User user= userService.getUser();
         response.setSchool(user.getSchool());
         response.setStudent(userService.getById(id));
         response.setDescription(model.getDescription());
-        response.setSubject(subjectService.getSubjectByNameAndSchool(user.getSchool(),model.getSubject()));
+        response.setSubject(subjectService.getSubjectById(idSubject));
         response.setType(responseRepository.findByType(getEnumType(model.getType())));
         response.setTeacher(user);
         response.setDateTime(LocalDateTime.now());
@@ -75,7 +92,6 @@ public class ResponsesService implements ResponseService {
             entry.setName(u.getName());
             view.add(entry);
         });
-        System.out.println();
         return view;
     }
 
@@ -88,17 +104,17 @@ public class ResponsesService implements ResponseService {
         List<ResponseStudents> allByStudent = responseStudentsRepository.findAllByStudent(userService.getUser());
 
         allByStudent.forEach(s -> {
-            if(!subjects.contains(s.getSubject().getSubject().getName())) {
-                subjects.add(s.getSubject().getSubject().getName());
+            if(!subjects.contains(s.getSubject().getName())) {
+                subjects.add(s.getSubject().getName());
                 ResponseViewModel responseViewModel = new ResponseViewModel();
-                responseViewModel.setSubject(s.getSubject().getSubject().getName());
+                responseViewModel.setSubject(s.getSubject().getName());
                 model.add(responseViewModel);
             }
         });
 
         allByStudent.forEach(s -> {
             model.forEach(m -> {
-                if (m.getSubject().equals(s.getSubject().getSubject().getName())) {
+                if (m.getSubject().equals(s.getSubject().getName())) {
                     if(s.getType().getType().equals(ResponseType.Good))
                         m.addGoodResponse(s);
                     else
@@ -118,6 +134,16 @@ public class ResponsesService implements ResponseService {
     @Override
     public List<ResponseStudents> getUserResponses() {
         return responseStudentsRepository.findAllByStudent(userService.getUser());
+    }
+
+    @Override
+    public Optional<ResponseStudents> getResponseById(String id) {
+        return responseStudentsRepository.findById(id);
+    }
+
+    @Override
+    public void deleteResponse(String id) {
+        responseStudentsRepository.deleteById(id);
     }
 
     private ResponseType getEnumType(String type) {

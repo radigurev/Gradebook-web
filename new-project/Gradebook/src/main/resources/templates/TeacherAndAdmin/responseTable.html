@@ -30,23 +30,25 @@
                         <th>Забележки</th>
                         <th>Похвали</th>
                         <th>Забележки</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="row" th:each="s,iter : ${studentResponses}">
                         <td class="num" th:text="${iter.index}+1">1</td>
                         <td th:text="${s.name}"> Мариана Василева</td>
-                        <td > </td>
+                        <td ></td>
                         <td>
                             <div class="grade-semester gra" style="background-color: rgb(134, 255, 134);">
                                     <p th:text="${s.goodResponses.size()}">3</p>
                                     <div class="absences">
                                         <div class="absence" th:each="a : ${s.goodResponses}">
                                             <p th:text="${a.dateTime}" class="info">2022-12-19 11:55:34</p>
-                                            <p th:text="${a.subject.subject.name}" class="info">Час: 6</p>
+                                            <p th:text="${a.subject.name}" class="info">Час: 6</p>
                                             <p th:text="|Въведено от ${a.teacher.firstName} ${a.teacher.lastName}|" class="info">Въведено от: Анка Ушанова</p>
                                             <p class="info" th:text="${a.description}">Плебей</p>
                                             <p class="info" th:text="${iter.index}">0</p>
+                                            <p class="info" th:text="${a.id}">0</p>
                                         </div>
                                     </div>
                             </div>
@@ -57,18 +59,30 @@
                                <div class="absences">
                                 <div class="absence" th:each="a : ${s.badResponses}">
                                     <p th:text="${a.dateTime}" class="info">2022-12-19 11:55:34</p>
-                                    <p th:text="${a.subject.subject.name}" class="info">Час: 6</p>
+                                    <p th:text="${a.subject.name}" class="info">Час: 6</p>
                                     <p th:text="|Въведено от ${a.teacher.firstName} ${a.teacher.lastName}|" class="info">Въведено от: Анка Ушанова</p>
                                     <p class="info" th:text="${a.description}">Плебей</p>
                                     <p class="info" th:text="${iter.index}">0</p>
+                                    <p class="info" th:text="${a.id}">0</p>
                                 </div>
                                </div>
                             </div>
                         </td>
-                           
+                        <td></td>
+
                     </tr>               
                 </tbody>
             </table>
+
+          <form th:action="@{/tables/responses/add/{id}(id=${id})}" th:method="POST" th:object="${addStudentResponses}">
+
+              <div style="position: absolute; right: 20%;display: none;" id="subject-select">
+                  <select th:field="*{subject}" class="display" id="subjects">
+                      <option th:each="c : ${classes}" th:text="${c.name}" th:value="${c.id}">Mat</option>
+                  </select>
+                  <button id="submit-button" class="row-button  display">Потвърди</button>
+              </div>
+
           <p style="color: #f87373; text-align: center;margin-left: 30%" th:text="${badMessage}"></p>
         <table id="table2">
             <thead>
@@ -76,31 +90,24 @@
                     <th>№</th>
                     <th>Ученик</th>
                     <th>Вид</th>
-                    <th>Час</th>
                     <th>Бележка</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
-            <form th:action="@{/tables/responses/add/{id}(id=${s.id})}" th:each="s,iter : ${students}" th:method="POST" th:object="${studentResponseBindingModel}">
-                <tr class="row">
+                <tr class="row" th:each="s,iter : ${students}">
                     <td th:text="${iter.index}+1" class="num">2</td>
                     <td th:text="${s.name}"> </td>
-                    <td><select th:field="*{type}" name="" id="">
+                    <td><select th:field="${addStudentResponses.responses[__${iter.index}__].type}" name="" id="">
+                        <option value="ignore"></option>
                         <option value="Good">Похвала</option>
                         <option value="Bad">Забележка</option>
                     </select></td>
-                    <td>
-                        <select th:field="*{subject}" name="">
-                            <option th:each="c : ${classes}" th:text="${c.name}" th:value="${c.name}">Mat</option>
-                        </select></td>
-                    <td><input th:field="*{description}" th:errorclass="red-border" type="text"></td>
-                    <td><button class="row-button">Добави</button></td>
+                    <td><input th:field="${addStudentResponses.responses[__${iter.index}__].description}" th:errorclass="red-border" type="text"></td>
                 </tr>
-            </form>
             </tbody>
         </table>
     </div>
+</form>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/js/AdminUI/responseTable.js"></script>

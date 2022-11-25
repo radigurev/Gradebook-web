@@ -99,4 +99,14 @@ public class GradesService implements GradeService {
     public List<Grades> getAllSchoolGrades() {
         return this.gradeRepository.getAllBySchool(userService.getUser().getSchool().getName());
     }
+
+    @Override
+    public Grades getGradeById(String id) {
+        return gradeRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void removeGrade(String id) {
+        this.gradeRepository.deleteById(id);
+    }
 }

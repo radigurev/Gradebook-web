@@ -7,6 +7,7 @@ var buttons=[...document.getElementsByClassName('abs-button')];
 var infoBar=document.getElementById('add-info');
 var table=document.getElementById('table');
 var table2=document.getElementById('table2');
+var absenceSelect=document.getElementById('subject-select');
 var i=300;
 
 table.style.top=150;
@@ -26,7 +27,7 @@ grades.forEach((g) => {
         var row=1;
         for(var i=1;i<=g.childNodes[3].childNodes.length/2;i++) {
             var html = 
-                "<tr class='row>'<td id='info-row' class='no-border'></td><td class='no-border'></td><td class='no-border'><p><i class='fa-solid fa-calendar'></i> "+g.childNodes[3].childNodes[row].childNodes[1].textContent+" </p> </td>dasd<td class='no-border'><p>"+g.childNodes[3].childNodes[row].childNodes[3].textContent+"</p></td><td class='no-border'><p>"+g.childNodes[3].childNodes[row].childNodes[5].textContent+"</p></td><td class='no-border'>"+g.childNodes[3].childNodes[row].childNodes[7].textContent+"</td></tr>";
+                "<tr class='row>'<td id='info-row' class='no-border'></td><td class='no-border'></td><td class='no-border'><p><i class='fa-solid fa-calendar'></i> "+g.childNodes[3].childNodes[row].childNodes[1].textContent+" </p> </td>dasd<td class='no-border'><p>"+g.childNodes[3].childNodes[row].childNodes[3].textContent+"</p></td><td class='no-border'><p>"+g.childNodes[3].childNodes[row].childNodes[5].textContent+"</p></td><td class='no-border'>"+g.childNodes[3].childNodes[row].childNodes[7].textContent+"</td><td class='no-border'><a href='/tables/remove/response/"+g.childNodes[3].childNodes[row].childNodes[11].textContent+"' class='remove-button'>Изтрии</a></td></tr>";
                 $('table > tbody> tr').eq(place).after(html);
 
                 place= parseInt(place)+1;
@@ -60,11 +61,13 @@ function tbChange() {
         table2.style.left="50%";
         icon.classList.remove("fa-eye");
         icon.classList.add('fa-pen');
+        absenceSelect.style.display = 'block';
     } else {
         icon.classList.add("fa-eye");
         icon.classList.remove('fa-pen');
         table2.style.left="150%";
         table.style.left="50%";
+        absenceSelect.style.display = 'none';
     }
     document.getElementById('table').style.top = 150;
 }

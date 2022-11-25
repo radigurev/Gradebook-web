@@ -15,4 +15,8 @@ public interface GradeService {
     List<GradesTableViewModel> getGradesForUser(User user);
 
     List<Grades> getAllSchoolGrades();
+
+    Grades getGradeById(String id);
+
+    void removeGrade(String id);
 }

@@ -1,5 +1,6 @@
 package com.example.onlinegradebook.web.teacherAndAdmin;
 
+import com.example.onlinegradebook.model.binding.AddStudentResponses;
 import com.example.onlinegradebook.model.binding.StudentResponseBindingModel;
 import com.example.onlinegradebook.service.ClassService;
 import com.example.onlinegradebook.service.ResponseService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/tables")
@@ -49,7 +51,7 @@ public class ResponseController {
     }
 
     @PostMapping("/responses/add/{id}")
-    public String addResponseToStudent(@PathVariable String id, @Valid StudentResponseBindingModel model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String addResponseToStudent(@PathVariable String id, @Valid AddStudentResponses model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if(bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("studentResponseBindingModel", model)
@@ -58,13 +60,23 @@ public class ResponseController {
             return String.format("redirect:/tables/responses/%s",userService.getById(id).getUserClass().getId());
         }
 
-        responseService.saveResponseForStudent(id,model);
+        responseService.saveResponsesForStudent(id,model);
 
-        return String.format("redirect:/tables/responses/%s",userService.getById(id).getUserClass().getId());
+        return String.format("redirect:/tables/responses/%s",id);
+    }
+
+    @GetMapping("/remove/response/{id}")
+    public String removeResponse(@PathVariable String id) {
+
+        var classId = responseService.getResponseById(id).orElse(null).getStudent().getUserClass().getId();
+
+        responseService.deleteResponse(id);
+
+        return String.format("redirect:/tables/responses/%s",classId);
     }
 
     @ModelAttribute
-    public StudentResponseBindingModel studentResponseBindingModel() {
-        return new StudentResponseBindingModel();
+    public AddStudentResponses addStudentResponses() {
+        return new AddStudentResponses();
     }
 }

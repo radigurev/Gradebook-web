@@ -137,7 +137,7 @@ public class ClassesService implements ClassService {
 
         ClassesSubjects classesSubjects=new ClassesSubjects();
         classesSubjects.setClasses(byId);
-        classesSubjects.setSubject(subjectService.getSubjectByNameAndSchool(userService.getUser().getSchool(),subject));
+        classesSubjects.setSubject(subjectService.getSubjectByName(subject));
         classesSubjectsRepository.saveAndFlush(classesSubjects);
     }
 

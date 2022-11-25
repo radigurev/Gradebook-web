@@ -78,8 +78,8 @@ public class IndexController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         String currentPrincipalName = authentication.getName();
-
-        model.addAttribute("dashboardInfo", userService.getUserInformationForDashboard(currentPrincipalName))
+        var info = userService.getUserInformationForDashboard(currentPrincipalName);
+        model.addAttribute("dashboardInfo", info)
                 .addAttribute("hasMiddleName", userService.hasMiddleName());
         if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_admin")))
             return "AdminUI/dashboard";

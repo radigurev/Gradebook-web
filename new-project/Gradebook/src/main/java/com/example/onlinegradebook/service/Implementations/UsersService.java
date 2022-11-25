@@ -123,6 +123,9 @@ public class UsersService implements UserService {
             sum += Double.parseDouble(grade.getGrade());
         }
         sum /= grades.size();
+        if(Double.isNaN(sum)) {
+            sum = 0;
+        }
         assert user != null;
         return new DashboardInfoText(String.format("%s %s", user.getFirstName(), user.getLastName()),
                 user.getSchool().getName(), user.getEmail(),
@@ -393,7 +396,7 @@ public class UsersService implements UserService {
                     GradeViewModel map = modelMapper.map(g, GradeViewModel.class);
 
                     map.setTeacher(String.format("%s %s", g.getTeacher().getFirstName(), g.getTeacher().getLastName()));
-
+                    map.setId(g.getId());
                     map.setSubject(g.getSubject().getName());
 
                     map.setDate(formatter.format(g.getDate()));
@@ -544,13 +547,10 @@ public class UsersService implements UserService {
         schoolservice.deleteSchoolById(id);
 
         classService.deleteClassesBySchool(id);
-
-        subjectService.removeSubjectSchoolsBySchoolId(id);
     }
 
     @Override
     public void addAdminToSchool(String id) {
-
 
     }
 

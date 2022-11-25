@@ -1,11 +1,8 @@
 package com.example.onlinegradebook.service;
 
 import com.example.onlinegradebook.model.entity.School;
-import com.example.onlinegradebook.model.entity.SubjectSchool;
 import com.example.onlinegradebook.model.entity.Subjects;
-import com.example.onlinegradebook.model.entity.UsersSubjects;
 
-import javax.security.auth.Subject;
 import java.util.List;
 
 public interface SubjectService {
@@ -14,13 +11,10 @@ public interface SubjectService {
     Subjects getSubjectByName(String name);
 
     void saveSubject(String subject);
-    SubjectSchool getSubjectByNameAndSchool(School school, String subjectByName);
 
     Subjects getSubjectById(String id);
 
     int getSubjectCount();
 
     void deleteSubject(String id);
-
-    void removeSubjectSchoolsBySchoolId(String id);
 }
