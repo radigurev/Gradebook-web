@@ -43,8 +43,6 @@ public class GradesController {
     @GetMapping("/grade/{id}")
     public String getClassGradesTable(@PathVariable String id, LinkBindingModel linkModel,Model model) {
 
-
-
         model.addAttribute("studentsWithGrades",userService.getStudentsWithGrades(id,linkModel.getSubject()));
 
         model.addAttribute("studentsWithId",userService.getUsersByClass(classService.getClassesSchoolById(id).getId()))

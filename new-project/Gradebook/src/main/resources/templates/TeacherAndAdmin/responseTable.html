@@ -43,7 +43,7 @@
                                     <p th:text="${s.goodResponses.size()}">3</p>
                                     <div class="absences">
                                         <div class="absence" th:each="a : ${s.goodResponses}">
-                                            <p th:text="${a.dateTime}" class="info">2022-12-19 11:55:34</p>
+                                            <p th:text="${#temporals.format(a.dateTime, 'dd-MM-yyyy HH:mm')}" class="info">2022-12-19 11:55:34</p>
                                             <p th:text="${a.subject.name}" class="info">Час: 6</p>
                                             <p th:text="|Въведено от ${a.teacher.firstName} ${a.teacher.lastName}|" class="info">Въведено от: Анка Ушанова</p>
                                             <p class="info" th:text="${a.description}">Плебей</p>
@@ -58,7 +58,7 @@
                                 <p th:text="${s.badResponses.size()}">2</p>
                                <div class="absences">
                                 <div class="absence" th:each="a : ${s.badResponses}">
-                                    <p th:text="${a.dateTime}" class="info">2022-12-19 11:55:34</p>
+                                    <p th:text="${#temporals.format(a.dateTime, 'dd-MM-yyyy HH:mm')}" class="info">2022-12-19 11:55:34</p>
                                     <p th:text="${a.subject.name}" class="info">Час: 6</p>
                                     <p th:text="|Въведено от ${a.teacher.firstName} ${a.teacher.lastName}|" class="info">Въведено от: Анка Ушанова</p>
                                     <p class="info" th:text="${a.description}">Плебей</p>

@@ -45,7 +45,11 @@
                                                 <div th:each="g : ${s.gradesFirst}" class="grade">
                                                     <p th:text="${g.grade.charAt(0)}">2</p>
                                                     <p th:text="${g.date}" class="info">Дата: 28.04.2022</p>
-                                                    <p th:text="${g.type}" class="info">Тип: Изпит</p>
+                                                    <p th:if="${g.type=='first-semester'}" class="info">Първи срок</p>
+                                                    <p th:if="${g.type=='final-first-semester'}" class="info">Срочна</p>
+                                                    <p th:if="${g.type=='second-semester'}" class="info">Втори срок</p>
+                                                    <p th:if="${g.type=='final-second-semester'}" class="info">Срочна</p>
+                                                    <p th:if="${g.type=='final'}" class="info">Годишна</p>
                                                     <p th:text="${g.grade}" class="info">Оценкта: 2.66</p>
                                                     <p th:text="${g.subject}" class="info">Предмет: Математика</p>
                                                     <p th:text="${iter.index}" class="info">0</p>

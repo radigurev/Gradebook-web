@@ -380,7 +380,7 @@ public class UsersService implements UserService {
     public List<StudentAndGradesViewModel> getStudentsWithGrades(String id, String subject) {
         List<StudentAndGradesViewModel> model = new ArrayList<>();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         getStudentsBySchoolAndClassAndRole(id).forEach(s -> {
             StudentAndGradesViewModel entry = new StudentAndGradesViewModel();
